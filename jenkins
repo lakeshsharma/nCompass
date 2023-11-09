@@ -4,9 +4,9 @@ tools {nodejs "nodenv"}
 stages {
  stage("Code Checkout from GitLab") {
   steps {
-   git branch: 'master',
+   git branch: 'main',
     credentialsId: 'gitlab_access_token',
-    url: 'http://your-ip-here:10080/root/test-project.git'
+    url: 'https://github.com/lakeshsharma/nCompass/edit/main/jenkins'
   }
  }
    stage('Code Quality Check via SonarQube') {
@@ -18,16 +18,9 @@ stages {
            -Dsonar.projectKey=test-node-js \
            -Dsonar.sources=. \
            -Dsonar.css.node=. \
-           -Dsonar.host.url=http://your-ip-here:9000 \
-           -Dsonar.login=your-generated-token-from-sonarqube-container"
+           -Dsonar.host.url=https://quality.aristocrat.com/projects \
+           -Dsonar.login=0047c404603d306e5740e973d4c57c218e31b9e5"
                }
-           }
-       }
-   }
-   stage("Install Project Dependencies") {
-   steps {
-       nodejs(nodeJSInstallationName: 'nodenv'){
-           sh "npm install"
            }
        }
    }
