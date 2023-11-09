@@ -5,7 +5,7 @@ stages {
   steps {
    git branch: 'main',
     credentialsId: 'gitlab_access_token1',
-    url: 'https://github.com/lakeshsharma/nCompass/edit/main/jenkins'
+    url: 'https://github.com/lakeshsharma/nCompass.git'
   }
  }
    stage('Code Quality Check via SonarQube') {
