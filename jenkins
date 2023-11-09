@@ -4,7 +4,7 @@ stages {
  stage("Code Checkout from GitLab") {
   steps {
    git branch: 'main',
-    credentialsId: 'gitlab_access_token',
+    credentialsId: 'gitlab_access_token1',
     url: 'https://github.com/lakeshsharma/nCompass/edit/main/jenkins'
   }
  }
