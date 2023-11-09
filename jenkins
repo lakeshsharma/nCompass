@@ -11,10 +11,10 @@ stages {
    stage('Code Quality Check via SonarQube') {
    steps {
        script {
-       def scannerHome = tool 'sonarqube';
+       def scannerHome = tool 'sonar-scanner';
            withSonarQubeEnv("sonarqube-nCompass") {
            sh "${tool("sonarqube")}/bin/sonar-scanner \
-           -Dsonar.projectKey=test-node-js \
+           -Dsonar.projectKey=nCompass-test \
            -Dsonar.sources=. \
            -Dsonar.css.node=. \
            -Dsonar.host.url=https://quality.aristocrat.com/projects \
