@@ -11,7 +11,7 @@ stages {
    stage('Code Quality Check via SonarQube') {
    steps {
        script {
-       def scannerHome = /opt/sonar-scanner-4.6.2.2472-linux;
+       def scannerHome = '/opt/sonar-scanner-4.6.2.2472-linux'
            withSonarQubeEnv("sonarqube-nCompass") {
            sh "${tool("sonarqube")}/bin/sonar-scanner \
            -Dsonar.projectKey=nCompass-test \
