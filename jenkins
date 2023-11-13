@@ -13,7 +13,7 @@ stages {
        script {
        def scannerHome = tool 'sonarqube';
            withSonarQubeEnv("sonarqube-nCompass") {
-           sh "${tool("sonarqube")}/bin/sonar-scanner \
+           sh "${scannerHome}/bin/sonar-scanner \
            -Dsonar.projectKey=nCompass-test \
            -Dsonar.sources=. \
            -Dsonar.css.node=. \
