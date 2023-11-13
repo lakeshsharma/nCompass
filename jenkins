@@ -14,9 +14,9 @@ pipeline {
                 script {
                     // Install SonarQube Scanner if not installed
                     if (isUnix()) {
-                        sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
-                        sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d /opt/"
-                        sh "export PATH=$PATH:/opt/sonar-scanner-4.6.2.2472-linux/bin"
+                        sh "sudo wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
+                        sh "sudo unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d /opt/"
+                        sh "sudo export PATH=$PATH:/opt/sonar-scanner-4.6.2.2472-linux/bin"
                     } else {
                         bat 'echo "This script only supports Unix-based systems."'
                         error("Unsupported OS")
