@@ -1,27 +1,42 @@
 pipeline {
-agent any
-stages {
- stage("Code Checkout from GitLab") {
-  steps {
-   git branch: 'main',
-    credentialsId: 'gitlab_access_token1',
-    url: 'https://github.com/lakeshsharma/nCompass.git'
-  }
- }
-   stage('Code Quality Check via SonarQube') {
-   steps {
-       script {
-       def scannerHome = tool 'sonarqube';
-           withSonarQubeEnv("sonarqube-nCompass") {
-           sh "${scannerHome}/bin/sonar-scanner \
-           -Dsonar.projectKey=nCompass-test \
-           -Dsonar.sources=. \
-           -Dsonar.css.node=. \
-           -Dsonar.host.url=https://quality.aristocrat.com/projects \
-           -Dsonar.login=0047c404603d306e5740e973d4c57c218e31b9e5"
-               }
-           }
-       }
-   }
-}
+    agent any
+
+    environment {
+        SONARQUBE_SCANNER_HOME = tool 'sonarqube'; // Assumes SonarQube Scanner is configured in Jenkins
+        SONARQUBE_URL = 'https://quality.aristocrat.com/projects';
+        SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass';
+        SONARQUBE_TOKEN = '0047c404603d306e5740e973d4c57c218e31b9e5';
+    }
+
+    stages {
+        stage('Install SonarQube Scanner') {
+            steps {
+                script {
+                    // Install SonarQube Scanner if not installed
+                    if (isUnix()) {
+                        sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
+                        sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d /opt/"
+                        sh "export PATH=$PATH:/opt/sonar-scanner-4.6.2.2472-linux/bin"
+                    } else {
+                        bat 'echo "This script only supports Unix-based systems."'
+                        error("Unsupported OS")
+                    }
+                }
+            }
+        }
+
+        stage('Code Quality Check via SonarQube') {
+            steps {
+                script {
+                    withSonarQubeEnv("sonarqube-nCompass") {
+                        sh "${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
+                            -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=${SONARQUBE_URL} \
+                            -Dsonar.login=${SONARQUBE_TOKEN}"
+                    }
+                }
+            }
+        }
+    }
 }
