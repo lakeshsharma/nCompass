@@ -12,6 +12,7 @@ stages {
    steps {
        script {
        def scannerHome = tool 'sonarqube';
+           echo $scannerHome
            withSonarQubeEnv("sonarqube-nCompass") {
            sh "${tool("sonarqube")}/bin/sonar-scanner \
            -Dsonar.projectKey=nCompass-test \
