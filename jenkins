@@ -17,8 +17,8 @@ pipeline {
                     if (isUnix()) {
                         sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
                         sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
-                        sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d /opt/"
-                        sh "export PATH=$PATH:/opt/sonar-scanner-4.6.2.2472-linux/bin"
+                        sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
+                        sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/bin"
                     } else {
                         bat 'echo "This script only supports Unix-based systems."'
                         error("Unsupported OS")
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv("sonarqube-nCompass") {
-                        sh "${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
+                        sh "${SONARQUBE_INSTALL_DIR}/bin/sonar-scanner \
                             -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=${SONARQUBE_URL} \
