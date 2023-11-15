@@ -222,12 +222,16 @@ agent any
 				if (!params.getOrDefault('JENKINS_SKIP_S3DA', false)) {
 					stage(systemTarget + ' Sign') {
 						warnError(systemTarget + ' sign failed') {
-							sh '''
+							script {
+								def commands = '''
 								bash build-with-docker.sh makesmd
-								bash sign-with-docker.sh
-								rm -v build/dist/*.smd build/dist/full-os/*.smd # delete the SMDs now that they're signed -- we only need the signed versions'''
-						}
-					}
+                    						bash sign-with-docker.sh
+                    						rm -v build/dist/*.smd build/dist/full-os/*.smd # delete the SMDs now that they're signed -- we only need the signed versions
+                						'''
+                						sh commands.trim()
+            						}
+        					}
+    					}
 				}
 				sh '''
 					# fix references to the in-container path "/home/falcondev/tfs/nCompassTest", which cause the Jenkins plugin to fail to find the files
