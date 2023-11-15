@@ -3,29 +3,36 @@ pipeline {
 
     environment {
         SONARQUBE_SCANNER_HOME = tool 'sonarqube'; // Assumes SonarQube Scanner is configured in Jenkins
-        SONARQUBE_URL = 'http://172.28.58.54:9000/projects';
+        SONARQUBE_URL = 'http://172.28.58.54:9000';
         SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass';
         SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761';
         SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace
     }
 
-    stages {
-        stage('Install SonarQube Scanner') {
-            steps {
-                script {
-                    // Install SonarQube Scanner if not installed
-                    if (isUnix()) {
+stages {
+    stage('Install SonarQube Scanner') {
+        steps {
+            script {
+                // Install SonarQube Scanner if not installed
+                if (isUnix()) {
+                    def scannerDir = "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux"
+                    
+                    // Check if SonarQube Scanner is already installed
+                    if (!fileExists(scannerDir)) {
                         sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
                         sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
                         sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
-                        sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/bin"
+                        sh "export PATH=$PATH:${scannerDir}/bin"
                     } else {
-                        bat 'echo "This script only supports Unix-based systems."'
-                        error("Unsupported OS")
+                        echo "SonarQube Scanner is already installed in ${scannerDir}"
                     }
+                } else {
+                    bat 'echo "already installed"'
                 }
             }
         }
+    }
+}
 
         stage('Code Quality Check via SonarQube') {
             steps {
