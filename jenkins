@@ -225,8 +225,7 @@ agent any
 							sh '''
 								bash build-with-docker.sh makesmd
 								bash sign-with-docker.sh
-								rm -v build/dist/*.smd build/dist/full-os/*.smd # delete the SMDs now that they're signed -- we only need the signed versions
-							'''
+								rm -v build/dist/*.smd build/dist/full-os/*.smd # delete the SMDs now that they're signed -- we only need the signed versions'''
 						}
 					}
 				}
