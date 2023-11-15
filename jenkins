@@ -1,6 +1,9 @@
-pipeline {
-    agent any
+isReleaseBuild = env.JOB_NAME.matches('.*Release.*')
 
+defaultSystemTargets = []
+defaultSystemTargets << 'yocto'
+defaultSystemTargets << 'lite-i386'
+defaultSystemTargets << 'nexus-amd64'
     environment {
         SONARQUBE_SCANNER_HOME = tool 'sonarqube'; // Assumes SonarQube Scanner is configured in Jenkins
         SONARQUBE_URL = 'http://172.28.58.54:9000';
@@ -9,70 +12,352 @@ pipeline {
         SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace
     }
 
-    stages {
-        stage('Install SonarQube Scanner') {
-            steps {
-                script {
+properties([
+	buildDiscarder(logRotator(artifactNumToKeepStr: '10')),
+	disableConcurrentBuilds(),
+	parameters([
+		booleanParam(
+			name: 'JENKINS_SKIP_FIRMWARE',
+			description: 'Skip creating the "full-os" firmware build files ("<code>./make-firmware-image.sh</code>").',
+			defaultValue: !isReleaseBuild,
+		),
+		booleanParam(
+			name: 'JENKINS_SKIP_S3DA',
+			description: 'Skip creating signed S3DA files ("<code>./sign-with-docker.sh</code>").',
+			defaultValue: !isReleaseBuild,
+		),
+		booleanParam(
+			name: 'JENKINS_SKIP_SKIN',
+			description: 'Skip creating skin package.',
+			defaultValue: !isReleaseBuild,
+		),
+		booleanParam(
+			name: 'JENKINS_SKIP_SOURCE',
+			description: 'Skip exporting source code artifact (which will also skip generating SHA1SUMS.txt file).',
+			defaultValue: !isReleaseBuild,
+		),
+		booleanParam(
+			name: 'JENKINS_SKIP_CLEAN',
+			description: 'Skip "<code>make clean</code>" while building each target.<br /><strong>NOT RECOMMENDED (especially for official/production builds)!</strong>',
+			defaultValue: false,
+		),
+		booleanParam(
+			name: 'JENKINS_SKIP_COVERITY',
+			description: 'Skip Coverity (which only happens on <code>lite-i386</code> builds).<br /><strong>NOT RECOMMENDED!</strong>',
+			defaultValue: isReleaseBuild,
+		),
+		booleanParam(
+			name: 'JENKINS_SKIP_TESTS',
+			description: 'Skip running tests completely.<br /><strong>NOT RECOMMENDED!</strong>',
+			defaultValue: false,
+		),
+		booleanParam(
+			name: 'JENKINS_SKIP_VALGRIND',
+			description: 'Skip Valgrind testing (which only happens on <code>pt316-amd64</code> builds).',
+			defaultValue: true,
+		),
+		text(
+			name: 'JENKINS_SYSTEM_TARGETS',
+			description: 'The list of "<code>DOCKER_SYSTEM_TARGET</code>" values to build for.',
+			defaultValue: defaultSystemTargets.join('\n'),
+		),
+		text(
+			name: 'ANGULAR_UI_BRANCH',
+			description: 'Angular UI branch to use for build.',
+			defaultValue: params.getOrDefault('ANGULAR_UI_BRANCH','*/Releases/15.1.0')
+		),
+	]),
+])
+
+currentBuild.description = "<hr/>\n"
+
+node('ubuntu20.04-focal') {
+	// we need to "docker login" so we can pull the Docker images we need for building
+	// setting DOCKER_CONFIG helps keep that login localized to *this* job (and we'll clean it up at the end of the build)
+	env.DOCKER_CONFIG = workspace + '/.docker'
+	dir(env.DOCKER_CONFIG) { deleteDir() }
+	withCredentials([
+		usernamePassword(
+			credentialsId: 'gcp-cxs-docker-repository-service-account',
+			usernameVariable: 'DOCKER_USERNAME',
+			passwordVariable: 'DOCKER_PASSWORD',
+		),
+	]) {
+		stage('Docker Login') {
+			sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" us-west1-docker.pkg.dev'
+		}
+	}
+
+	env.ARCHIVE_DIRECTORY = workspace + '/.archive'
+	dir(env.ARCHIVE_DIRECTORY) { deleteDir() }
+	sh 'mkdir -p "$ARCHIVE_DIRECTORY"'
+
+	env.NCOMPASS_SRC = workspace + '/src'
+	sh 'mkdir -p "$NCOMPASS_SRC"'
+
+	dir(env.NCOMPASS_SRC) {
+		// check out nCompass src
+		checkout scm
+	}
+
+	stage('Setup Angular') {
+		// Create spot for angular unit test artifacts
+		env.ANGULAR_TEST_ARTIFACTS = workspace + '/src/.angular-test'
+		dir(env.ANGULAR_TEST_ARTIFACTS) { deleteDir() }
+		sh 'mkdir -p "$ANGULAR_TEST_ARTIFACTS"'
+
+		// Create spot for angular build artifacts
+		env.ANGULAR_ARTIFACTS = workspace + '/src/.angular'
+		dir(env.ANGULAR_ARTIFACTS) { deleteDir() }
+		sh 'mkdir -p "$ANGULAR_ARTIFACTS"'
+
+		// Create spot for angular application code
+		env.ANGULAR_SRC = workspace + '/src/angularsrc'
+		sh 'mkdir -p "$ANGULAR_SRC"'
+	}
+
+	stage('Angular App Checkout') {
+		dir(env.ANGULAR_SRC) {
+			// Checkout angular app
+			checkout([$class: 'GitSCM', 
+				branches: [[name: params.getOrDefault('ANGULAR_UI_BRANCH','*/Releases/15.1.0')]], 
+				doGenerateSubmoduleConfigurations: false, 
+				extensions: [], 
+				gitTool: 'jgit', 
+				submoduleCfg: [], 
+				userRemoteConfigs: [[credentialsId: 'SSH-Key-JenkinsPush', url: 'ssh://tfs.systems.aristocrat.com/tfs/DefaultCollection/nCompass/_git/nCompassUI']]]
+			)
+		}
+
+	}
+
+	// Angular docker build
+	stage('Angular Build') {
+		dir(workspace  + '/src') {
+			sh 'bash build-angular.sh'
+		}
+	}
+
+	for (systemTarget in params.getOrDefault('JENKINS_SYSTEM_TARGETS', defaultSystemTargets).tokenize()) {
+		withEnv(['DOCKER_SYSTEM_TARGET=' + systemTarget]) {
+			dir(systemTarget) {
+				stage(systemTarget + ' Checkout') {
+					checkout scm
+				}
+				sh '''
+					if [ -z "${JENKINS_SKIP_CLEAN:-}" ]; then
+						bash build-with-docker.sh clean
+					else
+						rm -rf build
+					fi
+					mkdir -p build
+				'''
+				if (systemTarget == 'lite-i386' && !params.getOrDefault('JENKINS_SKIP_COVERITY', false)) {
+					withCredentials([
+						usernamePassword(
+							// https://jenkins.systems.aristocrat.com/credentials/store/system/domain/_/credential/bc8afe53-9d99-4e0e-b011-029691665a24/ ("SAUS-JenkinsSVN")
+							credentialsId: 'bc8afe53-9d99-4e0e-b011-029691665a24',
+							usernameVariable: 'NCOMPASS_COVERITY_USER',
+							passwordVariable: 'NCOMPASS_COVERITY_PASSWORD',
+						),
+					]) {
+						stage(systemTarget + ' Coverity') {
+							warnError(systemTarget + ' coverity failed') {
+								sh '''#!/usr/bin/env bash
+									set -Eeuo pipefail -x
+								steps {
+									script {
                     // Install SonarQube Scanner if not installed
-                    if (isUnix()) {
-                        sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
-                        sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
-                        sh "rm -rf ${SONARQUBE_INSTALL_DIR}"
-                        sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
-                        sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin"
-                    } else {
-                        bat 'echo "This script only supports Unix-based systems."'
-                        error("Unsupported OS")
-                    }
-                }
-            }
-        }
+										if (isUnix()) {
+											sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
+											sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
+											sh "rm -rf ${SONARQUBE_INSTALL_DIR}"
+											sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
+											sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin"
+										} else {
+											bat 'echo "This script only supports Unix-based systems."'
+											error("Unsupported OS")
+											}
+										}
+									}
+								}
+							}
 
-        stage('Clone Git Repository') {
-            steps {
-                script {
+						stage('Clone Git Repository') {
+							steps {
+								script {
                     // Clone your GitHub repository
-                    checkout scm
-                }
-            }
-        }
+									checkout scm
+									}
+								}
+							}
+						stage('Code Quality Check via SonarQube') {
+							steps {
+								script {
+									withSonarQubeEnv("sonarqube-nCompass") {
+										sh "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+										-Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
+										-Dsonar.sources=. \
+										-Dsonar.host.url=${SONARQUBE_URL} \
+										-Dsonar.login=${SONARQUBE_TOKEN}"
+										}
+									}
+								}
+							}
+						}
+				stage(systemTarget + ' Build') {
+					warnError(systemTarget + ' build failed') {
+						sh 'bash build-with-docker.sh sentinel 2>&1 | tee -a build/sentinel-build.log'
+					}
+				}
+				if (!params.getOrDefault('JENKINS_SKIP_FIRMWARE', false)) {
+					stage(systemTarget + ' Firmware') {
+						warnError(systemTarget + ' firmware failed') {
+							sh '''
+								bash make-firmware-image.sh
+							'''
+						}
+					}
+				}
+				if (!params.getOrDefault('JENKINS_SKIP_S3DA', false)) {
+					stage(systemTarget + ' Sign') {
+						warnError(systemTarget + ' sign failed') {
+							sh '''
+								bash build-with-docker.sh makesmd
+								bash sign-with-docker.sh
+								rm -v build/dist/*.smd build/dist/full-os/*.smd # delete the SMDs now that they're signed -- we only need the signed versions
+							'''
+						}
+					}
+				}
+				sh '''
+					# fix references to the in-container path "/home/falcondev/tfs/nCompassTest", which cause the Jenkins plugin to fail to find the files
+					# also, remove "Entering directory .../CardReaderLayer" which also confuses the Jenkins plugin
+                    sed -i \\
+                            -e "s#/home/falcondev/tfs/nCompassTest#$PWD#g" \\
+                            -e '/: Entering directory .*CardReaderLayer/d' \\
+                            build/sentinel-build.log
 
-        stage('Install Build Tools') {
-            steps {
-                script {
-                    // Install necessary build tools (e.g., CMake, Make, GCC)
-                    if (isUnix()) {
-                        sh 'sudo apt-get update'
-                        sh 'sudo apt-get install -y cmake make g++'
-                    } else {
-                        // Add Windows installation commands if needed
-                    }
-                }
-            }
-        }
+				'''
+				def issues = scanForIssues(
+					tool: gcc(pattern: 'build/sentinel-build.log'),
+					sourceDirectory: pwd() + '/Sentinel',
+				)
+				publishIssues(
+					id: systemTarget,
+					name: systemTarget,
+					issues: [ issues ],
+				)
+				if (!params.getOrDefault('JENKINS_SKIP_TESTS', false)) {
+					stage(systemTarget + ' Test') {
+						warnError(systemTarget + ' tests failed') {
+							sh '''
+									makeTarget='test'
+									if [ -z "${JENKINS_SKIP_VALGRIND:-}" ] && [ "$DOCKER_SYSTEM_TARGET" = 'pt316-amd64' ]; then
+										makeTarget='valgrind-test'
+									fi
+									bash build-with-docker.sh "$makeTarget"
+								bash build-with-docker.sh lcov
+							'''
+						}
+					}
+					if (fileExists('build/test_details.xml')) {
+						sh '''
+							awk -v DOCKER_SYSTEM_TARGET="$DOCKER_SYSTEM_TARGET" '{
+								if ($1 == "<testcase" && match($0, "notrun")) {
+									print substr($0, 0, length($0)-2) "><skipped/></testcase>"
+								}
+								else {
+									gsub(/classname="/, "classname=\\"" DOCKER_SYSTEM_TARGET ".")
+									print
+								}
+							}' build/test_details.xml > build/test_details_jenkins.xml
+						'''
+						junit('build/test_details_jenkins.xml')
+					}
+				}
+				if (!params.getOrDefault('JENKINS_SKIP_SOURCE', true)) {
+					stage(systemTarget + ' Source') {
+						warnError(systemTarget + ' source failed') {
+							sh '''
+								if [ ! -s "$ARCHIVE_DIRECTORY/source.tar.xz" ]; then
+									bash build-with-docker.sh source
+									mv build/dist/source.tar.xz "$ARCHIVE_DIRECTORY/"
+								fi
+							'''
+						}
+					}
+				}
+				stage(systemTarget + ' Artifacts') {
+					sh '''
+						mkdir -p "$ARCHIVE_DIRECTORY/$DOCKER_SYSTEM_TARGET"
+						for artifact in build/dist build/coverage build/valgrind.log; do
+							[ -e "$artifact" ] || continue
+							mv -v "$artifact" "$ARCHIVE_DIRECTORY/$DOCKER_SYSTEM_TARGET/"
+						done
+						if [ ! -s "$ARCHIVE_DIRECTORY/version.txt" ]; then
+							cp -v version.txt "$ARCHIVE_DIRECTORY/"
+						fi
+					'''
+					if (fileExists(env.ARCHIVE_DIRECTORY + '/' + systemTarget + '/dist/')) {
+						currentBuild.description += "<div><a href=\"${currentBuild.absoluteUrl}artifact/${systemTarget}/dist/\"><code>${systemTarget}</code> dist (<code>sentinel.img</code>, etc)</a></div>\n"
+					}
+					if (fileExists(env.ARCHIVE_DIRECTORY + '/' + systemTarget + '/coverage/index.html')) {
+						currentBuild.description += "<div><a href=\"${currentBuild.absoluteUrl}artifact/${systemTarget}/coverage/index.html\"><code>${systemTarget}</code> coverage report</a></div>\n"
+					}
+					if (fileExists(env.ARCHIVE_DIRECTORY + '/' + systemTarget + '/valgrind.log')) {
+						currentBuild.description += "<div><a href=\"${currentBuild.absoluteUrl}artifact/${systemTarget}/valgrind.log/*view*/\"><code>${systemTarget}</code> valgrind report</a></div>\n"
+					}
+					currentBuild.description += "<hr/>\n"
+				}
+			}
+		}
+	}
 
-        stage('Build C++ Code') {
-            steps {
-                script {
-                    // Configure and build your C++ code
-                    sh 'cmake .'
-                    sh 'make'
-                }
-            }
-        }
+	
+	stage('Create Skin') {
+		if (!params.getOrDefault('JENKINS_SKIP_SKIN', false)) {
+			warnError('Create skin failed') {
+				dir(workspace  + '/src') {
+					withEnv(['DOCKER_SYSTEM_TARGET=yocto']) {
+						sh '''
+							bash build-with-docker.sh makeskin
+						'''
+					}
+				}
+			}
+		}
+	}
 
-        stage('Code Quality Check via SonarQube') {
-            steps {
-                script {
-                    withSonarQubeEnv("sonarqube-nCompass") {
-                        sh "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-                            -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=${SONARQUBE_URL} \
-                            -Dsonar.login=${SONARQUBE_TOKEN}"
-                    }
-                }
-            }
-        }
-    }
+
+	// "docker logout" (to remove any credentials that were temporarily stored on-disk)
+	dir(env.DOCKER_CONFIG) { deleteDir() }
+
+	stage('Archive angular unit test artifacts') {
+		sh '''
+			for artifact in "$ANGULAR_TEST_ARTIFACTS"; do
+				mv -v "$artifact" "$ARCHIVE_DIRECTORY/"
+			done
+		'''
+	}
+
+	dir(env.ARCHIVE_DIRECTORY) {
+		stage('Checksums') {
+			sh '''
+				find -type f \
+					-not '(' \
+						-name SHA1SUMS.txt \
+						-o \
+						-path '**/coverage/**' \
+					')' -print0 \
+					| sort -z \
+					| xargs -rt0 sha1sum \
+					| tee SHA1SUMS.txt
+			'''
+		}
+
+		stage('Archive Artifacts') {
+			archiveArtifacts(artifacts: '**')
+		}
+	}
 }
