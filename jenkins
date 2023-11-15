@@ -4,7 +4,14 @@ defaultSystemTargets = []
 defaultSystemTargets << 'yocto'
 defaultSystemTargets << 'lite-i386'
 defaultSystemTargets << 'nexus-amd64'
-
+    environment {
+        SONARQUBE_SCANNER_HOME = tool 'sonarqube'; // Assumes SonarQube Scanner is configured in Jenkins
+        SONARQUBE_URL = 'http://172.28.58.54:9000';
+        SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass';
+        SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761';
+        SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace;
+	DOCKER_USERNAME = 'lakeshsharma'
+    }
 properties([
 	buildDiscarder(logRotator(artifactNumToKeepStr: '10')),
 	disableConcurrentBuilds(),
@@ -70,7 +77,7 @@ node ('Built-In Node') {
 	dir(env.DOCKER_CONFIG) { deleteDir() }
 	withCredentials([
 		usernamePassword(
-			credentialsId: 'gcp-cxs-docker-repository-service-account',
+			credentialsId: 'DOCKER_PASSWORD',
 			usernameVariable: 'DOCKER_USERNAME',
 			passwordVariable: 'DOCKER_PASSWORD',
 		),
