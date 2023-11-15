@@ -16,6 +16,7 @@ stages {
                 if (isUnix()) {
                     sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
                     sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
+                    sh "rm -rf /var/lib/jenkins/workspace/nCompass/sonar-scanner"
                     sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
                     sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/bin"
                 } else {
