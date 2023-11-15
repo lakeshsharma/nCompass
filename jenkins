@@ -160,7 +160,8 @@ node('ubuntu20.04-focal') {
 							usernameVariable: 'NCOMPASS_COVERITY_USER',
 							passwordVariable: 'NCOMPASS_COVERITY_PASSWORD',
 						),
-					]) {
+					]) 
+					stages {
 						stage(systemTarget + ' Coverity') {
 							warnError(systemTarget + ' coverity failed') {
 								sh '''#!/usr/bin/env bash
