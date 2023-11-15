@@ -75,13 +75,9 @@ node ('Built-In Node') {
 	// setting DOCKER_CONFIG helps keep that login localized to *this* job (and we'll clean it up at the end of the build)
 	env.DOCKER_CONFIG = workspace + '/.docker'
 	dir(env.DOCKER_CONFIG) { deleteDir() }
-	withCredentials([
-		usernamePassword(
-			credentialsId: 'DOCKER_PASSWORD',
-			usernameVariable: 'DOCKER_USERNAME',
-			passwordVariable: 'DOCKER_PASSWORD',
-		),
-	]) {
+withCredentials([
+    usernamePassword(credentialsId: 'DOCKER_USERNAME', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
+]){
 		stage('Docker Login') {
 			sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" us-west1-docker.pkg.dev'
 		}
