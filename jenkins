@@ -1,5 +1,5 @@
 agent any
-isReleaseBuild = env.JOB_NAME.matches('.*Release.*')
+isReleaseBuild = env.JOB_NAME.matches('main')
 
 defaultSystemTargets = []
 defaultSystemTargets << 'yocto'
@@ -58,7 +58,7 @@ properties([
 		text(
 			name: 'ANGULAR_UI_BRANCH',
 			description: 'Angular UI branch to use for build.',
-			defaultValue: params.getOrDefault('ANGULAR_UI_BRANCH','*/Releases/15.1.0')
+			defaultValue: params.getOrDefault('ANGULAR_UI_BRANCH','main')
 		),
 	]),
 ])
