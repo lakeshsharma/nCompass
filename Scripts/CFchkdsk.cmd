@@ -1,0 +1,1 @@
+echo NNNNNNNNNNNNNNNNNNNNNNNN | chkdsk %1 /f /r

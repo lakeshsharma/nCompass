@@ -1,0 +1,11 @@
+command window:
+devcon install nvram.inf root\nvram
+
+create a pre-sized file called NVRAM.bin in c:
+set properties for users to modify
+
+Same for EEPROM and MCR (MCR doesn't need bin file)
+
+Copy default media into c:\DefaultMedia
+
+Install Stand alone flash player

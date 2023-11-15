@@ -1,0 +1,342 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+	Version="10.0"
+	VendorName="SlickEdit"
+	TemplateName="GNU C/C++"
+	WorkingDir="."
+	BuildSystem="automakefile"
+	BuildMakeFile="%rp%rn.mak">
+	<Config
+		Name="Debug"
+		Type="gnuc"
+		DebugCallbackName="gdb"
+		Version="1"
+		OutputFile="%bdTestMaster"
+		CompilerConfigName="Latest Version"
+		Defines='"/D_DEBUG=1" "/DPOWER_DOWN=1" "/D_SENTINEL"'>
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				Dialog="_gnuc_options_form Compile"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				OutputExts="*.o"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='"%(CXX)" -c %xup %defd -g %~other -o "%bd%n%oe" %i %f'
+					OtherOptions="${CXXFLAGS} -O0 -std=c++11 -lstdc++ -Wall -Wno-unused-but-set-variable -Wno-unused-function -Wno-unused-parameter -Wno-unused-variable -Wextra -Wno-sign-compare -Wno-type-limits"/>
+			</Target>
+			<Target
+				Name="Link"
+				MenuCaption="&amp;Link"
+				ShowOnMenu="Never"
+				Dialog="_gnuc_options_form Link"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='"%(CXX)" %xup -g %~other -o "%o" %objs'
+					OtherOptions="${CXXFLAGS} -O0 -std=c++11 -lstdc++ -rdynamic -ldl -pthread"/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" CFG=%b'/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" rebuild CFG=%b'/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec CmdLine='vsdebugio -prog "%o"'/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%o"'/>
+			</Target>
+			<Target
+				Name="dash"
+				MenuCaption="-"
+				Deletable="0">
+				<Exec/>
+			</Target>
+			<Target
+				Name="GNU C Options"
+				MenuCaption="GNU C &amp;Options..."
+				ShowOnMenu="HideIfNoCmdLine"
+				Deletable="0"
+				SaveOption="SaveNone">
+				<Exec
+					CmdLine="gnucoptions"
+					Type="Slick-C"/>
+			</Target>
+		</Menu>
+		<Rules Name="Compile">
+			<Rule
+				InputExts="*.ada"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.adb"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f90"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.d"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+		</Rules>
+		<List Name="GNUC Options">
+			<Item
+				Name="LinkerOutputType"
+				Value="Executable"/>
+		</List>
+		<Includes>
+			<Include Dir="../include"/>
+			<Include Dir="../../Sentinel/Hardware"/>
+			<Include Dir="../../Sentinel"/>
+			<Include Dir="../../SDK-Include"/>
+		</Includes>
+		<Libs PreObjects="0">
+			<Lib File="-ls7lite"/>
+			<Lib File="-ltermcap"/>
+			<Lib File="-l:libphidget21.a"/>
+			<Lib File="-lusb-1.0"/>
+		</Libs>
+	</Config>
+	<Config
+		Name="Release"
+		Type="gnuc"
+		DebugCallbackName="gdb"
+		Version="1"
+		OutputFile="%bdTestMaster"
+		CompilerConfigName="Latest Version"
+		Defines='"/D_DEBUG=1" "/DPOWER_DOWN=1" "/D_SENTINEL"'>
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				Dialog="_gnuc_options_form Compile"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				OutputExts="*.o"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='"%(CXX)" -c %xup %defd %~other -o "%bd%n%oe" %i %f'
+					OtherOptions="${CXXFLAGS} -O0 -std=c++11 -lstdc++ -Wall -Wno-unused-but-set-variable -Wno-unused-function -Wno-unused-parameter -Wno-unused-variable -Wextra -Wno-sign-compare -Wno-type-limits"/>
+			</Target>
+			<Target
+				Name="Link"
+				MenuCaption="&amp;Link"
+				ShowOnMenu="Never"
+				Dialog="_gnuc_options_form Link"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='"%(CXX)" %xup %~other -o "%o" %objs'
+					OtherOptions="${CXXFLAGS} -O0 -std=c++11 -lstdc++ -rdynamic -ldl -pthread"/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" CFG=%b'/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" rebuild CFG=%b'/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec CmdLine='vsdebugio -prog "%o"'/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='"%o"'/>
+			</Target>
+			<Target
+				Name="dash"
+				MenuCaption="-"
+				Deletable="0">
+				<Exec/>
+			</Target>
+			<Target
+				Name="GNU C Options"
+				MenuCaption="GNU C &amp;Options..."
+				ShowOnMenu="HideIfNoCmdLine"
+				Deletable="0"
+				SaveOption="SaveNone">
+				<Exec
+					CmdLine="gnucoptions"
+					Type="Slick-C"/>
+			</Target>
+		</Menu>
+		<Rules Name="Compile">
+			<Rule
+				InputExts="*.ada"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.adb"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f90"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.d"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+		</Rules>
+		<List Name="GNUC Options">
+			<Item
+				Name="LinkerOutputType"
+				Value="Executable"/>
+		</List>
+		<Includes>
+			<Include Dir="../include"/>
+			<Include Dir="../../Sentinel/Hardware"/>
+			<Include Dir="../../Sentinel"/>
+			<Include Dir="../../SDK-Include"/>
+		</Includes>
+		<Libs PreObjects="0">
+			<Lib File="-ls7lite"/>
+			<Lib File="-ltermcap"/>
+			<Lib File="-l:libphidget21.a"/>
+			<Lib File="-lusb-1.0"/>
+		</Libs>
+	</Config>
+	<Files>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
+			GUID="{C99E6110-6864-4B08-8793-E54ECAF4BD67}">
+			<F N="TestMaster.cpp"/>
+			<F N="TestMasterParts.cpp"/>
+			<F N="TestMasterUtilities.cpp"/>
+		</Folder>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
+			GUID="{8AF8260B-82D1-42ED-B07F-46DBB6BD9403}">
+			<F N="../include/phidget21.h"/>
+			<F N="TestMaster.h"/>
+			<F N="TestMasterParts.h"/>
+			<F N="TestMasterUtilities.h"/>
+			<F N="../../Sentinel/windef.h"/>
+		</Folder>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"
+			GUID="{204EDEFB-6A00-4EAD-9274-17017BEA732C}"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"
+			GUID="{83042BA1-8DD7-4719-B60C-B95D90DA7DAD}"/>
+		<Folder
+			Name="Other Files"
+			Filters=""
+			GUID="{9344032B-6CFC-42F0-85C2-702D4C5342CD}">
+			<F N="../lib/libphidget21.la"/>
+			<F
+				N="TestMaster.mak"
+				Type="Makefile"/>
+		</Folder>
+		<Folder
+			Name="lib"
+			Filters=""
+			GUID="{FF72F74D-2E55-4A5B-B5AF-D45AD7A24806}">
+			<F N="../lib/libphidget21.so"/>
+		</Folder>
+		<Folder
+			Name="shells"
+			Filters=""
+			GUID="{55FEC0FA-496F-4692-A725-2A8C1E459ADC}">
+			<F N="../shells/TestMaster_init.sh"/>
+		</Folder>
+	</Files>
+</Project>

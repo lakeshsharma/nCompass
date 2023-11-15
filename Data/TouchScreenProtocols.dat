@@ -1,0 +1,24 @@
+# Date stamp must be in format, YYYY-MM-DD
+d 2011-05-04
+# Lines beginning with '#' are comments.
+# Otherwise a fixed line format is used to define nCompass touch screen protocols.
+# Other than line feed (0x0A) and carriage return (0x0D),
+#     only printable ASCII characters 90x20 through 0x7E) SHOULD be used.
+# ---
+# 1st character MUST be either 'U' or 'S', indicating USB or serial, respectively.
+# 2nd character MUST be a space.
+# 3rd-8th characters is the Vendor ID, values 0..65535 might be supported.
+# 9th character MUST be a space.
+# 10th-19th characters are the baud rate,Vendor ID, values 0..4294967295 might be supported.
+# 20th character MUST be a space.
+# 31st-61st characters are a text description for the touch screen protocol.
+#     End of line also terminates this field.
+# 62nd character and beyond are ignored.
+#         1         2         3         4         5         6
+#12345678901234567890123456789012345678901234567890123456789012
+U 0x0000 0          USB
+S 0x0596 1200       Serial: 3M MicroTouch 1200
+S 0x0596 2400       Serial: 3M MicroTouch 2400
+S 0x0596 4800       Serial: 3M MicroTouch 4800
+S 0x0596 9600       Serial: 3M MicroTouch 9600
+S 0x0596 19200      Serial: 3M MicroTouch 19200

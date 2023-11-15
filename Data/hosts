@@ -1,0 +1,11 @@
+127.0.0.1	localhost.localdomain		localhost www.google.com google.com maps.google.com play.google.com plus.l.google.com update.googleapis.com notifications.google.com www-google-analytics.l.google.com clients3.google.com clients.l.google.com clients4.google.com safebrowsing.google.com sb.l.google.com safebrowsing-cache.google.com safebrowsing-cache.google.com safebrowsing.cache.l.google.com safebrowsing.cache.l.google.com alt1-safebrowsing.google.com clients2.google.com clients2.googleusercontent.com googlehosted.l.googleusercontent.com ssl.gstatic.com 2.debian.pool.ntp.org accounts.google.com www.gstatic.com safebrowsing.googleapis.com http://gqcpjunbrwbw/ http://htykypbvkl/ http://qurgdwugzr/ http://update.googleapis.com/service/update2/json?cup2key=10:4225571376&cup2hreq=1402aa40534280192eeb8817ed033920b16fdb9e8b767a4e35948822ebcb7dbd  https://accounts.google.com/ListAccounts?gpsia=1&source=ChromiumBrowser&json=standard https://ssl.gstatic.com/safebrowsing/csd/client_model_v5_variation_0.pb https://ssl.gstatic.com/safebrowsing/csd/client_model_v5_ext_variation_0.pb  https://www.gstatic.com/chrome/intelligence/assist/ranker/models/translate/2017/03/translate_ranker_model_20170329.pb.bin https://www.gstatic.com/chrome/config/plugins_3/plugins_linux.json  https://update.googleapis.com/service/update2/json?cup2key=10:2528460671&cup2hreq=83f7a1c78c0fde8bc369a2835dc4dd45182f0ba822a68f925ce6842fb020214
+ 
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+# linux-image-builder images need this (to avoid "sudo: unable to resolve host FOO")
+127.0.0.1	kiosk ncompass ncompass-lite ncompass-pt316 nexus-pt

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardReaders>
+  <Vendors>
+    <Vendor VendorID="25426">UIC</Vendor>
+    <Vendor VendorID="10020">XST</Vendor>
+  </Vendors>
+  <Readers>
+    <Reader Vendor="UIC" ProductID="9226" Type="MCR">UIC Magnetic Stripe Card Reader</Reader>
+    <Reader Vendor="XST" ProductID="24577" Type="MCR">XST Magnetic Stripe Card Reader</Reader>
+    <Reader Vendor="UIC" ProductID="9258" Type="RFID">UIC RFID Card Reader</Reader>
+  </Readers>
+</CardReaders>

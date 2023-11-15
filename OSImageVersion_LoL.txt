@@ -1,0 +1,11 @@
+Date 01/15/2020
+Developer: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.0.2
+
+First offical OS version for LOL
+
+Stories:
+N/A
+
+Defects:
+N/A

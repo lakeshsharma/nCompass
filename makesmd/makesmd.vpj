@@ -1,0 +1,304 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpj.dtd">
+<Project
+	Version="10.0"
+	VendorName="SlickEdit"
+	TemplateName="GNU C/C++"
+	WorkingDir="."
+	BuildSystem="automakefile"
+	BuildMakeFile="%rp%rn.mak">
+	<Config
+		Name="Debug"
+		Type="gnuc"
+		DebugCallbackName="gdb"
+		Version="1"
+		OutputFile="%bdmakesmd"
+		CompilerConfigName="Latest Version"
+		Defines="">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				Dialog="_gnuc_options_form Compile"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				OutputExts="*.o"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='g++ -c %xup %defd -g %~other -o "%bd%n%oe" %i %f'
+					OtherOptions="-std=c++11"/>
+			</Target>
+			<Target
+				Name="Link"
+				MenuCaption="&amp;Link"
+				ShowOnMenu="Never"
+				Dialog="_gnuc_options_form Link"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='g++ %xup -g %~other -o "%o" %objs'
+					OtherOptions="-std=c++11"/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" CFG=%b'/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" rebuild CFG=%b'/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveNone"
+				RunFromDir="/home/falcondev/Downloads">
+				<Exec CmdLine='"%(VSLICKBIN1)vsdebugio" -port 8001 -prog "%o" AX98696_F2_07_01_55_ISP.bin FPGA.xml fpga.smd vm7155.smd'/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="/home/falcondev/Downloads">
+				<Exec CmdLine='"%o" AX98696_F2_07_01_55_ISP.bin FPGA.xml fpga.smd vm7155.smd'/>
+			</Target>
+			<Target
+				Name="dash"
+				MenuCaption="-"
+				Deletable="0">
+				<Exec/>
+			</Target>
+			<Target
+				Name="GNU C Options"
+				MenuCaption="GNU C &amp;Options..."
+				ShowOnMenu="HideIfNoCmdLine"
+				Deletable="0"
+				SaveOption="SaveNone">
+				<Exec
+					CmdLine="gnucoptions"
+					Type="Slick-C"/>
+			</Target>
+		</Menu>
+		<Rules Name="Compile">
+			<Rule
+				InputExts="*.ada"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.adb"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -g -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f90"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.d"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+		</Rules>
+		<List Name="GNUC Options">
+			<Item
+				Name="LinkerOutputType"
+				Value="Executable"/>
+		</List>
+		<Includes/>
+		<Libs PreObjects="0"/>
+	</Config>
+	<Config
+		Name="Release"
+		Type="gnuc"
+		DebugCallbackName="gdb"
+		Version="1"
+		OutputFile="%bdmakesmd"
+		CompilerConfigName="Latest Version"
+		Defines="">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				Dialog="_gnuc_options_form Compile"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				OutputExts="*.o"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='g++ -c %xup %defd -O2 %~other -o "%bd%n%oe" %i %f'
+					OtherOptions="-std=c++11"/>
+			</Target>
+			<Target
+				Name="Link"
+				MenuCaption="&amp;Link"
+				ShowOnMenu="Never"
+				Dialog="_gnuc_options_form Link"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec
+					CmdLine='g++ %xup -O2 %~other -o "%o" %objs'
+					OtherOptions="-std=c++11"/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" CFG=%b'/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec CmdLine='make -f "%rp%rn.mak" rebuild CFG=%b'/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveNone"
+				RunFromDir="/home/falcondev/Downloads">
+				<Exec CmdLine='"%(VSLICKBIN1)vsdebugio" -port 8001 -prog "%o" AX98696_F2_07_01_55_ISP.bin FPGA.xml fpga.smd vm7155.smd'/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				Dialog="_gnuc_options_form Run/Debug"
+				BuildFirst="1"
+				CaptureOutputWith="ProcessBuffer"
+				Deletable="0"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="/home/falcondev/Downloads">
+				<Exec CmdLine='"%o" AX98696_F2_07_01_55_ISP.bin FPGA.xml fpga.smd vm7155.smd'/>
+			</Target>
+			<Target
+				Name="dash"
+				MenuCaption="-"
+				Deletable="0">
+				<Exec/>
+			</Target>
+			<Target
+				Name="GNU C Options"
+				MenuCaption="GNU C &amp;Options..."
+				ShowOnMenu="HideIfNoCmdLine"
+				Deletable="0"
+				SaveOption="SaveNone">
+				<Exec
+					CmdLine="gnucoptions"
+					Type="Slick-C"/>
+			</Target>
+		</Menu>
+		<Rules Name="Compile">
+			<Rule
+				InputExts="*.ada"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.adb"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gnat -O -c -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.f90"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gfortran -O -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+			<Rule
+				InputExts="*.d"
+				OutputExts="*.o"
+				LinkObject="1">
+				<Exec CmdLine='gdc -c -g -o "%bd%n.o" "%f"'/>
+			</Rule>
+		</Rules>
+		<List Name="GNUC Options">
+			<Item
+				Name="LinkerOutputType"
+				Value="Executable"/>
+		</List>
+		<Includes/>
+		<Libs PreObjects="0"/>
+	</Config>
+	<Files>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.c++;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl;*.d;*.m;*.mm;*.go;*.groovy;*.gsh"
+			GUID="{1DB2DEC0-FF46-4592-9D50-C359483D236A}">
+			<F N="FilePacker.cpp"/>
+			<F N="makesmd.cpp"/>
+		</Folder>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.h++;*.inc;*.sh;*.cpy;*.if"
+			GUID="{9C18AA50-8ABC-43CA-BC38-BDD46FADF33C}">
+			<F N="FilePacker.h"/>
+		</Folder>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"
+			GUID="{02F9A225-5008-4BA7-96AF-7A539F51FB34}"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"
+			GUID="{4D0EBFEE-84AE-4D7B-A014-CC2FEEB5F2A5}"/>
+		<Folder
+			Name="Other Files"
+			Filters=""
+			GUID="{0B6A81D8-EE5D-49E3-A81E-300ED8321647}">
+			<F
+				N="makesmd.mak"
+				Type="Makefile"/>
+		</Folder>
+	</Files>
+</Project>

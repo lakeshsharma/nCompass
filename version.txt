@@ -1,0 +1,2017 @@
+﻿*******************************************************************************************
+Date 04/27/2017
+Developer: Louie Valderrama, Tedd Vernaz, Rich Rekruciak
+Version 2.0.0
+
+Built off of 1.53.3.1
+
+Stories:
+N/A
+
+Defects:
+N/A
+
+*******************************************************************************************
+Date 06/29/2017
+Developer: Louie Valderrama, Tedd Vernaz, Rich Rekruciak
+Version 2.0.1
+Checksum 85FA3AE3
+Built off of 2.0.0
+
+Stories:
+194817:Need to add the video mixer debugdump library and calls
+- Added the ability to get the Video Mixer data from a debug stick.
+On a thumb drive place a "VideoMixerDiagnostics.txt" file and insert it into the nCompass.
+The nCompass will write out the video mixer data to the file then perform the Auto-Unmount feature.
+
+Defects:
+193916 - nCompass: OneLink Accounting Only Handpays not working
+ - Call function to check for accounting only meters at each game end.
+In the case of a handpay, make sure that the JackpotPaid message sent to one link has the hit amount as the paid amount.
+
+194829 - Small font issue on nCompass
+ -Increase the labels in the xml of the following: 
+   - Account Balance screen
+   - PBT Account Balance screen
+   - Player tracking text
+
+*******************************************************************************************
+Date 07/28/2017
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay
+Version 2.1.0
+Checksum 
+Built off of 2.0.1
+
+Stories:
+187029 - 4.3 nCompass variant - Layout and workflow support
+Changed user interaction flow and display areas on the screen. 
+New XML layour are created and tested in support of the new 4.3" device.
+
+190862 - 4.3 nCompass notification and bonus counters area
+Text displayed in a full-width banner at the bottom of the primary carded session screen. 
+Bonus counters area cycled through the notification area.
+
+190863 - 4.3 nCompass player menu
+Main display now includes a button on the right side of the screen to navigate to the main menu.
+
+193959 - 4.3 nCompass Media Packages
+nCompass now handles media packages with the new compact orientation type
+
+196324 - 4.3  nCompass variant - PBT and Account features
+Existing PBT and Account screens are enhanced for the 4.3 display.
+
+Defects:
+205056 - Label messages in the XML are not being used by nCompass
+Took hard coded label values out of nCompass code and moved them to the XML and made the texts skinnable. 
+
+208555 - Gold and Bronze levels are getting displayed on PT-306 even if single level is set in an nRich promotion
+Set the number of goals in the SpeedMedia nRich increment message that is sent to the UI protocol.  When UI protocol sees that
+this is single level, the nCompass defaults to always use the gold level.
+
+*******************************************************************************************
+Date 01/30/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas 
+Upadhyay, Sukhdeep Singh
+Version 2.1.1
+Checksum 
+Built off of 2.1.0
+
+Stories:
+247165 - Time based mystery support at nCompass
+Added support for Time Based Bonusing criteria from ONELINK. 
+
+Defects:
+242013 - Reboot not logged on the diagnostics web page
+Increased the Error.txt to 1 MB in size and also made the it circular.  
+When the file is full, it will delete the older callstack and append the latest callstack at the bottom.
+
+242014 - LCD Backlight changes
+Default BackLight value changed to 65%
+
+242015 - Odometers are interrupting the initial messages on the PT204
+Keep the notification box up front while showing the welcome messages to the player.
+
+242016 - Thread performance in nCompass
+Changed the Sleep() function to Sleep 10 ms if Sleep(0) is specified.
+Added additional sleeps in tight loop in order to reduce overall CPU usage.
+
+242017:nCompass reboots after getting getting activated or authorized from OneLink
+The waiting thread is signaled now which was getting on wait state , so watchdog was restarting the sentinel.
+
+242018:Errordump page is not complete sometimes 
+Increased the Error.txt to 1 MB in size and also made the it circular.  
+When the file is full, it will delete the older callstack and append the latest callstack at the bottom.
+
+242020:Failure to receive GameEnd Signal causes Player Update to insert duplicate Rating
+If game end signal is not recieved , then virtual session is continued , so player update should not be sent during virtual session.
+
+242021:Calibration is off if you remove the global card during the calibration process---Linux Only
+Code added so that Udev rule files /etc/udev/rules.d/10-ar1xxxuart.rules(for 204 and 206) and /etc/udev/rules.d/10-pt306-touch.rules(for 306) are backed up
+at calibration start and restored when employee card is removed.
+
+242028 - Add Bonus Listing and DOT SWF's to SMD's
+	- Made swf_custom1a.swf to be the bonus listing swf (version 5.3.37)
+	- Made swf_custom2a.swf to be the drink ordering swf (version 5.6.9)
+
+242030 - Sentinels rebooting when Ricochet Reward promo starts
+Changed locking behavior when removing expired speedmedia messages from the resend list.
+
+242033 - Improve SpeedMedia Sentinel Status
+Sentinel status is sent to SpeedMedia every 60 seconds if there is a changed in status.  
+We also send Sentinel status every 15 minutes to protect SpeedMedia from getting stuck with an incorrect status even 
+if a message was lost.
+
+242034 - PT20x-306 reboot times - From the time we press reboot until the time the unit comes back is close to 4 minutes. It �hangs� for about 2:45 before it actually reboots.
+The complete closing of the watchdog instance is called so that the system shutdown can be called before the main app is exited.
+Once the reboot command is issued, the watchdog time-out is set back down to the default of 5 seconds to account for the cases where the system reboot command is not successful.
+
+242035:After i change network cable for Linux device, it is not taking new sentinel ip and onelink host ip
+The event of network cable unplugging and plugging is noted and if any toggle happens then  network service is restarted, to get the fresh ip according to the network cable.
+
+242036 - Issue with testing an invalid URL
+	- We are no longer deleting an object twice.  
+	- Employee SWF is also looking for a valid URL before it performs a test call.
+	- Updated the swf_employee.swf to version EmployeeUI_6.2-2.0.161.swf
+
+242042:Update/Change download status screen to be more helpful---Linux
+	-Last file recieved and Date time recieved fields added.
+	-Error related to downloaded files also reflected 
+
+247152 - Ticket expiration date is not formatted correctly causing ticket redemption failure
+The utility function to convert a date to MMDDYYYY format fixed to add proper month and year offsets. If the expiration is more than 356 days away the format will be 0000NNNN days to expiration.
+
+247767 - Employee card screens take too long to display with new ncompass hardware
+	- Keep the employee screen up and running in the background at all times.
+	- Updated the swf_employee.swf to version EmployeeUI_6.2-2.0.161.swf
+	- Updated ServiceWindow_Shell to version ServiceWindow_Shell-2.00.51.swf
+
+248115 - Issue with reel tilts occuring on EGM's that are video only and do not have reels
+Polls were occuring too close to each other for various EGMs. The thread timing issue resolved in defect 242016 resolved this issue.
+
+249817 - nCompass calling google servers
+Override hosts file to reroute google calls to localhost 127.0.0.1.
+
+248120 - nCompass PT206 reboots constantly when connected to some SCI Games Twinstar EGM's
+- Increase Long Poll B5 receive buffer size according to SAS 6.02 addendum.
+
+**************************************************************
+Date 03/07/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay
+Version 2.3.0
+Checksum 
+Built off of 2.1.1
+
+Stories:
+
+Defects:
+254849 - Using the goodbye button creates a black screen when swiping back in
+Updated the swf_employee.swf to version EmployeeUI_6.2-2.0.162.swf so that it won't exit after pressing goodbye button.
+
+254757 - nCompass reboots if a victim card is inserted and you navigate to PersonalBanker and enter you PIN
+Check for a NULL personal banker ID before constructing a string from it to be logged.
+
+261007 - FloorLockout does not persist across a reboot
+Removed code that enabled game at startup without using the boolean flag from NVRAM.
+
+263393 - nCompass Unit (PT306/PT204) gets rebooted on the change of Network Cable (Network Change to OneLink) - only LINUX
+stoi() exception was not handled, using streams for conversion with error handling.
+this is single level, the nCompass defaults to always use the gold level.
+
+*******************************************************************************************
+Date 04/26/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay
+Version 2.5.0
+Checksum 
+Built off of 2.1.0
+
+Stories:
+221582 - Time based mystery support at nCompass
+
+224528 - Remote Reboot nCompass - ONE LINK----Callisto
+Added functionality in nCompass to 
+1- Inform Onelink about its rebooting capability
+2- Act on reboot command from Onelink and reboot with after necessary checks.
+
+194797	API to access player gaming activity that hasn't been flushed to the Oasis host system- Linux
+194798	API to flush player gaming activity to the Oasis host system -both windows and linux
+194799	API to request player gaming activity that has occurred since the beginning of the current session both windows and linux
+200689	Update the SWF file for nCompass Document for Flash devs to include the new changes
+213305	API to access player gaming activity that hasn't been flushed to the Oasis host system-windows
+221093	Redeem Marketing Coupon (nCompass) (TITO)
+221094	nCompass to operate in Hybrid mode (TITO)
+221582  Time based mystery support at nCompass
+224528  Remote Reboot nCompass - ONE LINK----Callisto
+225196	nCompass - Send all game meters at game end only via nCompass for player precision data
+225197	nCompass - Pick up the new Sentinel option for enabling multi-game/multi-denom
+225198	nCompass - nCompass needs to auto-discover the various subgames that are available within any multi-game/multi-denom cabinet
+227258	nCompass - Send new game transaction type via nCompass upon a subgame/denom change with play for player precision data
+237553  nCompass - need to receive a new flag from poller client when the voucher service is ON/OFF (NEW)
+237893	Oasis - nCompass; Need to be able to display the complete game list (subgame name and expanded paytable ID) via the nCompass autodiscovery (NEW)
+240649  nCompass - Pick up the new Sentinel option for enabling multi-game/multi-denom--Global Option
+253518  nCompass - countdown and session points accumulation need to be adjusted based on MGMD changes - Linux
+
+Defects:
+
+150808 - nCompass: Need to add Disk information to the nCompass web pages
+Implemented code for adding disk info to the WebDiagnostic page as common info.
+
+194833 - nCompass sub game missing paytable ID
+Changes SAS startup behavior to perform standard subgame data collection before initial ONELINK connection attempt on games with a single subgame.
+
+212534:nCompass issue with testing an invalid URL
+Pointer is now not getting deleted twice
+
+212872 - Add Skin Info and Battery Status to diagnostic web page
+Added battery status, skin version, skin and campaign names to the diagnostic web page.  
+Added Graphic Card Content under Mechanic Card->More Diagnostics.  
+Updated swf_employee.swf to version 6.2-2.0.154.swf 
+
+212891 - nCompass Linux: the sessionpt column needs to be populated with the amount for TxCode 126 (UJP)
+Updated the Transaction 126 Poller packet to add Jackpot Amount.
+
+213574 - Errordump page is not complete sometimes
+Increased the Error.txt to 1 MB in size and also made the it circular.  
+When the file is full, it will delete the older callstack and append the latest callstack at the bottom.
+
+213626 - Add speedmedia resend list item count to diagnostic web page
+Added Speedmedia resend list item count to status.html diagnostic web page.
+
+213627 - Failure to receive GameEnd Signal causes Player Update to insert duplicate Rating
+Prevent player update transactions while in virtual session, including mini virtual session.
+
+214733 - Linux :Meter 91 is set (and written to NVRAM) once a second
+The set meter call refreshes the meter value in nvram, so set meter is called only if there is a change in meter value from previous meter value
+
+214734 - PB Pending not displayed after restart with EGM Comm. Down
+Send transfer pending screen to UI to be displayed where there is a PB pending every 3 seconds.
+
+214736 - nCompass no longer writes reboot code for Persistent Memory clear
+The reboot code written in NVRAM/EEPROM while doing a clear was not read before reset on subsequent reboot.
+Changes are made to read the reboot code first and then reset that particular offset.
+
+214737 - nCompass: Error - Jackpot info cannot be processed if one is already in process
+Error log had been replaced with informational log
+
+214749 - PT20x-306 reboot times - From the time we press reboot until the time the unit comes back is close to 4 minutes. It �hangs� for about 2:45 before it actually reboots.
+The complete closing of the watchdog instance is called so that the system shutdown can be called before the main app is exited.
+
+215377 - Reboot not logged on the diagnostics web page
+Increased the Error.txt to 1 MB in size and also made the it circular.  
+When the file is full, it will delete the older callstack and append the latest callstack at the bottom.
+
+217460 - Sentinels rebooting when Ricochet Reward promo starts- Linux Callisto
+Changed locking behavior when removing expired speedmedia messages from the resend list.
+
+217480 - If there is no machine online on nCompass, if user goes to EGM change and put some slot mast id ,goes back and again revisits same screen, it is showing the last entered slotmast id
+Back button implementation modified for the slomast change screen on employee swf.
+
+219645 - nCompass (Linux): JackpotInfo.html Hand Pay Reset value is uninitialized and misleading.
+Hand pay Reset flag was not initialized and not updated after getting hand pay reset signal from game.So initialized hand pay reset and updated the same after getting signal from game and resetted the same when a new game starts
+
+221089:nCompass reboots after getting getting activated or authorized from OneLink
+The waiting thread is signaled now which was getting on wait state , so watchdog was restarting the sentinel.
+
+221990 - Add Bonus Listing and DOT SWF's to SMD's
+Made swf_custom1a.swf to be the bonus listing swf (version 5.3.37)
+Made swf_custom2a.swf to be the drink ordering swf (version 5.6.9)
+
+223437 - add support for machine numbers higher that 65535 (sas long poll $B7)---Linux
+Added LPB7 to set the asset number from machine number
+
+223478 - Thread performance in nCompass Linux only
+Changed the Sleep() function to Sleep 10 ms if Sleep(0) is specified.
+Added additional sleeps in tight loop in order to reduce overall CPU usage.
+
+223779 - Need to show the PBT Pending screen at all times when there is a PBT pending
+Send transfer pending screen to UI to be displayed where there is a PB pending every 3 seconds.
+
+223933 - Session ID is getting incremented twice sometimes after player cards in
+Addressed an issue where the PersonalBanker transfer in process screen was not displayed while an Auto NCEP Out transfer was pending with EGM communications down.
+
+224434 - With NCEP Out Enabled, on removing player card and inserting Global card, screen stuck in account information
+Modified PB Pop mechanism so that PB Pops up and PB transfer complete message Sent to UI only if there is no active employee. 
+
+226073 - Issues with PBT screens when game comm is down
+Modified nCompass so that if game communication is down, we grey out the button to not let the player enter the PBT menu.
+
+226075 - Calibration is off if you remove the global card during the calibration process---Linux Only
+Code added so that Udev rule files /etc/udev/rules.d/10-ar1xxxuart.rules(for 204 and 206) and /etc/udev/rules.d/10-pt306-touch.rules(for 306) are backed up
+at calibration start and restored when employee card is removed.
+
+226077 - Odometers are interrupting the initial messages on the PT204
+Keep the notification box up front while showing the welcome messages to the player.
+
+226079 - Update/Change download status screen to be more helpful---Linux
+Change download screen in nCompass and on diagnostics page to display more information on the current/last downloaded file type and timestamp.
+
+226085 - need a way to track sentinel to cache failures---Linux
+Added fields to show cache call fail count and last cache fail cache time stamp.
+
+226087 - need a way to track sentinel to onelink failures---Linux
+The failure counter and timestamp from one link is shown on web page for ncomass for progressive.The web page buddy is also changed for the same.
+
+226089 - Improve SpeedMedia Sentinel Status
+Sentinel status is sent to SpeedMedia every 60 seconds if there is a changed in status.  
+We also send Sentinel status every 15 minutes to protect SpeedMedia from getting stuck with an incorrect status even if a message was lost.
+
+226091 - players accounts filling up with PBT rollback (voids) transactions due to EGM issues
+An AFT lock is attempted before player is allowed to select transfer from/to game.
+
+227861 - In EGM Change screen, it is showing Machine OFFLINE, even if there is no machine online
+The connectivity to poller is checked at the time of onlining the machine
+
+229461 - After i change network cable for Linux device, it is not taking new sentinel ip and onelink host ip
+Connectivity to poller is checked at the time of onlining the sentinel
+
+229525 - nCompass: Sending sentinel information to SpeedMedia removes cache from list - Linux
+previously- resend status was not updated with the returned status from the API
+Now- Status updated with the return status from API
+
+230377 - Duplicate ratings are occurring when a card in and card out are processed out of order.---Linux
+Modified the code so that when processing a card out the PMT will removed the card in used to calculate the rating from memory.  That way
+when the card out for the virtual session is processed it will use the correct card in to calculate the rating.
+
+230383 - LCD Backlight changes- Linux only
+Default BackLight value changed to 65%
+
+233475 - Changing the Media Window size results in the player Account Menu being blank
+The player related panel was not cleared when content window resized
+
+236362 - nCompass rebooting on removing and inserting Global card during Calibration
+Block the card processing loop from the time calibration is complete and service window in again restarted completely.
+
+240357 - nCompass is Rebooting continuously due to Bad Poller Data
+Happening because of large game list. As a provision resrtucture the code to handle bigger and smaller datas. Also made provision not to send message if message size check fails.
+
+242012 - RT_METERDROP, new meter record writing with old meters- Linux
+All meters are sent up approximatelyonce an hour. The exact interval for sending up meters is a random interval between 55 and 65 minutes. The purpose of the randomness is to prevent all the nCompass units from sending all the meters to FL at the same time.
+
+248076 - On Linux it takes almost 2 minutes to change the status of TCPIP as disconnected after N/w connection is broken
+Socket descriptor was not getting closed during time-out error condition. Closing the same now.
+
+251118 - nCompass Unit (PT306/PT204) gets rebooted on the change of Network Cable (Network Change to OneLink)
+Check for garbage character in kernel file is incorporated. The presence of carrier file is checked
+
+251184 - If i transfer some points to Game, and take card out. Amount is not getting transferred to game But it shows , transferred successfully.
+If we are NOT in state PBStateInfoReceived, we can ignore the ‘‘Authorization Granted’. 
+
+251185 - When Virtual session is ON, if player inserts player card, Account and Resort buttons are unresponsive
+Allow button processing when a player card inserted.
+
+251298 - nCompass got rebooted when i changed poller time for the first time
+Time updates will no longer cause live data to be deleted.
+
+251887:Ticket expiration date is not formatted correctly causing ticket redemption failure
+The utility function to format the time into a MMDDYYY needed to add 1900 to the year and the 1 to month.
+
+251888 - Employee card screens take too long to display with new ncompass hardware
+Keep the employee screen up and running in the background at all times.
+Updated the swf_employee.swf to version EmployeeUI_6.2-2.0.161.swf
+Updated ServiceWindow_Shell to version ServiceWindow_Shell-2.00.51.swf
+
+251889 - Issue with reel tilts occuring on EGM's that are video only and do not have reels
+This issue was fixed with thread timing defect 242016 
+
+251890 - nCompass PT206 reboots constantly when connected to some SCI Games Twinstar EGM's
+Increase Long Poll B5 receive buffer size according to SAS 6.02 addendum.
+
+251891 - nCompass calling google servers
+Override hosts file to reroute google calls to localhost 127.0.0.1.
+
+253555 - nCompass reboots if point calc is 0/0 and player plays before player response is received---Linux
+Divide by zero is avoided by making a check
+
+255520 - Using the goodbye button creates a black screen when swiping back in
+Updated the swf_employee.swf to version EmployeeUI_6.2-2.0.162.swf so that i won't exit after pressing goodbye button.
+
+255842 - nCompass reboots if a victim card is inserted and you navigate to PersonalBanker and enter you PIN
+Check for a NULL personal banker ID before constructing a string from it to be logged.
+
+256352 - Editable Font Size
+Added a new field editableSize in the XML to let SpeedMedia be able to determine whether a label is editable or not.
+
+260159 - Meter snapshot and subgame snapshot have different transdates-LINUX only
+Change poller transactions to use the correct transaction time.
+
+261009 - FloorLockout does not persist across a reboot
+Removed code that enabled game at startup without using the boolean flag from NVRAM.
+
+272753 - When on nCompass time changes to 1:00am at rollover after daylight saving change, active seconds for any player is as per adjusted clock. Not showing actual time- Regression
+Modify time parameters to use currentTime which is UTC in our linux environment.
+
+273196 - nCompass gets stuck on TransferInProgress screen when PC/ MMT/ PMT/TCPTP is down
+The message PB complete is sent to UI after a personal banker transaction times out.
+
+*******************************************************************************************
+Date 07/03/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.5.1
+Built off of 2.5.0
+
+Stories:
+269858 - Performance Improvements for PT306 with current hardware
+
+Defects:
+289170 - Promotions delayed triggering - Linux only
+Previously when a lock on the pipe service mutex could not be granted, the thread would sleep for 10 seconds before trying again. This was occasionally delaying the processing of notifications from SpeedMedia. 
+Now it will try continuously and check-in with the watchdog every 10 seconds.
+
+290028 - Thermometer shows after nRich ends
+Previously, the deletion of the nRich counter was being sent in a separate message without the message persistence so the order was getting out of order.  
+The deletion of the counter is now being done with end of promotion message.
+
+
+*******************************************************************************************
+Date 09/26/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.5.2
+Built off of 2.5.1
+
+296369 - ONE LINK odometer showing for Ineligible Players during and after the event (nCompass PT's only)
+Ignore active session state when processing some LCD updates.
+
+296379 - Random TxCode 63 player updates occurring
+Clear player update times list an active player session ends
+
+297091 - nCompass meters resetting to zero after upgrade to 12.11 (Linux)
+- Upgrade NVRAM game data on first boot after upgrade pre 2.5.0
+
+297092 - nCompass Protocol packet check errors after upgrading OS to 2.5.x (Linux)
+- Upgrade NVRAM game data on first boot after upgrade pre 2.5.0
+
+297075 - Bad ratings occur after power outages/restarting ncompass units (Linux)
+Add additional data to persisted player session so that info is available at startup.
+
+*******************************************************************************************
+Date 07/18/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.6.0
+Built off of 2.5.0
+
+Stories:
+269858 - Performance Improvements for PT306 with current hardware
+
+*******************************************************************************************
+Date 09/17/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.6.0
+Built off of 2.5.1
+
+Stories:
+258462 - nCompass Options for External Credit Provider (Linux)
+Added support in ncompass for external credit provider
+
+292003 - PIN reset at nCompass
+Added ability to reset PIN
+
+274045 - [Linux Only] Add status indication in BlackBart [nCompass]
+
+301056 - Remote Reboot nCompass FloorLogix [nCompass] - Additional info for display at Floorlogix
+
+316383 - Support for additional card prefixes in nCompass
+nCompass will now accept more than 33 player prefixes, universe prop coes, and universe player prefixes. However only forst 33 will be stored in NVRAM. 
+nCompass will also recognize a universe player card based upon the prop code ont eh physical card. It no longer needs to be in the list of player prefixes
+
+Defects:
+289582 - Linux PT306 FPGA updates are failing
+The FPGA update code is put into a separate thread and given a 30 minutes thread timeout value.
+
+292981 - When PBT Lock Check (PBT Probe) is enabled on EFT games you cannot download PBT to the EGM. - nCompass Linux
+When a PB lock probe is initiated, return that the probe is successful if an EFT EGM.
+297960 - Random TxCode 63 player updates occurring
+Clear player update times list an active player session ends
+
+297262 - 322 message not sent when the voucher service is offline
+Dependency for voucher service is removed for 322 message.
+
+298601:Write Jackpot Reset Settings to webpage
+Jackpot Reset Settings added to Statusdump page.
+
+298609 - Ncompass Linux Unit not showing Alternate DNS IP
+Made changes to read the second entry from resolv.conf file
+
+301591 - If an EGM is only a single game/ single denom but is configured for MGMD then all ratings will go to RT_BadTX.
+When an EGM has no subgames the last played denom for session now gets set to the denom of the main game (EGM).
+
+301593 - TxCode 94 "Excessive Player Point Calculation" being seen in CDS_BUFFER with Oasis 12.11
+This was broke when MGMD support was added. We were checking for excessive point calculation on the entire subgame instead of a single spin. The generation of this tilt was removed since it was not deemed valuable.
+
+301605 - PBT Promo Uploading to the Wrong Account
+When autoupload is started on a guest player, the last autoupload OCR was used. However guest players in some universal environments can still have PB enabled. 
+Use the PBEnabled as a switch to determine if the current player's OCR is used.
+
+301820 - When Reboot SWF Restart Override is enabled for nCompass, nCompass should get rebooted on Reboot command even if there is active session on the game.
+With reboot over-ride flag set, ignore the credits on EGM and reboot.
+
+302921 - Player response slow
+Session and transaction meters are written to NVRAM in blocks of 4. Previously it would take 1.5 seconds to write the session meters at teh start of a session. Now it takes about 400ms.
+
+302922 - SMA triggers delayed, card in promotion delayed
+Fixed periodic issue with speedMedia triggers being delayed by 10 seconds.
+If a lock on the pipeservice mutex is is not granted, the thread sleeps for 10 seconds before trying to acquire the lock again.
+
+303906 - Custom buttons on the sentinel should be enabled/disabled in the skins screen in SMA
+Editted XML to add attribute 'buttonEnabled' to be used by nCompass to disabled/enable custom buttons and resort submenus.
+
+*******************************************************************************************
+Date 11/16/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.5.3
+Built off of 2.5.2
+
+305122 - Linux does not support TLS 1.2
+-  Use feature flag to determine oasis version so that correct TLS version is used for SM Cache connections.
+
+305545 - FloorWide Mystery Bonus - Celebration screen will not display when frequency is met
+Prevent flushing of promotion messages when play and win promotions end.
+
+305546 - PBT Promo Uploading to the Wrong Account
+When autoupload is started on a guest player, the last autoupload OCR was used. However guest players in some universal environments can still have PB enabled. 
+Use the PBEnabled as a switch to determine if the current player's OCR is used.
+
+306022 - UJP issue, sometimes showing "Slot not configured for UTJ processing"
+Prevent disabling Key To Credit when processing handpay request.
+
+306021 - Free Play theft at the M resort - oasis software 12.7 it allowed players with a negative balance of $1.00 to download up to $12,009.00 a day
+When receiving negative point balance set available points to 0.
+
+308071 - nCompass units with several subgames may become unresponsive after restarting the FloorLogix Services
+Send hearbeat to poller during long operations to send subgame list to poller.
+
+308072 - If an EGM is only a single game/ single denom but is configured for MGMD then all ratings will go to RT_BadTX.
+When an EGM has no subgames the last played denom for session now gets set to the denom of the main game (EGM).
+
+309530 - Reboot Exceptions occuring after the drop - 2314: thread timeout
+When an interrupted system call exception occurs Shell SWF communication, nCompass does a control reboot
+
+308071 - nCompass units with several subgames may become unresponsive after restarting the FloorLogix Services
+Send hearbeat to poller during long operations to send subgame list to poller.
+
+310698 - nCompass (Linux) is ignoring the flag within the GetConfigEx message to treat its contents as invalid
+Use GetConfigExResult value to determine whether contents from GetConfigEx message is valid or not.
+
+316375 - Reboot exceptions while getting drive usage information. 
+Put a try/catch exception handling when making a system call to get drive information.
+
+317881 - Unable to online nCompass to ONE LINK if EGM does not support LP 0xB2
+Handle case where EGM has single subgame and doesn't support long poll B2.
+
+319374 - nCompass reboots when SpeedMedia cache goes down
+Use synchronization in the SpeedMedia Cache list so SpeedMedia Item resources are not used when it is already deleted.
+
+322602 - False jackpot signals sent to CDS_Buffer
+A bogus jackpot was reported due to the calculation of accounting-only deltas performed differently. One place corrected for denom and the other did not.   
+
+341033 - [Linux & Windows] Intermittent thread timeout occurs when jackpots are hit
+Previously, lock objects were not aquired in the consistent order. Jackpot and player locking objects are now aquired in the same order in all the threads.
+
+341051 - [Linux and Windows] nCompass crashes when a ONE LINK playlist has an invalid path or there is a corrupted CF card
+File exceptions are now caught and logged when creating a playlist file.
+
+341341 - nCompass is going into quarantine state in ONE LINK after a reboot
+Prevent disabled games from going to ONE LINK.
+
+*******************************************************************************************
+Date 03/07/2019
+Developers: Louie Valderrama, Tedd Vernaz, Sukhdeep Singh, Harvijay Singh
+Version 2.6.1
+Built off of 2.6.0
+
+Stories:
+None
+
+Defects:
+344406 - [Linux] nCompass reboots when SpeedMedia calls timeout
+Fixed an issue where nCompass reported "Unknown" for reboot tilt code when it was really a "Watchdog" timeout.
+
+344407 - Campaign goes away after drops
+Reset adloop flags when the attractor sequence list is changed to make sure adloop area is redrawn.
+Use synchronization in the SpeedMedia Cache list so SpeedMedia Item resources are not used when it is already deleted.
+
+*******************************************************************************************
+
+Date 02/11/2019
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.7.0
+Built off of 2.6.1
+
+Stories:
+263933 - Mobile nCompass - Virtual Card-In no Hardware
+263934 - Mobile nCompass - Obtaining Beacon Hardware
+263935 - Mobile nCompass - Virtual Card-In with Hardware (beacon)
+263936 - Mobile nCompass - App recognizes casino for beacons nearby (UE & Non-UE w/hardware)
+263937 - Mobile nCompass - App recognizes if two mobile devices try to connect to one EGM (hardware)
+263938 - Mobile nCompass - App recognizes if two mobile devices try to connect to one EGM (no hardware)
+263939 - Mobile nCompass - Showing EGM is in Mobile Session
+264227 - Mobile nCompass - Viewing in-session stats
+264228 - Mobile nCompass - Interacting with nCompass player initiated buttons
+264229 - Mobile nCompass - Ending a session (manual-Mobile)
+264230 - Mobile nCompass - Ending a session (device is out of range-ONLY HARDWARE)
+264231 - Mobile nCompass - Ending a session (manual-nCompass)
+264232 - Mobile nCompass - App automatically ends session (player not in active session play)
+264234 - Mobile nCompass - Admin - Beacon Status Page
+269986 - Mobile nCompass - nCompass infrastructure - Floor Protocol ( Linux )
+221581 - [Linux and Windows] BB - nCompass should support displaying celebrations and odometers(no value only content) for Prize (Non-cash) Jackpots
+228381 - [Linux and Windows] BB - Make the odometer display priority configurable
+298395 - [Linux and Windows] BB- Countdown to the next cluster award for each time slice defined on nCompass
+307246 - [Linux and Windows] BB- Display Content for consolation award for the level - nCompass updates
+307251 - [Linux] BB- Display Content for Level- Anticipation, Winner, Odometer on nCompass
+307256 - [Linux and Windows] BB : Display Content for minor (Side game) award for the level - nCompass updates
+307257 - [Linux and Windows] BB- nCompass/SMA : Skinning for default  branded bonus award
+307260 - [Linux and Windows] BB- Content Interruption requirements nCompass consolations - Branded Bonus
+307262 - [Linux and Windows] BB- Custom Swf to be able to subscribe to level broadcast
+269858 - Performance Improvements for PT306 with current hardware
+303915 - Windows Image RadBeacon Implementation
+322047 - instance id as a checksum for the namespaceid
+362124 - nCompass Field trial improvement - Eligibility determined status and award payment to game
+
+Defects:
+345391 - [Linux] nCompass reboots when SpeedMedia calls timeout
+Fixed an issue where nCompass reported "Unknown" for reboot tilt code when it was really a "Watchdog" timeout.
+
+345390 - Campaign goes away after drops
+Reset adloop flags when the attractor sequence list is changed to make sure adloop area is redrawn.
+Use synchronization in the SpeedMedia Cache list so SpeedMedia Item resources are not used when it is already deleted.
+
+347552 - UTJ - Player may get paid twice (double jackpots) if the A8 reset to credit setting is set to Yes and the player elects a handpay
+Force A8 jackpot reset setting to "no" when UJP is enabled.
+
+355623 - Need Test button on Speedmedia configuration screen to test URLs from nCompass
+Updated swf_employee to version 165.  This version added a test button on the Speedmedia configuration screen to test URLs from nCompass
+
+355663 - nCompass cannot connect to One Link using SSL on Linux
+Changes that were made to Windows ActiveMQ library were applied to the Linux ActiveMQ library.
+
+357818 - nCompass points awarded for promo play
+Reset accounting type properly following subgame select change.
+
+358044 - Rename MultiGame MultiDenom to Sub-Game Point Calcs in Mech Card > View > Sentinel Options
+Renamed Sentinel and Global options.
+ 
+358045  - Rename PBT Probe to PBT Lock Check in Mech Card > View > Sentinel Options
+Renamed Sentinel option.
+
+358716 - nCompass is resetting the session pts earned to 0 after it reaches over 53 - 4 queens issue
+Changed a variable used for calculating session points from 32 bit variable to a 64 bit variable.
+
+358363 - nCompass does not support https
+nCompass ServiceWindow_Shell is now being served up as https.  
+A cert can now also be added to the nCompass via SpeedMedia.
+
+359484 - [Windows & Linux] EGMProtocolType is upper case in ICardEvent message to One Link
+Change SAS to sas
+
+361440 - nCompass is displaying session points/account balance incorrectly when passed negative values for tier points and tier multiplier
+nCompass is now defaulting tier multiplier to 0 when it receives an invalid value from FloorLogix.
+
+361907 - PBT uploads not going to player account when nCompass is power cycled
+When copying PBT information keep original card number if new number is empty. Initialize PBT type when getting SAS AFT result at startup.
+
+36785 - [Linux] nCompass not displaying tier points
+Tier points is now using the value sent by FloorLogix instead of always using the default value.
+
+*******************************************************************************************
+Date 10/07/2019
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.7.1
+Built off of 2.7.0
+
+Defects:
+376364 - nCompass gets stucked in reboot cycle after time is set before Thu May 30 19:54:20 2019 (Linux)
+The certificate we used to make nCompass https compatible were created Thu May 30 19:54:20 2019.  
+As a result, if time is set before Thu May 30 19:54:20 2019 the Shell SWF won't be able to start.  
+If current system is before Thu May 30 19:54:20 2019, we now set it to Thu May 30 19:54:20 2019.
+
+376365 - Menu Panels Are Missing After Resizing Content Window
+Menu panels are now recreated after a Shell SWF restart.
+
+376366 - SpeedGame still plays even after closing MW window (Linux)
+Active content is now closed/stop when MW window is closed.
+
+376368 - Ratings - Small virtual session ratings being written to bad_statdetail when player cards out before playing all promo
+Allow meters to update out of order. Log to GENERAL and error.txt if NCEPPlayed delta is greater than CoinIn.
+
+376370 - Play n Win - Players being awarded before they should when trigger is based on points (on certain EGMs)
+Allow meters to update out of order. Log to GENERAL and error.txt if NCEPPlayed delta is greater than CoinIn.
+
+376372 - Bogus tilts occurring when game is not responding correctly to meter polls
+When sending implied NACK wait for game to respond with poll data.
+
+376900 - Blank banner or bonus eligibility not determined. please reinsert card appears after upgrading to nCompass 2.7.0.2 (Linux)
+Use an existing panel to display the bonus eligibility not determined message when using a skin that is incompatible.
+Don't display any alert message when OneLink is not enabled in the SenOptions2.
+
+376586 - Beacon Settings (Linux)
+Add Beacon Power setting to FloorConnectionConfig.txt
+
+*******************************************************************************************
+Date 12/4/2019
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.8.0
+Built off of 2.7.1
+
+Stories:
+370206 - nCompass Excessive Voucher Out - Getting Threshold Values - Linux only
+370208 - nCompass Excessive Voucher Out - Trigger an event\transaction for player session - Linux only
+373376 - Always On Logging
+386723 - Play X Get Y support on nCompass
+
+Defects:
+
+370619 Menu Panels Are Missing After Resizing Content Window
+Recreate all the panels after resizing content window
+
+382758 - Global PIN bypass/vulnerability
+PIN can no longer be bypassed by doing a 3x card insert.
+
+385635 - nCompass crashes intermittently when collecting game information
+Added synchronization mechanism to prevent accessing an object which has already been deleted.
+
+386138 - Hide task bar buttons when entering PBT from mobile device
+The PersonalBanker in progress panel now comes up and taskbar buttons is pushed to the background.
+
+*******************************************************************************************
+Date 01/28/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.8.1
+Built off of 2.8.0
+
+Stories: None
+
+Defects:
+
+393062 - nCompass resend list changes for SpeedMedia performance
+When a card out is added to resend list, nCompass traverses the resend list and deletes the matching cardin in case there is one.
+All status and information messages that are sent on time basis are now just queued once.  
+
+394361 - Session points earned stop incrementing (GLI Issue) 
+Fix game play meter processing so session points update properly.
+
+393073 - ncompass going into quarantine in One Link with MaxCoinInExceeded messages
+Prevent calculation involving invalid Coin In meter after game play. When One Link state changed to quarantined now re-initiates One Link connection and removes all bonus levels.
+
+395763 - nCompass memory leak is causing controlled memory warning reboots
+Objects that were not being deleted were found by GlowCode, were not properly cleaned up.  All the objects allocated are now deleted when they are no longer used.
+nCompass also kept sending messages to FloorProtocol component even when Floor Communication was disabled.  Mobile messages are no longer being sent when Floor communication is disabled.
+
+396309 - Please visit club booth message stays on nCompass even after card is removed( LCD)
+nCompass now goes back to Please Insert Your Card text after RFid Player is kicked out.
+
+396316 - nCompass Linux- negative countdown showing on nCompass on the rack
+Fix session points overflow condition.
+
+399187 - SAS 5.xx issue with rollovers
+Use CompareMeter when calculating meter difference to handle meter rollover.
+
+399405 - nCompass fails to generate complete crash dump due to hang in callstacks gathering thread
+Fixed the issue, now we will not see hangs in call stack generating thread when any crash happens on Linux-On-LITE or PT series units.
+
+407863 - Composite Tilt Codes | Operator Changed Options - Appearing in Diagnostic Monitor and Surveillance Monitor every 15 minutes on certain IGT Games
+nCompass no longer tries to set the asset number unless the slot number is different from the last attempt.
+
+407866 - MGA | Floor Configuration - Status changes not appearing after enabling/disabling subgames unless the Sentinel is rebooted - Linux
+The right number of subgames is now sent properly as result of poll 56.
+
+*******************************************************************************************
+Date 05/29/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.8.2
+Built off of 2.8.1
+
+Stories:
+416218 - SD Bezel colors
+Bezel color is set based on Social Distancing states.
+
+423103 - SD Lock and Unlock
+The following new transaction codes are now being sent to FloorLogix.
+145 – EGM ACK’d Lock
+146 – EGM ACK’d Unlock
+147 – EGM NACK’d Lock
+148 – EGM NACK’d Unlock
+
+427298 - SD - Mobile nCompass used with In the Clear
+The uncarded Social Distance SWF now toggles between the In The Clear message and the Mobile Connect screen.  
+The Mobile Connect screen also now has a request cleaning button.
+
+429391 - Support new PDS version with updated Beacon power settings into nCompass
+Now nCompass supports new Player Device Service with capability to send both measured and transmit beacon power levels to it for beacon configuration. 
+
+416940 - SAS Disconnect coin in handling for AO levels
+Offline coin in is detected and sent to OneLink so that it can attempt to keep accounting only progressive values accurate.
+
+416941 - Save data on SD card on nCompass
+OneLink messages with guaranteed delivery now stored on SD card when concentrator is unavailable.
+
+416943 - Lost connection to concentrator in Accounting Only progressives
+Coin In, Game End, and Progressive Level Hit messages are persisted to SD card when necessary.
+
+Defects:
+
+405558 - Spirit Mountain recently upgraded from 12.7.3030.8 to 12.10.3200-O.  They are getting reports of Promo downloads occurring, and then failing at the Slot Machine.
+Fixed the defect by resetting the fields of SASPollMessage instance before reusing it in phase 2 while EFT upload/download.
+
+415994 - nCompass keeps flipping betweeen uncarded SWF and uncarded mobile swf every 10 minutes.
+nCompass will no longer flip between betweeen uncarded SWF and uncarded mobile swf every 10 minutes during the load balancing period.
+
+415995 - Social Distancing and DAP player cards
+nCompass is now incrementing the session ID when a DAP player is kicked out so that the uncarded attractor is now displayed after the card is pulled out.
+
+416671 - Some valid player cards are incorrectly being kicked out 
+The uninitialized variable used for reading card status is now properly initialized to a valid value.
+
+418123 - Default Game name may end up containing invalid characters randomly
+It is now ensured that the string is null terminated so that game name doesn't end up containing invalid characters randomly.
+
+418484 - Zipped log is written to the media disk intermittently
+Watchdog no longer cause the nCompass to reboot prematurely before logs are zipped succesfully.
+
+420353 - nCompass get token as blank when its requesting config from Speedmedia and nConnect is down during that period
+nCompass will now call GetConfigEx to retrieve SpeedMedia settings every hour and also every time we first connect to the cache. 
+nCompass will also compare the settings received and not update them if they are null or empty.
+
+420814 - Odometers appear briefly on top of Social Distancing screens upon player card out
+Push odometer area to the background immediately after player cards and machine goes into idle.
+
+420820 - Player is carded out due to no activity while game is in progress
+Player will not be carded out due to no activity while game is in progress.
+
+420804 - In the Clear | SDSM SWF - Taskbar buttons will show over the Social Distancing screen if multiple players try to play next to each other and both start sessions.
+Social Distancing SWF is now pushed to the front once the state is not "IN THE CLEAR".
+
+421590 - Reboots | nCompass - Crashes intermittently when EGM connectivity is down or goes down
+Object is no longer getting deleted once it goes out of scope. 
+
+424580 - Reboots | nCompass - Crashes intermittently when it does a long poll 6F.
+The meter object is no longer being deleted prematurely so that long poll 6F can still safely access it during destruction.
+
+424853 nCompass checksum is messed up when burned with Windows 10
+nCompass will delete the System Volume Information folder if it exists at startup.
+
+426902 - In the Clear | Neighbors not locking - When carding in and out immediately. Also, EGM played does not go into Cleaning Mode.
+Allows the Social Distancing SWF to be able to receive some player session update in case a player cards out quickly after cardin.
+
+428307 - MGA | Multi-Game Machines Not Reviewed - EGM's appearing/re-appearing for no reason | Enabled subgames = 0
+Game number 0 and 1 is now added to the list even when poll B2 fails.
+
+428366 - nCompass buttons are missing when when player cards in after a ShellSwf restart with mobile enabled.
+Both mobile and non-mobile taskbar panels when Shell SWF restarts are now recreated.
+
+429386 - Fixes for nCompass issues with wrong PBT PIN entered.
+Fixed an issue where we keep on seeing "PBT in progress" error on mobile nCompass app for 9-10 secs on each PBT PIN re-enter after the first incorrect 
+PIN attempt. Now mobile user will be able to start PBT session immediately on re-entering correct PIN.
+Also fixes 2 more issues:
+- On entering incorrect PIN on mobile app, we will no longer see "Exiting PB feature" message on nCompass, it will show "Incorrect PIN" as desired.
+- On entering incorrect PIN on nCompass, we will no longer see "Exiting PB feature" message and will not send Tx 90 (ReleaseSession) to poller 
+  if we don't enter correct PIN within 30 secs.
+
+429390 - Sometimes for UTJ when player enters pin, nCompass shows invalid pin and shows pin screen again, but credits the amount to meter.
+Changes done to handle the issue:
+- Added check to process UTJ pin enter request based on jackpot state.
+- Added debouncing logic for SW_EVENT_PINPAD_ENTER event.
+
+429691 - MGA | Multi-Game Machines Not Reviewed - EGM's appearing/re-appearing for no reason | nCompass/EGM Comm Issues
+We now stay on the game we're trying to send when we're gathering subgame info at startup when EGM communications are not working.
+When the poll fails, it will keep trying to send the game that the poll failed on.
+
+430121 - nCompass intermittently fails to connect to Floorlogix and gets stucked in this loop forever.
+Socket is now closed after a send fails.
+
+431461 - nCompass does incremental OS upgrade of LITE units which may lead to failed upgrades
+nCompass now only support incremental upgrades selectively, specifically for standalone sentinel.img upgrades and (optionally for OS upgrades, 
+only when explicitly asked so). Also fixed a defect in SMD extraction logic where we were not able to extract 0 byte files earlier.
+
+434137 - Mobile nCompass | Mobile Sessions – Are not flagged so there is no way to tell the difference between a carded session and mobile session in the db
+Added mobile connection indicator to SentinelStatus(0x20000(131,072)) field in the transaction messages
+
+434420 - nCompass | ONE LINK | Carding in/out during bonus level triggers causes nCompass crash | Not likely in field
+Use synchronization object in the OneLink connection object to prevent processing of multiple messages at the same time.
+Unnecessary watchdog checkins are also removed.
+
+434435 - Reboot | Mobile nCompass - nCompass reboots when unable to reach FloorService
+Fixed a deadlock condition by allowing the processing of a message from the FloorService to finish before closing the connection.
+
+435204 - PBT | Transfer pending... Call attendant - Message is misleading as it occurs during auto uploads that do not require attendants | Default text in skins needs updating
+Changed the "Transfer pending... Call attendant" message to "Checking for uploadable credits... Please wait".
+
+435206 - Play X Get Y | Odometer - The swf_playxgetycounter.swf needs to be updated before using the Play x Get y Bonus Level in ONE LINK | Default Skins need to include correct .swf to prevent manual step
+Update the default swf_playxgetycounter.swf asset.
+
+435208 - Mobile nCompass | Connecting... SWF's - Stay up for 30 seconds with no way to exit. Curious customers are pressing and it's also being launched on accident | Need a Cancel button
+Exit button has been added to the mobile SWFs.
+
+435210 - nCompass leaks memory when connected to the Floor Service
+"event.acknowledgement" and "event.disconnect" messages are now deleted after processing.
+
+435536 - Diagnosis (Reboot) | Incomplete callstacks generated on LITE devices on crash and thread timeouts
+Fixed compiler and linker flags to ignore optimizations resulting in bad call-stacks for sleeping threads.
+
+436152 - Mobile nCompass | Load Balancing - Do not load balance while in active session
+Skip Floor Service load balancing while nCompass is in mobile active session (waiting for pairing, waiting for card change or  mobile carded session).
+
+Defect 436349: LoL | Screen Calibration causes nCompass to crash | nCompass recovers after reboot
+Update killchrome.sh to look for chromium instances as well as chrome so that that UI can be properly restarted.
+
+*******************************************************************************************
+Date 04/09/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.9.0
+Built off of 2.8.2
+
+Stories:
+369235 - Abandoned Credits - Cardless Session Start
+A new Cardless Session Start transaction is now sent to the poller when a cardless session starts.
+
+369236 - Abandoned Credits - Cardless Timeout
+A new Cardless Session End transaction is now sent to the poller when a cardless session ends or times-out.
+
+400046 - Support new PDS version with updated Beacon power settings into nCompass
+Now nCompass supports new Player Device Service with capability to send both measured and transmit beacon power levels to it for beacon configuration. 
+
+404015 - (Wallet 1.0) Handpay Jackpot (Regular and UTJ)
+Handpay jackpot trigger and reset notifications are now being sent to mobile nCompass app so that user at the app side can be notified. 
+
+404014 - (Wallet 1.0) nCompass to allow for partial transfers, Cash (WAT) only
+As the part of partial WAT-Out feature, nCompass now allows partial transfer of cash from game when the associated global and sentinel options are enabled from the OASIS.
+
+416940 - SAS Disconnect coin in handling for AO levels
+Offline coin in is detected and sent to OneLink so that it can attempt to keep accounting only progressive values accurate.
+
+416941 - Save data on SD card on nCompass
+OneLink messages with guaranteed delivery now stored on SD card when concentrator is unavailable.
+
+416943 - Lost connection to concentrator in Accounting Only progressives
+Coin In, Game End, and Progressive Level Hit messages are persisted to SD card when necessary.
+
+422293 - Cashless - Auto Upload Settings (nCompass)
+nCompass can now auto upload PBT Cash, Promo and Points if configured from FloorLogix.
+
+423602 - (Wallet 1.0) nCompass - Partial WAT Cash Up Tracking
+As part of this PBI, nCompass will now send PersonalBanker transaction (Tx 90) to the poller with new PBT types for partial WAT/CEP out transfers. Also associated 
+transactions will be shown as partial transactions on employee screen's 'PersonalBanker Log' and 'PersonalBanker transactions' section.
+
+423929 - Cashless – Cash Out To Host Support (nCompass)
+nCompass can now upload PBT Cash, Promos, and Points to player's PBT account when Cashout button is pressed on EGM, if configured from FloorLogix.
+
+431754 - (nCompass) Showing Responsible Gaming Message
+Responsible Gaming Message is now displayed in the Personal Banker button stack when transfer/credit to game is visible 
+and when the label is skinned in SpeedMedia.  The Responsible Gaming Message label is added to the XML.
+
+438624 System Inactivates Casino Wallet Accounts That Have Not Been Used For 16-months - nCompass
+Message is displayed when cash transactions are tried and the Personal Banker cash account is flagged as inactive.
+
+439999 - Cashless - Cash Out To Host Tracking (nCompass)
+Added new supporting PBT types to Personabanker Transactions for Cashout to Host feature
+
+446975 - nCompass support for JackpotOnDemand
+Added support for JackpotOnDemand trigger type from ONE LINK.  
+
+Defects:
+
+397922 - In virtual session jackpot should be processed manually by attendant and not as UTJ
+Now a jackpot triggerred while the player is in virtual session will not initiate automated UTJ flow. It would need reset via an attendant. 
+
+401270 - Reboots | nCompass - Crashes intermittently when EGM connectivity is down or goes down
+Fixes a rare crash that may happen on nCompass when EGM connectivity is down or goes down.
+
+404230 - Controlled ShellSWF Restart does not send CONTROLLED_REBOOT_CODE = 45
+CONTROLLED_REBOOT_CODE (45) transaction code is now being sent to FloorLogix when ShellSWF restart causes a controlled reboot.
+
+405073 - Debugging improvements
+- Added progress bar for download logs and included archiving logs with progress as well
+- Logs are now archived with a more descriptive file zip name.
+- Added USB logging support when Remote Debugging is disabled.
+- Update swf_employee.swf to v168
+
+405090 - Rename Bill Stuffing to Excessive Voucher Out
+Bill Stuffing renamed to Excessive Voucher Out.
+
+405553 - Increase the eligibility timeout duration with ONE LINK to 10 seconds
+
+405554 - Carded Play | nCompass : Bad Poller Packets stucking infinitely in resend list
+- Restricted nCompass to resend bad poller packets to Poller again and again. After certain number of retries, bad packets will be removed from resend list.
+
+405556 - "Access Error, Unable to lock game" appears after pressing Transfer to Game from the PBT Menu.
+This has been resolved by requesting the lock based on the type of PBT being processed.
+
+405557 - Bad Meter Load - Multiple EGM's showing up daily with negative deltas on the PBTPtsPromoDn Meter. Started after nCompass upgrade from 2.3.0.1 to 2.6.2.4.
+- Resolved the issue by correcting the way to calculate meter offsets in CMeters::PersistMeters() method.
+- Also handled side effects of the change to maintain the backword compatibility (offset calculation of player session meters).
+
+405586 - Reflect the electronic transfer mode (AFT/EFT/None) on the ncompass webpage.
+
+405587: Fixes for nCompass issues with wrong PBT PIN entered.
+Fixed an issue where we keep on seeing "PBT in progress" error on mobile nCompass app for 9-10 secs on each PBT PIN re-enter after the first incorrect 
+PIN attempt. Now mobile user will be able to start PBT session immediately on re-entering correct PIN.
+Also fixes 2 more issues:
+- On entering incorrect PIN on mobile app, we will no longer see "Exiting PB feature" message on nCompass, it will show "Incorrect PIN" as desired.
+- On entering incorrect PIN on nCompass, we will no longer see "Exiting PB feature" message and will not send Tx 90 (ReleaseSession) to poller 
+  if we don't enter correct PIN within 30 secs.
+
+409770 - Sometimes for UTJ when player enters pin, nCompass shows invalid pin and shows pin screen again, but credits the amount to meter.
+Changes done to handle the issue:
+- Added check to process UTJ pin enter request based on jackpot state.
+- Added debouncing logic for SW_EVENT_PINPAD_ENTER event.
+
+410721 - Casino - Double Charge on Slot Machine
+Fixed the defect by restricting nCompass for sending multiple authorization requests to poller.
+
+417957 - Default Game name may end up containing invalid characters randomly
+It is now ensured that the string is null terminated so that game name doesn't end up containing invalid characters randomly.
+
+419017 - Remove unnecessary heartbeats logs from FLOOR 
+Heartbeat logs are removed from the FLOOR debug file.
+
+426532 - Unsupported transfer code error shown on nCompass when transfer limit checks fail in the SAS layer
+It is now ensured that we do not end up sending transfer with invalid fields to SAS when transfer limit checks fail in the SAS layer. 
+Also, there was another defect fixed in SAS layer where we were ending up blocking infinitely on deleting CSASPollMessage object 
+which was not queued to the SAS for processing.
+
+428763 - nCompass Shows "Error" message on transfer cash from game when game has only CEP credits and CEP out is disabled
+It is now ensured that we consider only the WAT credits and not CEP credits, as the available amount that can be transfered from the game when CEP out is disabled. This
+will result in transfer cash from game option not being shown on the UI when game has only CEP credits and CEP out is disabled. Also due to this fix, user will now see
+only the actual amount that he can transfer from the game when partial WAT-out feature is enabled and user goes to 'Transfer from game > Cash > Other' screen. 
+
+443574 - nCompass does not show Summary screen when transferring promos from game
+- It is now ensured that we see proper summary screen when transfering promos from game, just like when we click on Cash/All buttons for the transfer.
+- Same behaviour we will also see when cashout to host occurs for only promos due to reasons like no WAT available on EGM.
+- Also removed a redundant 1 sec wait when transfer summary screen is displayed for better UI experience.
+
+447236 - nCompass is crashing while resetting Player pin for new  RCCL player
+We will no longer be accessing deleted PBT session objects in the above said scenario.
+
+448311 MGA | Multi-Game Machines Not Reviewed - EGM's appearing/re-appearing after upgrade to nCompass 2.8.2.6 with blank GameNames
+We now wait for all the game information to be fetched from SAS before sending the 322 message.
+We no longer wait for the 2nd 401 config message before we send the 322 message.
+
+449519 - nCompass appearing offline/online in ONE LINK Event Viewer
+Fixed handling of return value from SendGameEnd to progressive. Updated timestamp to current time for resent messages.
+
+*******************************************************************************************
+Date 12/18/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.9.1
+Built off of 2.9.0
+
+Defects:
+
+459426 - Sentinel Comm (red border) | Up and Down Messages - appearing daily for 15 seconds when nCompass zips Remote Debugging Logs | May cause handpays. Also bad ratings pre-12.11 [12.12]
+- Zipping of logs is now done as a background task.
+- Logs are no longer archived while there is an active session.
+
+459434 - nCompass | Auto Upload Backwards Compatibility (Pre-12.11.6000)
+- Auto Upload is now backwards compatible with environment before 12.11.6000
+- Promo will now auto upload if configured to do so.
+- Cashable credits will not be auto uploaded in environment before 12.11.6000 because the settings expected by nCompass
+  will not come down to the nCompass.
+
+459489 - PBT | Cash Auto Upload | Cash balance is uploading to previous OCR
+- Stored Auto Upload OCR is now deleted on cardin to prevent auto upload of credits to a previous stored OCR.
+- nCompass will no longer auto upload credits when a player does a fast cardin and cardout without waiting for a player response.
+
+*******************************************************************************************
+Date 02/17/2021
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh, Harpreet Virdi
+Version 2.9.2
+Built off of 2.9.1
+
+Stories:
+
+466611 - Auto Load Configuration Split out in 12.11.6000-nCompass
+- nCompass now have separate options for Auto Upload of WAT, CEP and NCEP instead of a single Auto Upload option.
+
+470252  - New configurations for Inactivity Countdown for carded play
+- nCompass now allows for carded play (both physical card and mobile connection) to end faster than the current Oasis CardTimeout setting. 
+- This is needed with the recent creation of the WAT Auto Upload feature to help minimize how long an abandoned player session can stay active.
+
+478657 - Replaced the Good bye with a card out button
+- Replaced "GOODBYE" button with "CARD OUT" button.
+
+Defects:
+
+470501 - nCompass calling google servers
+- Added the following links below to the hosts file to prevent nCompass from calling debian and chrome because it was causing ShellSWF to fail to restart.
+	2.debian.pool.ntp.org
+	accounts.google.com
+	www.gstatic.com
+	safebrowsing.googleapis.com
+
+470502 - Play X Get Y | Progress bar stays at 100% after first trigger (not updating if subsequent minors are configured) | Display Issue Only
+- Excluded all Play X Get Y minors that are at 100%.
+
+470504 - nCompass | NVRAM Corruption - Clearing NVRAM on  nCompass results in several reboots
+- nCompass stopped checking to see if there is an NVRAM corruption when it is set to clear NVRAM.  
+
+470508 - Issue with PIN number for Auto Upload
+- nCompass no longer allows Auto Upload PIN to be used for regular Personal Banker transactions.
+
+470511 -  470511 - Bill Accepted | Bogus Transactions - Appearing in DM after upgrading to nCompass 2.9.x.x on some Sentinels | Requires nCompass NVRAM Clear to address
+The games data is now reset if nCompass cannot find main EGM.  nCompass also now uses game number to determine main game.
+
+473701 - Ratings | bad_statdetail - If an AGS SAS 6.xx EGM reboots during a carded session the rating may go to bad_statdetail. 
+- Issue surfaced because the layout of EGM meters in the NVRAM became bad when doing nCompass upgrade due to defect 405557. Fix for 
+  Defect 405557 ensured that such upgrades will no longer cause bad NVRAM layout. This defect targets to fix the units where NVRAM 
+  layout has already become bad, by eliminating the consecutive duplicate meters written onto the NVRAM.
+- The defect also fixed another issue found which may result in bad meters layout under some specific conditions.
+
+478119 - PBT | Auto Upload - nCompass tries to auto upload cash when cash account is inactive results in cancelled PersonalBanker transaction.
+- nCompass no longer tries to auto upload cash when cash account is inactive.
+- nCompass no longer shows cash inactive message on cardout when WAT out is disabled.
+
+478120 - PBT | Auto Upload  - nCompass gets stucked trying to auto upload cash when card readers incorrectly detects a card insert while player is already carded in and has an active session. 
+- nCompass now ignores a false insert notification from the card reader when there is already an active inserted card to prevent unnecessary auto upload for the same player.
+- A tilt (2838, tltCardRemovedInserted) is sent when this false insert notification from the card reader occurs.
+
+*******************************************************************************************
+Date 04/28/2021
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh, Harpreet Virdi
+Version 2.9.3
+Built off of 2.9.2
+
+Stories:
+
+486837 - Notifications of Machine status when taking meter snapshot while onlining with a high set of subgames
+- When meter capture is in process the nCompass will now display:
+	"This machine will not accept cards during this process. Please do not reboot or play until all meters are captured"
+- When capturing sub-game meters the nCompass will now display a count instead of percentage bar, "Captured 1 of 82 sub-games"
+- If the employee removes their card before the meter capture begins nCompass will now display an alert box 
+	"Card reader disabled. Sub-game capture in progress. (% of games captured). Do not reboot"
+
+Defects:
+
+486704 - MGA | Multi-Game Machines nCompass crashes when EGM has 3000 subgames or higher
+- Stopped using stack memory to hold subgame information to prevent stack overflow.
+- Stopped acquiring the meter mutex while doing meter snapshot to prevent a thread timeout and allow other SAS threads to continue processing.
+- Stopped querying game list info on a scheduled basis.
+- nCompass now shows a warning in the snapshot screen to inform customers not to reboot or play while snapshot is in progress.
+- nCompass now hides the goodbye button while doing meter snapshot.
+- nCompass now shows informative progress information under meter snapshot.
+
+*******************************************************************************************
+Date 09/15/2020
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi
+Version 2.10.0
+Built off of 2.9.0
+
+Stories:
+
+405187 - UI Change to show bus status Online\Offline - Linux version
+ - Passed PollerPacketVersion to SWF.
+ - Updated the employee SWF file to show bus online status (instead of PMT/MMT) based on passed PollerPacketVersion (if >= 14).
+
+405200 - Meter update changes in Messages 304/305 for NFD pollers
+ - Send 304 EGM Meters message every 5 mins with all non-zero valid meters at that time.
+ - Stop sending 304 message with few meters when a single or few meters change.
+ - Send 305 Subgame Meters messages twice a day
+ - Send 305 only for enabled or sometime back played games when talking to NFD pollers
+ - Randomize sending 304/305 so that not all sentinels send at same time
+ - Add new fields to 304/305 when talking to NFD pollers
+ - Ensure full backward compatibility with old pollers.
+
+405201 - Poller load balancing
+ - Perform periodic poller load-balancing reconnect at a fixed time of the day as sent in poller config message.
+ - Perform on-demand poller load-banacing reconnect whenever requested to do so via poller config message.
+ - Deny above load-balancing requests if a carded/uncarded session is in progress at nCompass.
+ - Generate tilts whenever a poller load-balancing reconnect request is accepted/denied.
+ 
+405203 - Remote Configuration Update
+- Added facility to consume PollerIP.txt file pushed via SpeedMedia.
+- On receiving this file, nCompass will connect to the new poller IP address written in the file.
+
+406564 - Boyd - Handle Pulls nCompass
+- Increment the Max Coin Bet meter (meter no. 57) by 1 for each max bet played.
+
+437433 - Consume new UTJ tax withholding settings from FloorLogix
+- Added support for UJP tax withholding setting values.
+
+438546 Tax Withholding Artwork
+
+438554 nCompass has to handle an EGM Credit to Host upon a Jackpot (happy path only)
+
+438574 nCompass to send UTJ results to Oasis for its reporting
+
+438589 - Dynamic association of Promo Game Paytable with SWF
+Added PaytableItemTag as one of the parameters being sent to the Promo Game SWF if the tag is received from OneLink.
+
+438602 - nCompass has to handle an EGM Credit to Host upon a Jackpot (failover scenarios)
+
+439781 - Aliante Media window improvements - Display accessing account screen during data retrieval and when there is no action for the Player to take on account
+ - On clicking Account button, Accessing Account screen will be visible in the left panel instead of buttons till we get response from poller.
+ - For loyalty offline, AccountBalance button wont be visible.
+
+449775 - Updates to send all meters in transactions and cardless session tracking enhancements
+ - Send all non-zero valid meters in transactions for NFD pollers, instead of fixed set of 52 meters as earlier.
+ - Include play session ID and play transaction sequence data in cardless session start/end transactions (Tx 138/139)
+ - Send Tx 127 (Game Session Change) during cardless sessions also for NFD pollers.
+
+456699 - Cardless Session start/end transaction enhancements for HandlePulls
+ - Send 3 extra transaction data fields to the OASIS in Tx 138/139 - Game Number, Denomination, MGMD Available.
+ - Ensure Play Session ID sent in Tx 139 is same as in the corresponding Tx 138 in all cases that generate Tx 139. 
+
+457442 - NFD Enhancements for better EGM and subgame meter updates at OASIS FLM 
+ - Send 305 subgame meters message (for previous game) whenever game changes and any meter for older game is changed.
+ - Add support for a new maintenance mode at nCompass which is started through poller config message and needs to be refreshed every 5 mins by it for continuity
+ - While nCompass is in maintenance mode, send 304 EGM meters message (with in-play subgame meters) at game end.
+ - Ensure that active subgame meters are always re-fetched before we generate game-end event to internals. 
+ - Delay sending meter messages while the game play is in progress.
+
+Defects:
+
+405565 - Ratings | bad_statdetail - If an AGS SAS 6.xx EGM reboots during a carded session the rating may go to bad_statdetail. 
+- Issue surfaced because the layout of EGM meters in the NVRAM became bad when doing nCompass upgrade due to defect 405557. Fix for 
+  Defect 405557 ensured that such upgrades will no longer cause bad NVRAM layout. This defect targets to fix the units where NVRAM 
+  layout has already become bad, by eliminating the consecutive duplicate meters written onto the NVRAM.
+- The defect also fixed another issue found which may result in bad meters layout under some specific conditions.
+
+441230 - Media Window resort is blank after a shell swf restart while media window is open.
+- Resort screen is now properly set when ShellSWF restarts while media window is open.
+- Previously, nCompass was using the wrong flag to check whether Resort screen needed to be set.  It now uses a flag in NVRAM to check if Media window was open before the ShellSWF restart.
+
+450301 - nCompass | Auto Upload Backwards Compatibility (Pre-12.11.6000)
+- Auto Upload is now backwards compatible with environment before 12.11.6000
+- Promo will now auto upload if configured to do so.
+- Cashable credits will not be auto uploaded in environment before 12.11.6000 because the settings expected by nCompass
+  will not come down to the nCompass.
+
+456765 - Sentinel Comm (red border) | Up and Down Messages - appearing daily for 15 seconds when nCompass zips Remote Debugging Logs | May cause handpays. Also bad ratings pre-12.11 [12.12]
+- Zipping of logs is now done as a background task.
+- Logs are no longer archived while there is an active session.
+
+457859 - SpeedMedia Settings | Multicast IPs and Ports - Not updating when sending config.txt Linux | Have to change SpeedMedia Multicast IPs and Ports manually. Windows works
+- Corrected the logic to read the config file.
+
+456757 - Serial Comm (yellow border) | Up and Down Messages - appearing on coin older IGT SAS 3.xx games | Transcode 91 and 102
+- Created different stepdowns for SAS 3 and SAS 4.
+
+459581 - PBT | Cash Auto Upload | Cash balance is uploading to previous OCR
+- Stored Auto Upload OCR is now deleted on cardin to prevent auto upload of credits to a previous stored OCR.
+- nCompass will no longer auto upload credits when a player does a fast cardin and cardout without waiting for a player response.
+
+464296 - Reboots | Linux on Lite (LoL) - Crashes after drop if floor network has internet access | Internet must be disabled on Floor Network
+- Added the following links below to the hosts file to prevent nCompass from calling debian and chrome because it was causing ShellSWF to fail to restart.
+	2.debian.pool.ntp.org
+	accounts.google.com
+	www.gstatic.com
+	safebrowsing.googleapis.com
+
+466514 - Play X Get Y | Progress bar stays at 100% after first trigger (not updating if subsequent minors are configured) | Display Issue Only
+- Excluded all Play X Get Y minors that are at 100%.
+
+469065 - nCompass | NVRAM Corruption - Clearing NVRAM on  nCompass results in several reboots
+- nCompass stopped checking to see if there is an NVRAM corruption when it is set to clear NVRAM.  
+
+469635 - Issue with PIN number for Auto Upload
+- nCompass no longer allows Auto Upload PIN to be used for regular Personal Banker transactions.
+
+*******************************************************************************************
+Date 03/29/2021
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi, Tedd Vernaz
+Version 2.10.1
+Built off of 2.10.0
+
+Stories:
+
+466612 - Auto Load Configuration Split out in 12.12.1000 MR1-nCompass
+- nCompass now have separate options for Auto Upload of WAT, CEP and NCEP instead of a single Auto Upload option.
+
+476391 - Reboots | nCompass (Linux) - Crashes when the Enable ONE LINK Sentinel Option is enabled after downloading a new skin or machine taken out of Quarantine
+- Removed the unnecessary semaphore which was getting stuck and was rebooting the nCompass.
+- Implemented logic to ignore the downloading of duplicate content from One Link.
+
+476737 - New configurations for Inactivity Countdown for carded play
+- nCompass now allows for carded play (both physical card and mobile connection) to end faster than the current Oasis CardTimeout setting. 
+- This is needed with the recent creation of the WAT Auto Upload feature to help minimize how long an abandoned player session can stay active.
+
+479265 - Replaced the Good bye with a card out button
+- Replaced "GOODBYE" button with "CARD OUT" button.
+
+487541 - PBI487541 - Additional diagnostics web page for options and settings of the nCompass
+- Added Global and Sentinel options JSON data to the diagnostic page "Options and Settings" (OptionsAndSettings.html)
+
+487817 - Notifications of Machine status when taking meter snapshot while onlining with a high set of subgames
+- When meter capture is in process the nCompass will now display:
+	"This machine will not accept cards during this process. Please do not reboot or play until all meters are captured"
+- When capturing sub-game meters the nCompass will now display a count instead of percentage bar, "Captured 1 of 82 sub-games"
+- If the employee removes their card before the meter capture begins nCompass will now display an alert box 
+	"Card reader disabled. Sub-game capture in progress. (% of games captured). Do not reboot"
+
+Defects:
+
+476742 - Bill Accepted | Bogus Transactions - Appearing in DM after upgrading to nCompass 2.9.x.x on some Sentinels | Requires nCompass NVRAM Clear to address
+The games data is now reset if nCompass cannot find main EGM.  nCompass also now uses game number to determine main game.
+
+479261 - PBT | Auto Upload - nCompass tries to auto upload cash when cash account is inactive results in cancelled PersonalBanker transaction.
+- nCompass no longer tries to auto upload cash when cash account is inactive.
+- nCompass no longer shows cash inactive message on cardout when WAT out is disabled.
+
+479263 - PBT | Auto Upload  - nCompass gets stuck trying to auto upload cash when a card reader incorrectly detects a card insert while player is already carded in and has an active session.
+- nCompass now ignores a false insert notification from the card reader when there is already an active inserted card to prevent unnecessary auto upload for the same player.
+- A tilt (2838, tltCardRemovedInserted) is sent when this false insert notification from the card reader occurs.
+
+480492 - nCompass is not setting the External Credit To Game bit of the SentinelFeatureFlag in the Sentinel Status message
+- nCompass is now setting FF_EXTERNAL_CREDIT_TO_GAME of the Sentinel Feature Flag in the Sentinel Status message.
+
+476424 - Handle edge cases with non-NFD/NFD mode of nCompass
+nCompass will now be able to properly deal with edge cases where we may be ending up sending non-NFD format messages to NFD poller and vice-versa
+- nCompass now caches the flag indicating whether its talking to NFD or non-NFD poller in NVRAM and will use that to generate messages after reboot until 
+  it receives a message from poller telling about poller version. Earlier due to this we may have seen few EGM meters like [Meter # 85 CashPromoPlayed] 
+  and [Meter # 11 PBT Promo Down] hitting 0 for few seconds at reboot when talking to NFD poller.
+- nCompass now discards updating the internally tracked packet version of the poller on receiving a corrupted packet. Earlier due to this we may have seen
+  bad entries in FLM Subgames table when working with non-NFD poller, or absence of EGM meter updates until we receive a good packet from poller.
+
+476426 - MGA | Sub-Game meters - Disabled games which have positive meter values(Coin In>0), will not have updated meter values on FLM
+nCompass now properly sends [305 Subgame Meters] message for disabled games which have positive meter values (Coin In>0) also at twice-a-day frequency.
+Earlier it was only sending these 305 messages for the enabled games.
+ 
+476428 - MGA | ManufacturerID - Shown as “G” instead of "GK" in the meterdropsubgame table | Does not appear to affect functionality
+nCompass now properly handles sending ManufacturerId/paytable/AdditionalID fields in Tx 122 (Subgame Snapshot). Earlier these fields 
+may have 1-character truncation done onto them. 
+
+476439 - Load Balancing | Sentinel Comm Down - Red border appearing for 30 seconds or more when load balancing with bad node
+TCP/IP connect call timeout has been reduced from 30 secs to 5 secs so that we do not end up stucking that long to attempt connecting to a bad poller if chosen by NLB.
+
+479646 - UTJ | Tax Withholding - Tax withholdings are failing if over the WAT OUT limit
+- nCompass no longer uses WAT out limit when applying tax withholding.
+
+476765 - UTJ | Tax Withholdings - All credits removed from EGM when Tax Rate is set to 0 for both State and Federal
+- nCompass now checks to make sure that at least either the State or Federal tax rate is greater than 0 when applying tax deduction.
+
+481077 - UTJ | Progressive Jackpots - UTJ tax withholding feature is removing all credits as state tax when a progressive jackpot is part of the handpay amount
+- nCompass no longer interrupts Tax Withholding process when progressive hopper paid jackpot info comes down via SAS.  nCompass no longer persists the progressive jackpot
+  object because it never requires tax deduction but nCompass still sends the progressive jackpot info to FloorLogix.
+
+483370 - PBT | Auto Upload - Stuck at Validating PIN when cancelling PBT transaction via mechanic screen
+- nCompass is now deleting previous PBT session on successful cardin.  
+- The Cancel PBT transaction via mechanic screen is now preventing Auto Upload to restart again.
+
+484083 - MGA | Multi-Game Machines nCompass crashes when EGM has 3000 subgames or higher
+- Stopped using stack memory to hold subgame information to prevent stack overflow.
+- Stopped acquiring the meter mutex while doing meter snapshot to prevent a thread timeout and allow other SAS threads to continue processing.
+- Stopped querying game list info on a scheduled basis.
+- nCompass now shows a warning in the snapshot screen to inform customers not to reboot or play while snapshot is in progress.
+- nCompass now hides the goodbye button while doing meter snapshot.
+- nCompass now shows informative progress information under meter snapshot.
+
+487850 - PBT Auto Upload | PBT Pending - Room Charge button panels are sometimes shown over the global card when trying to cancel PBT pending
+- Stopped sending PBT result to the UI when PBT Auto Upload is pending because this was causing Room Carge screen to come up.
+
+489642 - Ticketing | Locked Tickets - Clear locked tickets from nvram automatically if egm does not respond properly to allow egm to accept additional tickets without NVRAM clear
+- If the EGM does not respond with a valid response for the pending ticket, nCompass now clears the ticket from NVRAM so we can accept new tickets but do not send a final status to FloorLogix.
+- nCompass now sends a new tilt (2839-Final Ticket In Status Not Rcvd) indicating a locked ticket was cleared from NVRAM. this is so we can easily identify trouble machines. 
+
+489923 - Load Balancing | FloorService Load Balancing - Increase Load Balancing time from 10 - 60 minutes
+- Increased load balancing time from 10 to 60 minutes.
+- nCompass will no longer auto upload credits when a player does a fast cardin and cardout without waiting for a player response.
+
+*******************************************************************************************
+Date 06/08/2021
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi, Tedd Vernaz
+Version 2.10.2
+Built off of 2.10.1
+
+Stories:
+
+None
+
+Defects:
+
+494392 - Serial Comm (yellow border) | Up and Down Messages - appearing on EGMs that report the wrong number of subgames | WMS BlueBird I's mostly
+- Subgame is now deleted from the list of subgames if it fails 3 consecutive LP53 with a successful LP1A in between them.
+- A tilt (298, tltSubgameCountMismatch) is sent when a game reports the wrong number of subgames.
+- An extensible setting NumberOfSubgamesMismatchCheck (defaulted to 50) is added,  we use this value to check if we need to apply this new logic of deleting invalid subgame.
+
+468955 - Missing Tx 138 with respect to Tx 139, potentially filling RT_BadTx 
+- We are no longer mistakenly setting cardless session indicator and timers at game end now when the game starts 
+  during active player session but card-out is already done by the time the game ends.
+  
+515222 - Flashing | LoL - Rebooting (2304's and 2314's) before completion. Flash fails
+- Increased the watchdog timeout from 5 seconds to 122 seconds while unpacking the OS upgrade files.
+
+*******************************************************************************************
+Date 02/12/2021
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi
+Version 2.11.0
+Built off of 2.10.1.2
+
+Stories:
+
+453024 - nCompass - Display information about all dynamic extended buckets at nCompass.
+ - Added "More Balances" Button on Account Balance screen, if dynamic Extended Buckets are available.
+ - Launching SWF on click of More Balances button, to display dynamic extended bucket details.
+ - SM skinning support for More Balances SWF.
+
+455158 - Update session points/countdown tracking for applicable extended buckets based on subgame theme
+ - Refreshed the session points & countdowns on game change.
+
+491969 - nCompass Debug Enhancements
+ - Added UI access via chrome using port 9222 (localhost:9222).
+ - Added of SlotMastId as the title of the main diagnostic web pages
+ - Enabled daily archived logs for LITE units
+ - Formatted Options and Settings page for better readability. 
+
+493194 - nCompass - Display session points/countdown tracking for applicable extended buckets
+ - Round-robin displaying of session points & countdowns for extended buckets applicable for current subgame.
+ - Countdown display refresh interval can be changed via extensible system settings.
+ - Updating of session points & countdown data on game play.
+ - Standard names will be displayed for legacy buckets.
+ - Extended buckets information displayed in WebDiagnostics page under PlayerInfo.
+
+494560 - Start a new session on nCompass Reboot
+ - On reboot, always end the session if it exist in NVRAM.
+ - Removed the usage of NVRAM for session points/countdown tracking since we will no longer be resuming the session across reboots.
+
+565798  - nCompass Debug Enhancements
+- Added tltArchivingLogsDeniedAlreadyInProgress, tltArchivingLogsDeniedRemoteDebuggingDisabled, tltArchivingLogsFailedNoDisk and tltArchivingLogsFailedNoDiskSpace
+- Added combined upgrade zip file
+- Removed Download Logs button
+
+560613 - Ability to skin display information for dynamic extended buckets at nCompass.
+- Added the ability to change text colors of UJP and Extended bucket SWFs.
+- Modified Exteded Bucket SWF to sort bucket list alphabetically.
+
+562810 - Implement OS updates to support new chip on PT-206 - nCompass 2.11
+Added support for new Risintech touchscreens to all sentinel versions.
+
+563554 - Archiving logs at nCompass upon request from FloorLogix Manager
+- Added support for on-demand log archiving via extensible system settings.
+- Tilt will be generated if archiving request is denied by nCompass.
+
+Defects:
+
+413257 SAS.5xx EGMs - Not appearing after Meter Snapshot  || Bad Meter Load | SAS.5xx EGMs - Prior Meter = 0. Occurs if Coin In Meter < NCEP In Meter (after coin in rolls at 99999999)
+- Setting Non NCEP Played meter to 0 when coin in meter is less than NCEP Played indicating coin in has rolled over.
+
+468983 - Account Balances>> Cash value of Points is displayed as trimmed if “DisplayPoints=Y” on Administrator>>Setup>>FloorLogix>>Options
+- Increased label width to display complete text.
+
+468985 - Meter 91 doesn’t increment when Non NCEP is played/ not being written in NVRAM, this is also not working on Old floor and 2.8.1.5. and not consumed by Oasis
+- Removed unwanted condition to fix the meter 91 not updating issue.
+
+547410  - Reboots | ONE LINK – nCompass crashes after 10 minutes if connected to ONE LINK, but ONE LINK does not respond to calls | Exception 2314 – Thread Timeout
+- Set a 60 second timeout on the ActiveMQ connect call
+- Update ActiveMQ from v3.9.4 to v3.9.5 to support connect call timeout.
+
+548909 - Mobile nCompass | Floor Service showing Disconnected when nCompass loses comm with the Floor Service under certain conditions  and after 2313 reboot exception | Requires reboot to fix 
+- Register the connection thread
+- Set a 60 second timeout on the ActiveMQ connect call
+- Update ActiveMQ from v3.9.4 to v3.9.5 to support connect call timeout.
+
+550259 - PBT | Auto Upload - Not working on some games. Settings not making it down unless nCompass is rebooted | Affects Auto Card Out as well [nCompass]
+- nCompass now sends a request for configuration every time it connects with FloorLogix.
+
+551364 - PBT | Cashout to PBT - Difficult to troubleshoot without seeing when the cashout button was pressed
+- Send Tx 94 (Composite Tilt transaction) with a new Tilt code 2840 whenever cashout button is pressed
+
+551366 - Card In | Delays - nCompass Poller Protocol Check Packet errors causing delays in player response messages
+- Transaction messages will now always be sent to poller regardless of poller packet check result.
+
+552029 - Ratings | Sub-Game Point Calcs: Info being sent when Global MGMD is On & Sentinel MGMD is OFF
+- Added sentinel MGMD related check before sending 323 message.
+
+552880 - Ratings | Sub-Game Point Calcs: Tx 127 being sent un-necessarily when Global MGMD is ON and Sentinel MGMD is OFF
+- Stopped sending Tx 127 when Sentinel MGMD is OFF or MGMD not supported at EGM level 
+
+553330 - OneLink | nCompass is sending RemoteJackpotId -1 and Amount 0 in the JackpotPaid message
+nCompass is now setting RemoteJackpotId and Amount before sending JackpotPaid messages for Standard Progressives.
+
+553337 - OneLink | nCompass is sending double JackpotPaid messages
+- nCompass is only doing HandPay reset processing for a jackpot which goes to a handpay pending. Previously, we did it for even Standard progressive which didn't go into handpay pending
+  and this caused it to send double JackpotPaid messages.
+
+553344 - Reboots | nCompass 2.9.3.2/2.10.2.1 - Crashes when installed on the 12.10 Suite | Only happens on some games (Everi)
+nCompass now prevents game list chunk size from being set to zero when game is taking longer to determine implemented games count.
+
+553597 - PBT | WAT Auto Upload - Shows "checking for uploadable credits" screen when nCompass reboots with WAT on the EGM and WAT Auto upload enabled
+- nCompass will no longer stop the auto upload process prematurely and will now properly take down the "checking for uploadable credits"
+- Promos will now be auto uploaded across reboots.
+
+553800  - DOT | Skins - Do you want to request a server appears after nCompass upgrade when Drinks button is pressed. User should see Drink List and Request Server options | Need to update default skins
+- Update swf_custom2a.swf (DrinkRequest_Default_Bottom-6.0.25) and swf_custom2a_side.swf (DrinkRequest_Default_Side-6.0.25.swf)
+
+554228 - Tax Withdrawal Occurs Too Quickly
+- Do general poll before transferring tax off game to allow active PBT to be completed.
+
+558099 - Sentinel Comm (red border) | Appearing after Load Balancing if first reconnect attempt fails. nCompass does reconnect on next attempt, but still shows red border until it is rebooted.
+- Clear load balancing flag after the first reconnet attempt to allow nCompass to set and send the proper status after a successful reconnect.
+
+558103 - MGA | Floor Configuration - Status changes not appearing after enabling/disabling subgames unless the Sentinel is rebooted II | Shows fixed in 2.8.1.5 but broke in 2.11.x.x
+- nCompass now clears previously acquired information for all subgames when GPE options change is detected.  Subgame status info retrieval is now performed for all implemented subgames.
+
+558107 - MGA | Floor Configuration - Sub-game info may not appear for new/converted EGMs until NVRAM is cleared on nCompass
+- nCompass will now sync the enabled games reported by SAS with what is stored in NVRAM at startup.
+- Send a tilt tltEnabledSubGameCountChanged(2846) indicating enabled sub-game count does not match NVRAM.
+
+560285 - RT_BadTx | Un-carded Sessions - Appearing with ...No previous associated transaction found for the UncardedData transaction | TxCode 139 missing 138
+- We are now resetting a flag used to track the triggering of cardless session end when card-in occurs during a game in progress, thereby  
+  preventing generation of a redundant Tx 139 (Cardless Session End).
+  
+560609  - ONE LINK | Winner Picked - Screen replaced by UTJ Teaser Screen
+- Adjust the priority of the UTJ teaser screens to be lower than Winner Picked screen.
+
+561099 - Reboots | LoL - 2314's appearing randomly when RTC is off | Check Startup Time in StatusDump webpage to validate
+- Persists current time right before rebooting nCompass in NVRAM.
+- Prevents unscheduled SWF restarts when RTC is not functioning on a LITE device.
+- Delete chrome temporary files before starting the UI.  This fixes the intermittent issue starting the UI.
+- Logs are no longer deleted prematurely when the LITEs come up with time that is older than 7 days old.
+
+563854 - Mobile nCompass | PBT already in progress displayed after a player enters their PIN if the previous transaction was a UTJ with Tax Withholdings 
+- Do not set PBT in progress flag for UTJ.
+
+563866 - Celebration Screens (Anniversary, Birthday and Congrats) | Does not disappear after earning a point until card out. Should disappear in 3 seconds.
+Change the display time from unlimited to 3 seconds.
+
+564296  - Reboots | nCompass (Linux) - Crashes when doing Tax deduction on an EGM having comms issue (not easily reproducible)
+Make the lock objects acquisition in a consistent order.
+
+564301 - Reboots | nCompass (Linux) - New units may constantly reboot when powering up the first time | Requires CLEAR_MEMORY file to resolve
+Added CLEAR_MEMORY to PT etcher image.
+
+565088 - Reboot | nCompass gets crashed when sentinel ip is changed while onelink was enabled and SAS was down
+- Added proper null check for games object before trying to send ICardConfigurationRequest message to Onelink
+
+565641 - Ratings | Suspended Ratings - Not generated when sub-game point calcs are used | Bypassing max card in rule and appearing as good
+- Send MaxCardLimitReached flag in Tx 127 so that suspended ratings would be generated at game change when MaxCardLimit has been reached.
+
+567460 - Webpage | StatusDump - Add Touchscreen Type so we can determine if the unit has the proper OS installed, send a tilt if incorrect OS is installed.
+- Added Touchscreen Type to the Status Dump
+- If touch screen does not work with the current OS, a tilt 2845 will be sent up.
+
+567814 - Promotions | Points Earned Triggers - Players may not be awarded when reaching Points Earned Trigger if carding out as soon as Sentinel shows a Session Point was earned | Play 'n Win
+- Update SpeedMedia whenever a session point is earned not just at game end.
+
+568317 - IP Address | FLM: Machine Details - Shows old IP when lease expires until next reboot. Casino expires leases daily | Makes accessing Remote Debugs difficult 
+- Ensure that 303 message is sent to poller with new IP address whenever an IP change is detected at nCompass.
+
+568529 - Mobile | Connect SWF is never displayed after IIS restart until nCompass is rebooted 
+- nCompass will now resend the request for pairing settings if pairing settings event is not received after 5 minutes.
+
+569349 - Auto Card Out | Timer - Not resetting after inserting bill/ticket during countdown when Credit Meter > 0. Player then automatically carded out when timer expires.
+- nCompass will now reset the auto card out timer when a player inserts bill/ticket even when the credit meter is non-zero to start with.
+
+569381 - Skins | GOODBYE/CARD OUT Button - Casinos cannot disable in the My Account section for non-Mobile/non-RFID properties. Players misusing resulting in unintended Auto Uploads. 
+- nCompass will now hide GOODBYE/CARD OUT Button when a physical card is inserted.
+
+569403 - UTJ | SWF is not displayed to show an error message on nCompass when UTJ cannot be performed due to insufficient info, virtual player, egm not capable and jackpot above limit.
+- nCompass will now show the error messages for the following scenarios:  insufficient info, virtual player, egm not capable and jackpot above limit.
+
+*******************************************************************************************
+Date 01/18/2022
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi
+Version 2.11.1
+Built off of 2.11.0.1
+
+Stories:
+
+None.
+
+Defects:
+
+576293 - PBT | Auto Upload - Cash balance coming off EGM, but not crediting players account if FloorLogix responses are delayed (twice in 30 days at Belterra) | Unexpected AFT Transaction from game in DM
+Personal Banker session request message is no longer added to the resend list so that it is no longer being sent multiple times.  
+Previously, the sending of session request multiple times was causing the Unexpected AFT Transaction message to be sent to FloorLogix.
+
+576305  - PBT | Auto Upload - Cash upload to host account rolled back... errors in DM when player cards out then cashes out, continues playing, or inserts bill/ticket 
+Auto Upload is now delayed for configurable number of seconds (5 by default).  nCompass will now display checking for uploadable credits and not immediately start auto upload.
+It can be cancelled by cash out, ticket out, bill insert and game play.
+
+577809 - Promotions | Coin In Triggers - Players may not be awarded when reaching the Coin In Trigger if any sessions resulted in the player carding out in the 'middle' of a game  | Play 'n Win
+- nCompass no longer resets SpeedMedia counters when a player goes into a virtual session. 
+- nCompass no longer send a cardin to SpeedMedia for a virtual cardin or cardout to SpeedMedia when a player is about to go into a virtual session.
+
+*******************************************************************************************
+Date 04/17/2022
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi
+Version 2.11.2
+Built off of 2.11.1.2
+
+Stories:
+
+587118 - Custom odometer on Campaign\Marketing playlist area -Boyd - LCD only
+- Added an extensible setting "DisplayBonusCounterInAttractor" to display bonusing counter in the attractor area.
+- Added config change type (ccDisplayBonusCounterInAttractor, 1072)
+- Update LCDMedia SMDs
+
+589462 - Add an Exit option on Account, Resort, Promo and Bonus listing screens
+- Added an exit button on Account, Resort, Promo and Services screens.
+
+Defects:
+
+587510 - PBT | Downloads - Points/Promo In can be deducted from the player's acct and not make it to the EGM if timing is off on PBT Lock Check | Rebooting nCompass credits players account 
+- Prevent repeated PBT lock checks when waiting for pending lock to complete.
+
+587511 - Logging | nCompass: Corrupt Packets - Causing issues such as PBT and UTJ transactions 'failing'. Need to log when corrupt packet is detected to assist in troubleshooting/identifying root cause.
+- A tilt (2847, tltBadPacketReceivedFromPoller) is now being sent whenever an unknown message is received from the Poller.
+
+587535 - ONE LINK | Bonus Method - Request to add to StatusDump webpage for prep and troubleshooting purposes | AFT, Legacy, None
+- Added bonus payment method to the StatusDump page.
+
+*******************************************************************************************
+Date 05/17/2022
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi
+Version 2.11.3
+Built off of 2.11.2.3
+
+Stories: 
+
+581804 - Add RTL8211E ethernet driver support on Yocto PT (Flash) OS
+- Added support for RTL8211E ethernet on models 101395 8211E F446 and 101395-SLB 8211E F446.
+
+598999 - Add a confirmation screen over UTJ screens for calling attendant (for all screens/flows)
+- Added a confirmation screen over UTJ screens for calling attendant (for all screens/flows)
+- Added Unattended Jackpot Confirmation group in skinning.
+
+Defects:
+
+571960  - RT_BadTx | Card Out - Failed transactions appearing with "...Reason : No previous associated transaction found for this rating transaction." when a card in has been processed
+- Ignore a time update which less than 10 seconds in difference.
+
+597393 - PBT | WAT Out - Cash removed from EGM but not credited to player's account when player presses the Cash button multiple times quickly on the From Game menu | Unexpected AFT Transaction from game
+- Now ignoring repeated button presses. Also displaying "Please Wait" popup when PBT Probe lock is attempted to reduce likelihood.
+- Updated ServiceWindow_Shell.swf to version 2.00.58.swf to ignore rapid button presses.
+
+598411 - Virtual Sessions | User does not have an easy way to detect virtual sessions. Also creates two ratings when it could be one. | Add Virtual Session Started transaction
+-  Stop carding out and carding in a player if it is going virtual, send a new transaction 149 if a player is going virtual.
+
+599544 - Logging | Player PINs are displayed in the PBT, SWFLOG, FLOOR, SERVICEWINDOW and SERVICEWINDOWDATA logs in the remote debugging log files.
+- Removed PIN data out of the PBT, SWFLOG, FLOOR, SERVICEWINDOW and SERVICEWINDOWDATA logs.
+
+599546 - Reboots | Occurring after the drop (2318 - UI Restart Failed) on a daily basis | Please revisit how often we need to automatically restart the UI
+- nCompass will now check memory threshold values to determine if nCompass needs to restart the UI. nCompass will only restart the UI once a day. 
+	1. If available physical memory is less than or equal to the ui restart after drop threshold (225mb by default) then restart UI after the drop.
+	2. If available physical memory is less than or equal to the ui restart ASAP threshold (175mb by default) then restart UI ASAP.
+- Added config change types:
+	ccRebootAsapThresholdInMb = 1073,
+	ccRebootWarningThresholdMb = 1074,
+	ccRestartUIAsapThresholdMb = 1075,
+	ccRestartUIAfterDropThresholdMb = 1076,
+	ccRestartUIDelayHours = 1077,
+
+600857 - UTJ | UTJ Result - Shows "UTJ Cancelled - Account Locked" for 'all' failures when you right-click Trx ID 126 in DM. This is misleading and makes it difficult to troubleshoot.
+- Added more jackpot status codes in order to differentiate between reasons for cancellations.
+
+602437 - ONE LINK | Not participating... message displayed on a number of games (EGMs that report 0 subgames)
+- Sends main EGM when there are no subgames implemented.
+
+602836 - Personalbanker | PBT is not clearing lock request - users are not able to perform PBT if the lock check is not cleared
+- Added code to reset PBT lock pending state as part of PBT Session Release process.
+
+604110 - ONE LINK | nCompass filling up AppServer Logs with bogus "CoinIn received from device..." messages after SAS comms re-established. Sent after 'every' spin; Coin In counts though. 
+- Send the up-to-date finished offline pass flag so we can properly determine whether we need to send offline coinin messages. 
+
+604170 - Reports | Custom Choctaw: Voucher Out Comparison Report - Showing variances after upgrading to 12.14 when tickets are printed 5 min before rollover
+- Include cancel credit when reading ticket meters.
+
+604172  - Bart: Voucher Out Variance - Showing variances after upgrading to 12.14 when tickets are printed up to 5 min before rollover if... [nCompass]
+- Send EGM meters update right after a ticket out.
+
+606908 - Reports | BlackBart: Bill Ins Meter Comparison - Showing variances after upgrading to 12.14 when bills are inserted up to 5 min before rollover if...
+- Poll for meter bill drop credits when a bill is inserted.
+
+606918 - Reports | BlackBart: Voucher In Meters Comparison - Showing variances after upgrading to 12.14 when transfers occur up to 5 min before rollover if...
+- Poll for ticket meters when final ticket status is complete.
+
+606925 - Reports | BlackBart: NCEP In Meters Comparison - Showing variances after upgrading to 12.14 when transfers occur up to 5 min before rollover if...
+- Read PBT meters after performing a PBT transfer.
+
+*******************************************************************************************
+Date 12/06/2021
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi, Tedd Vernaz
+Version 15.0.0
+Built off of 2.11.4.4
+
+Stories:
+
+557688 - Wallet 2.0: Propagate error notifications arising at nCompass to Mobile App, when unable to move leftover cash from earlier casino to the current casino
+- Handled sending of cashout errors to Floor Service via PlayerSessionChangeEvent.
+- Added flag in FundsTransferBalanceEvent to indicate whether leftover cash movement from earlier casino has failed or not.
+- Cash balance and limit are shared as 0 with mobile app for older PDS.
+
+557700 - Wallet 2.0: Handle error scenarios at nCompass when unable to move leftover cash from earlier casino to the current casino
+- Handled error scenario when unable to move leftover cash for PBT start, Cashout to PBT and Auto Upload.
+- Made error messages skinnable.
+
+557714 - Wallet 2.0: Ensure uniform handling of CashoutToPBT and AutoUpload related errors at nCompass
+- Handled Cashout to PBT and auto upload error scenarios.
+- Made error messages skinnable.
+
+569566 - Wallet 2.0: Enable OASIS to provide expected wallet enrolled player's functionality on old and new nCompass units
+- Added Wallet 2.0 support in feature flags in 301 and 303 messages.
+- Consumed Wallet 2.0 enabled flag from 411 messages and added the same in web diagnostics page.
+- Web diagnostics page will also display whether we were able to move funds from other casino during PBT or not. This information is available via 415 message.
+
+587177 - Wallet 2.0: Ensure consistent messaging for AutoUpload related errors at nCompass
+- Updated the auto upload error messages.
+
+635404 - Update default error messages for wallet over nCompass
+- Updated the error texts in LCD and MW XMLs and updated SMDs accordingly.
+- Made auto-upload error display similar format to cashout error display format.
+
+Defects:
+
+405595 - PB session should be ended once user clicks on Back button or cancel button on Mobile app
+- Consumed session.request.endPbtSession from FS to release the personal banker session and sent session.event.endPbtSession in response.
+- On personal banker session timeout, nCompass will send session.event.endPbtSession to FS to indicate the session release.
+
+571035 - IP Address | Linux on Lite (LoL) - Requests for a new IP address at bootup sometimes even though its lease is not expired
+- Updated linux-image-builder with security updates, DHCP fix and improved service startup ordering.
+
+572747 - OS Card | nCompass does not allocate the whole available hard drive space for cards larger than 8GB
+- Remove the pre-created data partition from the image files and create it at boot instead (so it can fill all available free space)
+
+546948 - nCompass to automatically send  Progressive (protocol) ID on ICardConfig
+- Adding progressive IDs to ICardConfiguration5 messages.
+
+597387 - nCompass unable to online until reboot - nCompass is unable to online with ONELINK
+- Add a retry when B5 or B0B5 long poll fails. Send tilt when retry fails.
+
+613884  - Reports | System to Actual and Meters Comparison - Showing variances after upgrading to 12.14 when a transaction occurs up to 5 min before rollover if... [nCompass]
+- nCompass now performs snapshot (MachineRollover=13) at specified time set by OASIS.
+
+616144  - Sentinels Screen | Skins - "Default Skins" incorrectly appearing as the Skin Name on the Sentinels screen after an nCompass reboot on occasion | Fixes self within an hour
+- UI is now started before SpeedMedia.
+
+616145  - Current Notebook | Transactions - Global Card appearing for all transactions after rebooting nCompass with a Global Card | Inserting and removing any card resolves
+- nCompass will now clear last card id from NVRAM if it is an employee card at startup.
+
+617092 - ONE LINK | Celebration screen is disappearing before the Jackpot Stream Time duration setting after upgrading to nCompass 2.11 | Duration ignored when odometer displayed in campaign area and swap/retire schedule used
+- Do not switch to Ad Loop when a bonus level is set to retire on hit if a celebration is curently being displayed.
+
+618514 - Webpage | StatusDump - Add "Total Number of Subgames Enabled:" to assist in troubleshooting MGMD issues and also MGMD planning 
+- Added "Total Number of Subgames Enabled:" to the Status dump page.
+
+618515 - Webpage | StatusDump - Add "Online Status:" to assist in troubleshooting ticketing issues | EGM goes into handpay if machine move is not completed
+- Added "Online Status:" to the Status dump page.
+
+618518 - Ticketing | Vouchers not redeemable at EGM or Cage for up to 15 minutes after they are printed. Delays continued to increase until Poller Clients were restarted. | [nCompass - No TI resends on timeout]
+- Send TicketInRejectedDueToSystemTimeout (2848) tilt instead of resending ticket transactions with action codes 2 and 53.
+- Added "TicketInResend" to the extensible settings the ability to be able to resend action codes 2 and 53.
+
+623931 - ONE LINK | Progressive Down - Appearing on EGM until nCompass is rebooted on occasion. The EGM is unplayable until after the reboot.
+- Perform a disconnect/reconnect when multicast socket fails.
+- Added "Last failed Multicast Timestamp:"  and "Failed Multicast Count:" to the Progressive web page.
+
+626881 - Reboots | After upgrading to nCompass 2.11.3.5, nCompass reboots every 24.8 days if the Shell SWF did not restart on it's own | Reboot - UI Restart Failed 2318
+- Added an extensible setting 'RestartUIAfterxDays' and defaulted to 16 days.
+- This is value is used to check if UI needs to be restarted after the drop.  The UI will restart after the drop regardless of any other checks if the UI hasn't restarted 
+  since 'RestartUIAfterxDays' number of days.
+
+627912  - Reports | BlackBart: Bill In Meters Comparison - Showing variances after upgrading to nCompass 2.11.3.5 at pre-12.14 properties when bills are inserted up to 60 min before rollover on non-drop days if...
+- Set meter bill credits (28) changed flag set to true when any bill is accepted so it is sent as one of the meter in the 304 message.
+
+627918 - Reboots | PIN Reset (RCCL) - nCompass reboots after a player resets their PIN then opens a PBT Session within 30 seconds | Reboot exception 2313
+- Keep the Pin Reset success screen up until personal banker response comes back so that the customer cannot start another personal banker session while one is already in progress.
+
+628921 - ONE LINK | Progressives not incrementing and eligible players not eligible for bonus events on some games.
+- Clean up corrupted resend list items.
+
+629160 - ONE LINK | NTP - EGMs appearing with orange link status indicators (NtpOffline) on the Slots > Slot Machines tab in ONE LINK after upgrading to nCompass 2.11.3.5
+- Apply the time update if there is no player and the time difference is greater than 5 seconds.
+
+634699 - Skins | Home/Exit/Back button placement is not consistent in the Account, Resort, Custom1x and Custom2x screens when using custom skins
+- Made the place of Home/Exit/Back buttons consistent in the Account, Resort, Custom1x and Custom2x screens.
+
+634713 - Card In | Bezel changes color but display does not change when a card is inserted if nCompass cannot reach ONE LINK or the Mobile Connect Floor Service after an nCompass reboot (if using DNS to connect)
+- Update the last connect attempt time stamp even for an empty URL returned by nslookup.
+
+634875 - Virtual Sessions | Player Card Out transactions associated with Virtual Sessions showing on Buffer Delays 'Report'
+- Use time at card out for Player Card Out transactions instead of virtual start time.
+
+635046  - Mechanic Card | Network Information page is missing DNS/domain information, which is useful for troubleshooting purposes.
+- Added "Domain" to OptionsAndSettings.html page
+- Added "Domain" to Mechanic Card: Network Information page
+- Upgraded swf_employee to version 176.
+
+635275  - Ticketing | EGMs going into handpay when player cashes out. On occasion, nCompass is losing comm with the EGM and not recovering until nCompass is rebooted | Serial Comm Down (yellow border)
+- Changed the read timout value from 100 to 500 milliseconds.
+- Added an extensible setting 'SASReadTimeOutMilliseconds' and defaulted to 500 milliseconds.
+
+635277 - Ticketing | EGMs going into handpay when player cashes out on occasion after upgrading to nCompass 2.11.4.4 | No Serial Comm Down (yellow border) indicators
+- Reset extensible settings on upgrade so that all the default values are set properly. Previously, extensible settings had some random values.
+- Update the SAS read timeout on the fly without rebooting the nCompass when the extensible setting SASReadTimeOutMilliseconds is received.
+
+*******************************************************************************************
+Date 06/28/2023
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi, Tedd Vernaz
+Version 15.0.1
+Built off of 15.0.0.1
+
+Defects
+
+649115 - Ticketing | A ticket printed for $11.93 but appeared as $14,763,962.01 in the database | After a double Heartbeat from nCompass the Poller Packet Version became corrupt
+- Send heartbeats every 5 seconds.
+
+649140 - ONE LINK | Not participating... message appearing on some Bally S6000's with one sub-game after upgrading to nCompass 15.0 | Occurs when EGM does not include Optional Paytable info in LP $B5 response
+- Changed handling of B5 poll to not fail when no game name and paytable info included in result. CUSTOM EGM Type bypasses progressive level ID initialization
+
+649323  - Promotions | Awards - Players being awarded before they should when nCompass receives a 'bad' denom from FloorLogix | One player received 338 awards for $25k in 15 minutes
+- Ignore a bad denom received from a 401 config.
+- Sent a tilt 'Bad denom received' 2849.
+
+651577 - Ticketing | Rejected Vouchers - Some Konami's with ONE LINK Progressives will not accept tickets after upgrading to nCompass 15.0.0.3 (or 2.11.4.4) | PBT PIN Pad will not appear either
+- When EGM Type is CUSTOM, send progressive values long polls 80 & 86 will be sent as broadcasts.
+
+651822 - Logging | Employee PINs are displayed in nCompass logs
+- Suppressing SERVICEWINDOWDATA logs when command contains employee PIN.
+
+651824 - nRich | Award Levels - When two awards are configured, The Thermometer/Progress Bar is showing the incorrect levels | Display issue only
+- Adjust current level when there are only 2 levels in nRich promotion.
+
+*******************************************************************************************
+Date 08/09/2023
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi, Tedd Vernaz
+Version 15.0.2
+Built off of 15.0.1.1
+
+Stories:
+629368 - nCompass : [Dev Only] Identification of SDS player card format
+- Added UseSDSCardFormat extensible system setting.
+- Added placeholder function to verify and convert SDS card data.
+
+629370 - nCompass : [Dev Only] Decode the player card information in SDS format and create OCR to send to Oasis
+- Decoded the SDS card format if configured and converted it into OCR.
+- Added UTs.
+
+Defects:
+
+656806 - Reboots | nCompass reboots when performing a mobile pbt transfer when status is "AccessDenied" in the Personal Banker response.
+- Check for nullptr of PBT object when transfer request is made because it is possible that it is already deleted for many reasons.
+
+656853 - Reboots | ONELINK Awards | nCompass sometimes reboots while awarding the player for onelink bonus level
+- Handle deletion of m_lp74 SAS layer object properly. Do not delete it at places where its not being used at-all.
+
+*******************************************************************************************
+Date 03/03/2022
+Developers: Louie Valderrama, Harvijay Singh, Harpreet Singh Virdi
+Version 3.0
+Built off of 2.11.x
+
+Stories:
+
+570524 - Dev Only | LCD | Drink On Tap Part 1 | UI screens implementation
+- Added extensible system settings for drink on tap.
+
+587824 - LCD | Skin - Implement accounts home screen with balances (Backend) 
+- Added PlayerInfo subscripton in CPlayer class.
+
+587999 - LCD | Skin - Implement full screen attractor for birthday and anniversary
+- Added FullScreenAttractor class to generate JSON data which will be passed to Angular UI for attractor display.
+- Used FullScreenAttractor instance to handle birthday and anniversary messages during card-in.
+
+589305 - LCD | Skin - Personal Banker Transfer from Game Screens - non-custom transfers 
+- Handled StartPBTTransfer request from angular UI.
+- Added PBTransfer and updated PBInfo subscription.
+- Converted SAS error texts into tokens so that it can be mapped to relative texts at angular UI side.
+
+589306 - LCD | Skin - Personal Banker Transfer to Game Screens - cash/points/promos
+- Updated the PBInfo subscription to support transfer to game operations.
+- Added timeout error in PBTransfer subscription.
+
+589675 - LCD Skin - Trigger and show Schedule End screen
+- Added support to show Schedule End screen
+- Added skin and custom content support for Schedule End screen.
+
+590353 - LCD | Progressive Promo Game swf
+- Added CPromoGameCommand class to handle transfer of promo game params to Angular UI.
+- Removed unused code.
+- Added UT for CPromoGameCommand.
+
+590356 - Mass Marketing screen
+- Added CMassMarketingCommand
+
+590568 - LCD | Send new fields to Onelink for Slot Dashboard functionality
+- Added campaignId, skinId, currentActivity and pendingAction in ICardStatus msg.
+
+590569 - Consume new ConfigFileDownload message from OL to implement Misc Files download E2E.
+- Added ConfigFilePackage class to consume data from ConfigFileDownload message from OneLink.
+- Used FileDownloader to download config files.
+- On successful consumption of config files, nCompass will send ConfigFileDownloadAcknowledgement message to OneLink.
+
+590571 - LCD | Campaign package download and UI propagation
+- Added CampaignPackage class to consume data from CampaignDownload message from OneLink.
+- Created JSON file for events available in CampaignDownload message in temp directory under dynamicContent folder.
+- Used FileDownloader to download campaign media into temp directory under dynamicContent folder.
+- Informed UI to refresh campaign on download completion of all media files.
+
+590574 - LCD | Integration with Media Director - Skinning
+- Added SkinPackage class to consume data from SkinDownload message from OneLink.
+- Used FileDownloader to download skin media.
+- Used RefreshUI as pending action after downloading all pending skin media.
+- Passed RefreshUI msg to Angular UI when it nCompass is ready for it.
+
+590577 - LCD | Integration with ONE LINK - Odometer (backend)
+- Added subscription support for Scatter, Value and PXGY odometers to support Angular UI.
+
+590580 - LCD | Display custom content package assets attached to ONE LINK announcements
+- Added support to display custom content package assets attached to ONE LINK announcements.
+
+590824 - LCD | Implement Alert bar component (backend+UI)
+- Integrated Alert Box into Notification Box, and updated NotificationBox subscription interface to handle alert texts.
+
+590826 - LCD | Notification Bar Component (backend)
+- Enhanced subscription interface to handle notification text localizations at angular side.
+- Removed Anniversary, Birthday and Congratulations from available notification text tokens.
+- Removed interactive message related code from Notification Box and some other modules.
+
+600507 - LCD | Display content package assets attached to promo game and odometer for ONE LINK promotions
+- Added dynamic content path for odometer subscription.
+
+603959 - Use 'Show Odometer' value from ONE LINK to show/hide odometers
+- Use Onelink ShowOdometer value when determining if odometer should be shown
+
+604912 - LCD | - Implement auto-cardout (Backend)
+- Removed unused code and converted the backend to be a fully subscription method provider.
+
+604918 : LCD | Implement Cashout to PBT popups functionality
+- Added CCommandMessage as base class to handle angular command messages.
+- CFullScreenAttractorCommand derives from CCommandMessage now.
+- Added CPopupTextCommand class to handle angular popup message command.
+- Used ShowPopupText and ListenToPBTProgress commands to send cashout errors to angular UI.
+
+604919 : LCD | Implement Auto Upload popups functionality
+- Handled autoupload positive and negative scenarios.
+
+609143 - LCD | Player PIN validation and PBT menu screen (backend)
+- Added PBTPinValidationStatus and PBInfo subscriptions.
+- Handled StartPBTSession and EndPBTSession requests from Angular UI.
+
+611141 - LCD | Implement PBT Account Balances (Rewards) screen
+- Removed PBTPinValidationStatus subscription and merged the contents into PBInfo.
+- Added new fields in PBInfo subscription.
+
+615150 - LCD | Skin - Implement 'Transfer From Game' screen for custom amount transfers (partial WAT-Out)
+- Added minimum and maximum cash upload limits in PBInfo subscription response.
+
+619002 : LCD | MobileConnect PB popups functionality
+- Handled pin validation, PBT transfer, PBT conclusion, PBT exit and PBT errors from mobile connect.
+
+619004 Dev Only | LCD | UTJ UI Backend enabling - Sunny day UI flow
+- Added CUnattendedJackpotCommand
+
+619005 - Carded/uncarded teasers and error cases
+- Added CTeaserCommand
+
+620345 - Consume new FirmwareDownload message from OL to implement OS/EXE download E2E
+- Added FileDownloader singleton class which downloads assigned files in a separate thread.
+- Consumed FirmwareDownload message from OneLink.
+- Used FileDownloader class to download OS/EXE files.
+
+620346 - Implement FPGA upgrade
+- Handled extraction in a separate folder and then verified the manifest.sha1 checksums before using the extracted contents.
+
+627830 - Handle validations for PBT probe lock, game denom and bart denom
+- Shifted game/bart denom mismatch validation to UI, ensured config object always have updated value of game denom.
+- Shifted PBT probe lock UI related functionality to the angular side.
+
+635793 - nCompass to provide OS, app, and firmware version information to ONE LINK
+- Added firmware version and OS version to ICardConfigurationRequest5 message.
+
+621246 - Dev Only | Download/maintain custom content package assets for promotion/announcement events
+- Added support for Announcement.
+- Changed up Media Package Manager to handle all events and also to handle zip as contents.
+
+
+621247 - LCD | Display custom content package assets attached to events for Onelink promotions
+- Added support for custom content package assets attached to events for Onelink promotions
+
+Defects:
+
+598860 - Mechanic | Archive Logs-Archive Logs progress bar stuck on 60% when Machine is Offline.
+- Removed the check on slotmast id to be non-zero.
+
+600825 - Meters | Transaction Log - The wrong transaction type code is shown on the Transaction log after Meter capture failed message
+- Fixed the issue by handling meter card type during transaction handling
+
+600914 - Mechanic Card | Transaction Log - Sub-Game Meter Snapshot (Type 122) showing as Machine Meter Snapshot (121) | Correct in CDS_Buffer
+- Fixed the issue by properly differentiating between Tx 121 and Tx 122 transactions when storing in NVRAM transaction log
+
+613882 - Current Notebook | Transactions - "Cardout Timer start No credits" may sometimes not display in the Transaction window during Auto Card out activity.
+- Send auto card timeout tilts without restrictions due to time limit.
+
+638666 - Reboots | ONELINK Unable to award to EGM causing nCompass reboot - Unclear as to why ONELINK is unable to award to IGT when set to Bonusing AFT
+- Changed general poll critical section to recursive_mutex.
+
+654259 - Additional info for Campaign and Skin for improved troubleshooting
+- Added campaign and skin revision in dashboard info.
+- Added custom skin and campaign json links on the webpage.
+
+658678 - ONELINK | An odometer persists on the nCompass, even after a level's budget has run out.
+- Remove odometer when a level drops from BonusingAvailable message from OneLink.
+
+*******************************************************************************************
+Date 04/27/2023
+Developer: Dragos Rugescu
+Version 3.1
+
+Built off of 3.0
+
+Stories:
+Proximity PoC
+
+661135 - Share display type info with PC
+- Added "Resolution", "Orientation", and "TouchScreen" in the 303 Sentinel Status message.
+
+661136  - Share device information with PC
+- Added "ProcessorType", "NumCores", "BIOSVersion", "TotalMemoryInKB", "BeaconCapability", "BeaconFirmware", 
+  "CarrierFirmwareVersion" and "VideoMixerFirmwareVersion" in the 303 Sentinel Status message.
+
+Defects:
+N/A

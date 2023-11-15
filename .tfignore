@@ -1,0 +1,9 @@
+.angular
+.angular-test
+.angularsrc
+.archive
+angularsrc
+tmp
+build
+.vscode
+core

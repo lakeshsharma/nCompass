@@ -1,0 +1,135 @@
+*******************************************************************************************
+Date 07/28/2017
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay
+Version 2.1.0
+
+Defects:
+205056 - Label messages in the XML are not being used by nCompass
+Took hard coded label values out of nCompass code and moved them to the XML and made the texts skinnable. 
+
+*******************************************************************************************
+Date 03/09/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh
+Version 2.5.0
+Built off of 2.1.0
+
+Defects:
+251888 - Employee card screens take too long to display with new ncompass hardware
+	- Keep the employee screen up and running in the background at all times.
+	- Updated the swf_employee.swf to version EmployeeUI_6.2-2.0.161.swf
+	- Updated ServiceWindow_Shell to version ServiceWindow_Shell-2.00.51.swf
+
+256352 - Editable Font Size
+Added a new field editableSize and maxTextSize in the XML to let SpeedMedia be able to determine whether a label is editable or not.
+
+*******************************************************************************************
+Date 07/03/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.5.1
+Built off of 2.5.0
+
+Stories:
+269858 - Performance Improvements for PT306 with current hardware
+	- Updated ServiceWindow_Shell to version ServiceWindow_Shell-2.00.53.swf
+		- Implemented ati:pauseVideo and ati:resumeVideo commands that will pause/resume video in an attractor
+
+*******************************************************************************************
+Date 11/14/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Sukhdeep Singh
+Version 2.6.0
+Built off of 2.5.1
+
+Stories:
+292003 - PIN reset at nCompass
+- Added needed new buttons, background images and update version of XMLs to 2.6.0.
+
+Defects:
+303906 - Custom buttons on the sentinel should be enabled/disabled in the skins screen in SMA
+Editted XML to add attribute 'buttonEnabled' to be used by nCompass to disabled/enable custom buttons and resort submenus.
+
+*******************************************************************************************
+Date 03/06/2019
+Developers: Louie Valderrama, Tedd Vernaz, Sukhdeep Singh, Harvijay Singh
+Version 2.6.1
+Built off of 2.6.0
+
+No changes.
+
+*******************************************************************************************
+Date 02/11/2019
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.7.0
+Built off of 2.6.0
+
+Stories:
+263933 - Mobile nCompass - Virtual Card-In no Hardware
+263934 - Mobile nCompass - Obtaining Beacon Hardware
+263935 - Mobile nCompass - Virtual Card-In with Hardware (beacon)
+263936 - Mobile nCompass - App recognizes casino for beacons nearby (UE & Non-UE w/hardware)
+263937 - Mobile nCompass - App recognizes if two mobile devices try to connect to one EGM (hardware)
+263938 - Mobile nCompass - App recognizes if two mobile devices try to connect to one EGM (no hardware)
+263939 - Mobile nCompass - Showing EGM is in Mobile Session
+264227 - Mobile nCompass - Viewing in-session stats
+264228 - Mobile nCompass - Interacting with nCompass player initiated buttons
+264229 - Mobile nCompass - Ending a session (manual-Mobile)
+264230 - Mobile nCompass - Ending a session (device is out of range-ONLY HARDWARE)
+264231 - Mobile nCompass - Ending a session (manual-nCompass)
+264232 - Mobile nCompass - App automatically ends session (player not in active session play)
+264234 - Mobile nCompass - Admin - Beacon Status Page
+269986 - Mobile nCompass - nCompass infrastructure - Floor Protocol ( Linux )
+221581 - [Linux and Windows] BB - nCompass should support displaying celebrations and odometers(no value only content) for Prize (Non-cash) Jackpots
+228381 - [Linux and Windows] BB - Make the odometer display priority configurable
+298395 - [Linux and Windows] BB- Countdown to the next cluster award for each time slice defined on nCompass
+307246 - [Linux and Windows] BB- Display Content for consolation award for the level - nCompass updates
+307251 - [Linux] BB- Display Content for Level- Anticipation, Winner, Odometer on nCompass
+307256 - [Linux and Windows] BB : Display Content for minor (Side game) award for the level - nCompass updates
+307257 - [Linux and Windows] BB- nCompass/SMA : Skinning for default  branded bonus award
+307260 - [Linux and Windows] BB- Content Interruption requirements nCompass consolations - Branded Bonus
+307262 - [Linux and Windows] BB- Custom Swf to be able to subscribe to level broadcast
+269858 - Performance Improvements for PT306 with current hardware
+303915 - Windows Image RadBeacon Implementation
+322047 - instance id as a checksum for the namespaceid
+362124 - nCompass Field trial improvement - Eligibility determined status and award payment to game
+Mobile Assets were added.
+
+Defects:
+376900 - Blank banner or bonus eligibility not determined. please reinsert card appears after upgrading to nCompass 2.7.0.2 (Linux)
+Use an existing panel to display the bonus eligibility not determined message when using a skin that is incompatible.
+Don't display any alert message when OneLink is not enabled in the SenOptions2.
+
+*******************************************************************************************
+Date 01/15/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh
+Version 2.8.0
+Built off of 2.7.0
+
+Stories:
+386723 - Play X Get Y support on nCompass
+OneLink default assets were added to the SMDs.
+
+*******************************************************************************************
+Date 08/24/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh, Harpreet Singh
+Version 2.8.2
+Built off of 2.8.0
+
+Defects:
+435204 - PBT | Transfer pending... Call attendant - Message is misleading as it occurs during auto uploads that do not require attendants | Default text in skins needs updating
+Changed the "Transfer pending... Call attendant" message to "Checking for uploadable credits... Please wait".
+
+435206 - Play X Get Y | Odometer - The swf_playxgetycounter.swf needs to be updated before using the Play x Get y Bonus Level in ONE LINK | Default Skins need to include correct .swf to prevent manual step
+Update the default swf_playxgetycounter.swf asset.
+
+435208 - Mobile nCompass | Connecting... SWF's - Stay up for 30 seconds with no way to exit. Curious customers are pressing and it's also being launched on accident | Need a Cancel button
+Exit button has been added to the mobile SWFs.
+OneLink default assets were added to the SMDs.
+
+*******************************************************************************************
+Date 08/13/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay Singh, Harpreet Singh
+Version 2.9.0
+Built off of 2.8.0
+
+PBI 431754 - (nCompass) Showing Responsible Gaming Message
+Responsible Gaming Message is now displayed in the Personal Banker button stack when transfer/credit to game is visible 
+and when the label is skinned in SpeedMedia.  The Responsible Gaming Message label is added to the XML.

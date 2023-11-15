@@ -1,0 +1,199 @@
+Date 04/27/2017
+Developer: Tedd Vernaz, Rich Rekruciak, Louie Valderrama, Jason Sando
+Version 1.1.68
+
+Built off of 1.53.3.1
+
+Stories:
+N/A
+
+Defects:
+N/A
+
+**************************************************************
+Date 06/29/2017
+Developer: Tedd Vernaz, Rich Rekruciak, Louie Valderrama, Jason Sando
+Version 1.1.72
+
+Built off of 1.1.68
+
+Stories:
+PBI - 194817:Need to add the video mixer debugdump library and calls
+- Version 1.1.2 of the video mixer library:<br>1. Add a debug API to dump debug information<br>2. Fix touch firmware upgrade test case failure (detail)
+- Wrong location (detail)
+- Version 1.1.2 of the video mixer library:<br>1. Add a debug API to dump debug information<br>2. Fix touch firmware upgrade test case failure (detail)
+- Version 1.1.2 of the video mixer library:<br>1. Add a debug API to dump debug information<br>2. Fix touch firmware upgrade test case failure
+
+Defects:
+N/A
+
+Other:
+- Add second parameter to set max temp to 105c.
+- Update to latest AxiomTek to include thermal passive limit to 95c.<br><br>See https://gitlab.com/jrtiger/ATI/commit/60943f384ff6333d9045a178fbc032d5d3c9a52e<br><br>Change our own thermal trip point to 90000 instead of 90.
+
+
+**************************************************************
+Date 07/28/2017
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay, Jason Sando
+Version 1.1.75
+
+Built off of 1.1.72
+
+Stories:
+PBI - 194817:Need to add the video mixer debugdump library and calls
+- Version 1.1.2 of the video mixer library:<br>1. Add a debug API to dump debug information<br>2. Fix touch firmware upgrade test case failure (detail)
+- Wrong location (detail)
+- Version 1.1.2 of the video mixer library:<br>1. Add a debug API to dump debug information<br>2. Fix touch firmware upgrade test case failure (detail)
+- Version 1.1.2 of the video mixer library:<br>1. Add a debug API to dump debug information<br>2. Fix touch firmware upgrade test case failure
+
+Defects:
+N/A
+
+Other:
+- Add second parameter to set max temp to 105c.
+- Update to latest AxiomTek to include thermal passive limit to 95c.<br><br>See https://gitlab.com/jrtiger/ATI/commit/60943f384ff6333d9045a178fbc032d5d3c9a52e<br><br>Change our own thermal trip point to 90000 instead of 90.
+
+
+**************************************************************
+
+Date 08/23/2017
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay, Jason Sando
+Version 1.1.77
+
+Built off of 1.1.75
+
+Stories
+N/A
+
+Defects:
+N/A
+
+Other:
+- Set timezone earlier in boot process (For NYPI)
+
+
+**************************************************************
+
+Date 08/23/2017
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay, Jason Sando
+Version 1.1.78
+
+Built off of 1.1.77
+
+Stories
+N/A
+
+Defects:
+N/A
+
+Other:
+- Add gstreamer1.0-plugins-good-meta. Required for G2E2017.
+
+
+**************************************************************
+
+Date 08/23/2017
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay, Jason Sando
+Version 1.1.80
+
+Built off of 1.1.78
+
+Stories
+N/A
+
+Defects:
+N/A
+
+Other:
+- Remove sdlttf.
+- Added gstreamer-imx to image
+- Video mixer hybrid library version 1.1.4 which contains the following updates
+	1. Add the progress callback of touch firmware upgrade
+	2. Add retry mechanism for touch firmware upgrade
+	3. Add smoothly upgrade for one .zip file, accept multiple firmware images for video firmware and touch firmware
+	4. Adaptation for old bootloader of touch firmware
+	5. Fix crash within touch firmware upgrade for certain image size
+	6. Fix crash within the procedure of touch firmware upgrade if video mixer is not available
+	7. Fix crash if touch firmware version is not available
+	8. Add and fine tune ths sleep time for the touch firmware reset during touch firmware upgrading
+	9. Fix the return status of touch firmware upgrade  
+
+
+**************************************************************
+
+Date 03/20/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay, Jason Sando
+Version 1.1.86
+
+Built off of 1.1.80
+
+Stories
+N/A
+
+Defects:
+N/A
+
+Other:
+Update to Video Mixer Hybrid Library version 1.1.10 with the following updates:
+1. add a diagnotic function to return versions of all USB touch firmware
+2. Improve upgrade USB touch firmware procedure
+
+
+**************************************************************
+
+Date 09/18/2018
+Developers: Louie Valderrama, Tedd Vernaz, Rich Rekruciak, Jagteshwar Singh Bakshi, Prabal Gupta, Archana Singh, Sriniwas Upadhyay, Jason Sando
+Version 1.1.91
+
+Built off of 1.1.87
+
+Stories
+N/A
+
+Defects:
+289582 - Linux PT306 FPGA updates are failing
+The FPGA update code is put into a separate thread and given a 30 minutes thread timeout value.
+
+Other:
+Update to Video Mixer Hybrid Library version 1.1.13 with the following updates:
+1. Fix the USB touch firmware upgrade flow from v8.0.0 to v8.0.1
+
+**************************************************************
+
+Date 05/28/2019
+Developers: Louie Valderrama, Tedd Vernaz
+Version 1.1.105
+
+Built off of 1.1.91
+
+Stories
+N/A
+
+Defects:
+358363 - nCompass does not support https
+
+Other:
+Add NGINX webserver to image for serving SSL/TLS
+Add new "axpt-volume" command for controlling system volume in a platform-independent way
+
+**************************************************************
+
+Date 01/15/2020
+Developers: Louie Valderrama, Tedd Vernaz, Harvijay
+Version 1.1.106
+
+Built off of 1.1.105
+
+Stories
+373376 - Always On Logging
+
+Defects:
+
+Other:
+Added zip application to the OS so that logs can be zipped into one zip file.
+
+02/28/2023
+Developers:Tedd Vernaz
+Version 1.2.2
+
+Now based on Yocto Zeus OS.

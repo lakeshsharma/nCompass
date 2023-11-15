@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CardReaderConfig>
+  <BezelColors>
+    <BezelColor ColorID="0" Red1Low="0" Red1High="0" Green1Low="0" Green1High="0" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Dark</BezelColor>
+    <BezelColor ColorID="1" Red1Low="0" Red1High="255" Green1Low="0" Green1High="255" Blue1Low="0" Blue1High="255" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">White</BezelColor>
+    <BezelColor ColorID="2" Red1Low="0" Red1High="255" Green1Low="0" Green1High="0" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Red</BezelColor>
+    <BezelColor ColorID="3" Red1Low="0" Red1High="0" Green1Low="0" Green1High="255" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Green</BezelColor>
+    <BezelColor ColorID="4" Red1Low="0" Red1High="0" Green1Low="0" Green1High="0" Blue1Low="0" Blue1High="255" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Blue</BezelColor>
+    <BezelColor ColorID="5" Red1Low="0" Red1High="255" Green1Low="0" Green1High="0" Blue1Low="0" Blue1High="255" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Purple</BezelColor>
+    <BezelColor ColorID="6" Red1Low="0" Red1High="255" Green1Low="0" Green1High="192" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Yellow</BezelColor>
+    <BezelColor ColorID="7" Red1Low="0" Red1High="255" Green1Low="0" Green1High="64" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Orange</BezelColor>
+    <BezelColor ColorID="8" Red1Low="0" Red1High="0" Green1Low="0" Green1High="255" Blue1Low="0" Blue1High="255" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Cyan</BezelColor>
+    <BezelColor ColorID="9" Red1Low="0" Red1High="0" Green1Low="0" Green1High="255" Blue1Low="0" Blue1High="128" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Teal</BezelColor>
+    <BezelColor ColorID="10" Red1Low="0" Red1High="0" Green1Low="0" Green1High="128" Blue1Low="0" Blue1High="255" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Light Blue</BezelColor>
+    <BezelColor ColorID="11" Red1Low="0" Red1High="255" Green1Low="0" Green1High="255" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Lime Green</BezelColor>
+    <BezelColor ColorID="12" Red1Low="0" Red1High="255" Green1Low="0" Green1High="32" Blue1Low="0" Blue1High="32" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Coral</BezelColor>
+    <BezelColor ColorID="13" Red1Low="0" Red1High="32" Green1Low="0" Green1High="255" Blue1Low="0" Blue1High="32" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Light Green</BezelColor>
+    <BezelColor ColorID="14" Red1Low="0" Red1High="64" Green1Low="0" Green1High="32" Blue1Low="0" Blue1High="255" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Lavender</BezelColor>
+    <BezelColor ColorID="15" Red1Low="0" Red1High="255" Green1Low="0" Green1High="32" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="0">Red Orange</BezelColor>
+    <BezelColor ColorID="16" Red1Low="0" Red1High="255" Green1Low="0" Green1High="0" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="2">Flashing Red</BezelColor>
+    <BezelColor ColorID="17" Red1Low="0" Red1High="255" Green1Low="0" Green1High="192" Blue1Low="0" Blue1High="0" Red2Low="0" Red2High="0" Green2Low="0" Green2High="0" Blue2Low="0" Blue2High="0" Rate="2">Flashing Yellow</BezelColor>
+  </BezelColors>
+  <CardTypeColors>
+    <CardColor ColorID="4" CardType="None">No Card</CardColor>
+    <CardColor ColorID="3" CardType="Player">Player Card</CardColor>
+    <CardColor ColorID="3" CardType="Employee">Employee Card</CardColor>
+    <CardColor ColorID="16" CardType="BadRead">Bad Card Read</CardColor>
+    <CardColor ColorID="0" CardType="SocialDistance">Social Distance</CardColor>
+    <CardColor ColorID="17" CardType="CleaningInProgress">Cleaning In Pogress</CardColor>
+  </CardTypeColors>
+  <!--
+  <RankColors>
+	  <RankColor ColorID="2" RankID="0" />
+	  <RankColor ColorID="7" RankID="1" />
+	  <RankColor ColorID="6" RankID="2" />
+  </RankColors>
+  -->
+</CardReaderConfig>

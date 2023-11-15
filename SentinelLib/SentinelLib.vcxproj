@@ -1,0 +1,1016 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7841342C-BA10-4F3D-BEAA-3B479AB32926}</ProjectGuid>
+    <RootNamespace>SentinelLib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <SccProjectName>SAK</SccProjectName>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <UseOfAtl>Static</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <UseOfAtl>Static</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>obj\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>obj\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Sentinel;$(SolutionDir)\GatLibraryLib\$(Configuration);$(SolutionDir)\ComEx\bin\$(Configuration);$(SolutionDir)\SpeedMediaClientLib\$(Configuration);$(SolutionDir)\MsXmlLib\$(Configuration);..\SDK-Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_SENTINEL;_DEBUG;_MEMDEBUG;_UNIT_TEST;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4100;4200;4201;4238;4428;4239;4480;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <TreatSpecificWarningsAsErrors>4289;4296;4431;4545;4547;4548;4549;4555;4905;4906;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <SDLCheck>true</SDLCheck>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)Tools/FixTlog/Release/FixTlog.exe $(TLogLocation)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Sentinel;$(SolutionDir)\GatLibraryLib\$(Configuration);$(SolutionDir)\ComEx\bin\$(Configuration);$(SolutionDir)\SpeedMediaClientLib\$(Configuration);$(SolutionDir)\MsXmlLib\$(Configuration);..\SDK-Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SENTINEL;_UNIT_TEST;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>4100;4200;4201;4238;4428;4239;4480;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <TreatSpecificWarningsAsErrors>4289;4296;4431;4545;4547;4548;4549;4555;4905;4906;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>false</OmitFramePointers>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)Tools/FixTlog/Release/FixTlog.exe $(TLogLocation)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Sentinel\atlsoapHelper.h" />
+    <ClInclude Include="..\Sentinel\BadReadCount.h" />
+    <ClInclude Include="..\Sentinel\BonusEvent.h" />
+    <ClInclude Include="..\Sentinel\BonusEvents.h" />
+    <ClInclude Include="..\Sentinel\Card.h" />
+    <ClInclude Include="..\Sentinel\CarrierUpgrade.h" />
+    <ClInclude Include="..\Sentinel\CheckSum.h" />
+    <ClInclude Include="..\Sentinel\ChkDskHandler.h" />
+    <ClInclude Include="..\Sentinel\ConfigFile.h" />
+    <ClInclude Include="..\Sentinel\ConfigFileReader.h" />
+    <ClInclude Include="..\Sentinel\Config\CardConfig.h" />
+    <ClInclude Include="..\Sentinel\Config\Config.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigAllowFloorLockoutField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigBalanceRetrievalTextField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigCardTimeoutField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigCashTransferTrackingField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigCasinoNameField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigCasinoNumField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigCommIDField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigDailyPointsDisplaySuffixField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigDenomField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigExtData.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigExtFile.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigFeatureFlagField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigFields.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigFloorLockField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigLossLimitField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigNclEnabledCardTrackField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigOtherPrefixesField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigPBTField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigPlayerPrefixField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigPlayerTrackingField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigPointsForPromoField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigPointsOrCashLabelField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigPointsPerDollarField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigSenOption1Field.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigSenOption2Field.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigSessionPointsTextField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigShowPointsVsAccountBalanceField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigSlotMastRevisionField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigSlotNumberField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigTicketingField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigTierPointsLabelField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigTimezoneField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigUniverseCardPrefixField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigUniverseEnabledField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigUniversePropCodesField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigUpdateMMTField.h" />
+    <ClInclude Include="..\Sentinel\Config\ConfigVirtualSessionField.h" />
+    <ClInclude Include="..\Sentinel\Config\EEPROMConfig.h" />
+    <ClInclude Include="..\Sentinel\Config\EGMConfig.h" />
+    <ClInclude Include="..\Sentinel\Config\MediaWindowConfig.h" />
+    <ClInclude Include="..\Sentinel\Config\NVRAMConfig.h" />
+    <ClInclude Include="..\Sentinel\Config\UIConfig.h" />
+    <ClInclude Include="..\Sentinel\Connection.h" />
+    <ClInclude Include="..\Sentinel\ContentDeliverySystem\FlashComServer.h" />
+    <ClInclude Include="..\Sentinel\ContentDeliverySystem\FlashPlayer.h" />
+    <ClInclude Include="..\Sentinel\ContentDeliverySystem\PackageList.h" />
+    <ClInclude Include="..\Sentinel\ContentDeliverySystem\ThirdPartyMessage.h" />
+    <ClInclude Include="..\Sentinel\CountHistory.h" />
+    <ClInclude Include="..\Sentinel\DeviceInfoSet.h" />
+    <ClInclude Include="..\Sentinel\Diagnostics.h" />
+    <ClInclude Include="..\Sentinel\DiagnosticsEEPROM.h" />
+    <ClInclude Include="..\Sentinel\DiagnosticsNVRAM.h" />
+    <ClInclude Include="..\Sentinel\DiagnosticsPersistance.h" />
+    <ClInclude Include="..\Sentinel\DirectoryManager.h" />
+    <ClInclude Include="..\Sentinel\DisplayManager.h" />
+    <ClInclude Include="..\Sentinel\DisplayManagerConfig.h" />
+    <ClInclude Include="..\Sentinel\DisplayManagerPlayerState.h" />
+    <ClInclude Include="..\Sentinel\Employee.h" />
+    <ClInclude Include="..\Sentinel\EnumMap.h" />
+    <ClInclude Include="..\Sentinel\FileList.h" />
+    <ClInclude Include="..\Sentinel\FilePacker.h" />
+    <ClInclude Include="..\Sentinel\Flash.h" />
+    <ClInclude Include="..\Sentinel\FlashStatus.h" />
+    <ClInclude Include="..\Sentinel\FPGAUpgrade.h" />
+    <ClInclude Include="..\Sentinel\Game.h" />
+    <ClInclude Include="..\Sentinel\GameEndData.h" />
+    <ClInclude Include="..\Sentinel\Games.h" />
+    <ClInclude Include="..\Sentinel\GlobalDefs.h" />
+    <ClInclude Include="..\Sentinel\GlobalDefs.cpp" />
+    <ClInclude Include="..\Sentinel\Hardware\BillValidator.h" />
+    <ClInclude Include="..\Sentinel\Hardware\CardReader.h" />
+    <ClInclude Include="..\Sentinel\Hardware\CardReaderConfig.h" />
+    <ClInclude Include="..\Sentinel\Hardware\CardReaderLayer.h" />
+    <ClInclude Include="..\Sentinel\Hardware\DisplayInterfaces.h" />
+    <ClInclude Include="..\Sentinel\Hardware\DisplaySettings.h" />
+    <ClInclude Include="..\Sentinel\Hardware\Edid.h" />
+    <ClInclude Include="..\Sentinel\Hardware\EEPROMinator.h" />
+    <ClInclude Include="..\Sentinel\Hardware\EgmVideoDisplay.h" />
+    <ClInclude Include="..\Sentinel\Hardware\HardPin.h" />
+    <ClInclude Include="..\Sentinel\Hardware\HardPins.h" />
+    <ClInclude Include="..\Sentinel\Hardware\HIDContext.h" />
+    <ClInclude Include="..\Sentinel\Hardware\IOCTLOffsets.h" />
+    <ClInclude Include="..\Sentinel\Hardware\LcdDesktopDisplay.h" />
+    <ClInclude Include="..\Sentinel\Hardware\LcdGraphicsLayer.h" />
+    <ClInclude Include="..\Sentinel\Hardware\LegacyBoardRelays.h" />
+    <ClInclude Include="..\Sentinel\Hardware\MCRAutoTest.h" />
+    <ClInclude Include="..\Sentinel\Hardware\MCRcommon.h" />
+    <ClInclude Include="..\Sentinel\Hardware\MCRWrapper.h" />
+    <ClInclude Include="..\Sentinel\Hardware\MemoryStorage.h" />
+    <ClInclude Include="..\Sentinel\Hardware\MemoryStorageEx.h" />
+    <ClInclude Include="..\Sentinel\Hardware\MixerVideoDisplay.h" />
+    <ClInclude Include="..\Sentinel\Hardware\MonitorDisplay.h" />
+    <ClInclude Include="..\Sentinel\Hardware\NDIWrapper.h" />
+    <ClInclude Include="..\Sentinel\Hardware\NonVolatileMemoryMaps.h" />
+    <ClInclude Include="..\Sentinel\Hardware\NVRAMinator.h" />
+    <ClInclude Include="..\Sentinel\Hardware\TouchScreenCalibration.h" />
+    <ClInclude Include="..\Sentinel\Hardware\TouchScreenProtocol.h" />
+    <ClInclude Include="..\Sentinel\Hardware\TouchScreenProtocols.h" />
+    <ClInclude Include="..\Sentinel\Hardware\VebDesktopDisplay.h" />
+    <ClInclude Include="..\Sentinel\Hardware\VebGraphicsLayer.h" />
+    <ClInclude Include="..\Sentinel\Hardware\VideoMode.h" />
+    <ClInclude Include="..\Sentinel\Hardware\VideoModeTable.h" />
+    <ClInclude Include="..\Sentinel\Hardware\VideoTiming.h" />
+    <ClInclude Include="..\Sentinel\Hardware\WatchDog.h" />
+    <ClInclude Include="..\Sentinel\Hardware\WatchdogThreadInfo.h" />
+    <ClInclude Include="..\Sentinel\Hash.h" />
+    <ClInclude Include="..\Sentinel\HttpGet.h" />
+    <ClInclude Include="..\Sentinel\ICumulativeProgressiveManager.h" />
+    <ClInclude Include="..\Sentinel\InternalMessage.h" />
+    <ClInclude Include="..\Sentinel\InternalMessageQueueList.h" />
+    <ClInclude Include="..\Sentinel\InternalMsgContent.h" />
+    <ClInclude Include="..\Sentinel\InternalsFramework.h" />
+    <ClInclude Include="..\Sentinel\IPAddress.h" />
+    <ClInclude Include="..\Sentinel\IPAddressArray.h" />
+    <ClInclude Include="..\Sentinel\IPItem.h" />
+    <ClInclude Include="..\Sentinel\Jackpot.h" />
+    <ClInclude Include="..\Sentinel\Logging\Buffer.h" />
+    <ClInclude Include="..\Sentinel\Logging\BufferHandler.h" />
+    <ClInclude Include="..\Sentinel\Logging\Logger.h" />
+    <ClInclude Include="..\Sentinel\Logging\LoggerTypes.h" />
+    <ClInclude Include="..\Sentinel\Logging\LogString.h" />
+    <ClInclude Include="..\Sentinel\MACAddress.h" />
+    <ClInclude Include="..\Sentinel\MessagePersist.h" />
+    <ClInclude Include="..\Sentinel\MessagePersistType.h" />
+    <ClInclude Include="..\Sentinel\MessagePrioritizer.h" />
+    <ClInclude Include="..\Sentinel\Meter.h" />
+    <ClInclude Include="..\Sentinel\Meters.h" />
+    <ClInclude Include="..\Sentinel\metersdef.h" />
+    <ClInclude Include="..\Sentinel\msdaguid.h" />
+    <ClInclude Include="..\Sentinel\msdasc.h" />
+    <ClInclude Include="..\Sentinel\MsgTargetPair.h" />
+    <ClInclude Include="..\Sentinel\MulticastSocket.h" />
+    <ClInclude Include="..\Sentinel\MultiplierBonusEvent.h" />
+    <ClInclude Include="..\Sentinel\OneTimeBonusEvent.h" />
+    <ClInclude Include="..\Sentinel\OptionalVal.h" />
+    <ClInclude Include="..\Sentinel\PerformanceCounter.h" />
+    <ClInclude Include="..\Sentinel\PersonalBanker.h" />
+    <ClInclude Include="..\Sentinel\PersonalBankerAutoUpload.h" />
+    <ClInclude Include="..\Sentinel\PersonalBankerInfo.h" />
+    <ClInclude Include="..\Sentinel\PersonalBankerTransfer.h" />
+    <ClInclude Include="..\Sentinel\Platform.h" />
+    <ClInclude Include="..\Sentinel\Player.h" />
+    <ClInclude Include="..\Sentinel\PlayerGlobalBalance.h" />
+    <ClInclude Include="..\Sentinel\PlayerInfo.h" />
+    <ClInclude Include="..\Sentinel\PlayerSession.h" />
+    <ClInclude Include="..\Sentinel\PlayerUpdateManager.h" />
+    <ClInclude Include="..\Sentinel\PokerHand.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerAuthorizationMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerAuthorizePINResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerAuthorizePINTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerBasicTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerBillAcceptedTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerBonusTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerChangeSlotMastIDMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerChangeSlotMastIDRespMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerCheckMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerCommunicator.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerConfigChangeTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerConfigMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerConfigRequestMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerConfigRespMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerCTTTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerDisplayMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerEGMSnapshotTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerEmployeeResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerExternalBonusTransaction.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerFailureCodeMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerFlashBurnMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerFlashDataBlockMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerFlashInitializeMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerFlashInitializeResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerFlashStatusMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerFlashStatusResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerGlobalPasswordMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerHeartbeatMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerHeartbeatRespMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerJackpotFillTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerJackpotTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerLossLimitBalanceUpdate.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerMachineMoveTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerMechMaintTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerMetersMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPBTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPersonalBankerResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPinTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPlayerBonusEventsMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPlayerOmniCardBalanceResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPlayerResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPlayerTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerPlayerUpdateEventsMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerProcessUJPMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerProtocol.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerRequestLossLimitBalanceMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerResendItem.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerSerialCommDownTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerSlotmastTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerStatusMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerSubGameMetersMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerSubGameSnapshotTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerTicketResponseMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerTicketTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerTiltTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerTimeMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerTransactionAckMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\PollerUJPResultTransactionMessage.h" />
+    <ClInclude Include="..\Sentinel\PollerProtocol\TransactionResendList.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\MemoryThresholds.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\OperatingSystem.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\Process.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\ProcessHandler.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\Sentinel5Api.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\WebDiagnostics.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\WebDiagnosticsCommonInfo.h" />
+    <ClInclude Include="..\Sentinel\ProcessDump\WebDiagnosticsStatusInfo.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\CumulativeProgressiveManager.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\EGMAwardManagerState.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ICumulativeProgressiveManager.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\IStandardProgressiveWins.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveBonusingAvailable.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveClaimableAward.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveCriticalText.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveDataConsumer.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveEligibleLevelInfo.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveEligibleLevelsInfo.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveEligibleMinorInfo.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveHost.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveHostManager.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveKeys.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevel.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelBroadcast.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelForward.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelInfo.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelManager.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelsInfo.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveMessageFactory.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveMulticastChannel.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveMulticastFrame.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveMulticastHost.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressivePatronSessionInfo.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressivePlaylist.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressivePlaylistController.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressivePlaylistListener.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveProtocol.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressivePteState.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveQueueToOneLink.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveWinnerPick.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\ProgressiveWinnerPicked.h" />
+    <ClInclude Include="..\Sentinel\ProgressiveProtocol\StandardProgressiveWins.h" />
+    <ClInclude Include="..\Sentinel\QueueItem.h" />
+    <ClInclude Include="..\Sentinel\QueueList.h" />
+    <ClInclude Include="..\Sentinel\QueuingConfig.h" />
+    <ClInclude Include="..\Sentinel\QueuingConfigFile.h" />
+    <ClInclude Include="..\Sentinel\RapidJsonHelper.h" />
+    <ClInclude Include="..\Sentinel\resource.h" />
+    <ClInclude Include="..\Sentinel\RunawayStatus.h" />
+    <ClInclude Include="..\Sentinel\S3Lock.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll01Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll02Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll09Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll0EMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll10Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll19Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll1AMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll1BMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll1CMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll1DMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll1EMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll1FMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll20Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll27Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll28Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll2AMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll2BMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll2DMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll2EMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll2FMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll31Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll32Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll33Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll34Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll35Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll36Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll37Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll38Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll39Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll3AMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll3DMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll46Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll4CMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll4DMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll50Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll51Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll52Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll53Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll54Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll55Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll56Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll6AMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll6FMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll70Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll71Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll72Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll74Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll7BMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll7DMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll7FMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll80Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll83Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll84Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll85Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll86Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll8AMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll8EMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll94Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPoll9AMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollA0Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollA8Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollB056Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollB1Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollB2Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollB5Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollB6Message.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollDMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\LongPollUMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\MeterStepdown.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASBills.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASConsumer.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASData.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASGameList.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASGeneralException.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASGeneralPoll.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASInterface.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASLimits.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASMeter.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASPollMessage.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASProtocol.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASScheduler.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SASSerialWrapper.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\SchedulerList.h" />
+    <ClInclude Include="..\Sentinel\SASProtocol\TicketSeed.h" />
+    <ClInclude Include="..\Sentinel\ScheduleItem.h" />
+    <ClInclude Include="..\Sentinel\Sentinel.h" />
+    <ClInclude Include="..\Sentinel\SentinelException.h" />
+    <ClInclude Include="..\Sentinel\ServiceWindowDefs.h" />
+    <ClInclude Include="..\Sentinel\SpeedMediaScreen.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\CardInfoState.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\CardInResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\CardOutResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\CoinInTrigger.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\CoinLostTrigger.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\CoinOutTrigger.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\CumulativeResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\FileRetrieverQueue.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\GamePlayedResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\InEventTriggerResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\InTriggeredEventTriggerResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\JackpotTrigger.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SecureSocket.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SentinelInformation.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SentinelInformationResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SentinelInformationWithOrientationResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SentinelStatusResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaAnnouncement.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaCacheList.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaCumulativePackage.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaEnums.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaEvent.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaEvents.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaFlash.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaFlashBlock.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaInfo.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaIPItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaPermanentItems.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaProtocol.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaResendItem.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaResendList.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaScreenMessage.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaScreenMessages.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaTrigger.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaTriggers.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SpeedMediaTypes.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\SplashdownCountdown.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\TheoreticalWinTrigger.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\TimePlayedTrigger.h" />
+    <ClInclude Include="..\Sentinel\SpeedMedia\TriggeredEvent.h" />
+    <ClInclude Include="..\Sentinel\State\SentinelState.h" />
+    <ClInclude Include="..\Sentinel\Stomp\StompFrame.h" />
+    <ClInclude Include="..\Sentinel\Stomp\StompHeaderWriter.h" />
+    <ClInclude Include="..\Sentinel\Stomp\StompHelper.h" />
+    <ClInclude Include="..\Sentinel\Stomp\StompParser.h" />
+    <ClInclude Include="..\Sentinel\StringParser.h" />
+    <ClInclude Include="..\Sentinel\SubQueue.h" />
+    <ClInclude Include="..\Sentinel\SystemProtocol.h" />
+    <ClInclude Include="..\Sentinel\ThirdPartyManager.h" />
+    <ClInclude Include="..\Sentinel\Ticket.h" />
+    <ClInclude Include="..\Sentinel\TicketingInfo.h" />
+    <ClInclude Include="..\Sentinel\TicketPBTMaxAmount.h" />
+    <ClInclude Include="..\Sentinel\Tickets.h" />
+    <ClInclude Include="..\Sentinel\TickRecorder.h" />
+    <ClInclude Include="..\Sentinel\TiltManager.h" />
+    <ClInclude Include="..\Sentinel\TiltsDef.h" />
+    <ClInclude Include="..\Sentinel\types.h" />
+    <ClInclude Include="..\Sentinel\UdpSocket.h" />
+    <ClInclude Include="..\Sentinel\UdpSocket2.h" />
+    <ClInclude Include="..\Sentinel\UI\AlertBox.h" />
+    <ClInclude Include="..\Sentinel\UI\AttendantPaidPayoutLog.h" />
+    <ClInclude Include="..\Sentinel\UI\AttractorSequenceItem.h" />
+    <ClInclude Include="..\Sentinel\UI\AudioInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\BonusCounterItem.h" />
+    <ClInclude Include="..\Sentinel\UI\BonusCounterState.h" />
+    <ClInclude Include="..\Sentinel\UI\ButtonInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\Campaign.h" />
+    <ClInclude Include="..\Sentinel\UI\ClaimableAwardModuleParameters.h" />
+    <ClInclude Include="..\Sentinel\UI\ContentPackageInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\ContentPlayFlashModuleParameters.h" />
+    <ClInclude Include="..\Sentinel\UI\Ctrl.h" />
+    <ClInclude Include="..\Sentinel\UI\CtrlInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\CtrlInfoList.h" />
+    <ClInclude Include="..\Sentinel\UI\FlashModuleParameters.h" />
+    <ClInclude Include="..\Sentinel\UI\GlobalScreenDefs.h" />
+    <ClInclude Include="..\Sentinel\UI\IBonusCounterDisplay.h" />
+    <ClInclude Include="..\Sentinel\UI\ImageInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\LCDWindowManager.h" />
+    <ClInclude Include="..\Sentinel\UI\Log.h" />
+    <ClInclude Include="..\Sentinel\UI\Logs.h" />
+    <ClInclude Include="..\Sentinel\UI\MediaWindowLog.h" />
+    <ClInclude Include="..\Sentinel\UI\MediaWindowManager.h" />
+    <ClInclude Include="..\Sentinel\UI\NotificationBox.h" />
+    <ClInclude Include="..\Sentinel\UI\NotificationTextConfig.h" />
+    <ClInclude Include="..\Sentinel\UI\nRichBonusCounterItem.h" />
+    <ClInclude Include="..\Sentinel\UI\PanelInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\PersonalBankerLog.h" />
+    <ClInclude Include="..\Sentinel\UI\ProgressiveBonusCounterItem.h" />
+    <ClInclude Include="..\Sentinel\UI\PteBonusCounterFlashModuleParameters.h" />
+    <ClInclude Include="..\Sentinel\UI\RadioButtonInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\RepairLog.h" />
+    <ClInclude Include="..\Sentinel\UI\ScreenDefs.h" />
+    <ClInclude Include="..\Sentinel\UI\ScreenInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\SentinelDlg.h" />
+    <ClInclude Include="..\Sentinel\UI\SentinelDlgState.h" />
+    <ClInclude Include="..\Sentinel\UI\ServiceWindowManager.h" />
+    <ClInclude Include="..\Sentinel\UI\SplashdownBonusCounterItem.h" />
+    <ClInclude Include="..\Sentinel\UI\TicketLog.h" />
+    <ClInclude Include="..\Sentinel\UI\TiltLog.h" />
+    <ClInclude Include="..\Sentinel\UI\TransactionLog.h" />
+    <ClInclude Include="..\Sentinel\UI\UnattendedJackpotModuleParameters.h" />
+    <ClInclude Include="..\Sentinel\UI\VideoImageInfo.h" />
+    <ClInclude Include="..\Sentinel\UI\WinnerPickPickedFlashModuleParameters.h" />
+    <ClInclude Include="..\Sentinel\Utilities.h" />
+    <ClInclude Include="..\Sentinel\Util\Convert.h" />
+    <ClInclude Include="..\Sentinel\Util\Currency.h" />
+    <ClInclude Include="..\Sentinel\Util\FileCopy.h" />
+    <ClInclude Include="..\Sentinel\Util\FileInfo.h" />
+    <ClInclude Include="..\Sentinel\Util\FileSys.h" />
+    <ClInclude Include="..\Sentinel\Util\FileTime.h" />
+    <ClInclude Include="..\Sentinel\Util\FindFile.h" />
+    <ClInclude Include="..\Sentinel\Util\FormatTime.h" />
+    <ClInclude Include="..\Sentinel\Util\Manipulators.h" />
+    <ClInclude Include="..\Sentinel\Util\OutputDebugFormat.h" />
+    <ClInclude Include="..\Sentinel\Util\Path.h" />
+    <ClInclude Include="..\Sentinel\Util\PathStd.h" />
+    <ClInclude Include="..\Sentinel\Util\SafeFormat.h" />
+    <ClInclude Include="..\Sentinel\Util\String.h" />
+    <ClInclude Include="..\Sentinel\VideoMixerFPGAVersion.h" />
+    <ClInclude Include="..\Sentinel\VideoMixerUpgrade.h" />
+    <ClInclude Include="..\Sentinel\VideoModeConfig.h" />
+    <ClInclude Include="..\Sentinel\WbemUtilities.h" />
+    <ClInclude Include="ButtonClassMock.h" />
+    <ClInclude Include="ThirdPartyManagerMock.h" />
+    <ClInclude Include="CumulativeProgressiveManagerMock.h" />
+    <ClInclude Include="ProgressiveConnectionMock.h" />
+    <ClInclude Include="ProgressiveDataConsumerMock.h" />
+    <ClInclude Include="ProgressiveWinsMock.h" />
+    <ClInclude Include="SASProtocol\SASSerialWrapperMock.h" />
+    <ClInclude Include="SpeedMediaCacheListMock.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Sentinel\BadReadCount.cpp" />
+    <ClCompile Include="..\Sentinel\BonusEvent.cpp" />
+    <ClCompile Include="..\Sentinel\BonusEvents.cpp" />
+    <ClCompile Include="..\Sentinel\ButtonPress.cpp" />
+    <ClCompile Include="..\Sentinel\Card.cpp" />
+    <ClCompile Include="..\Sentinel\CheckSum.cpp" />
+    <ClCompile Include="..\Sentinel\ChkDskHandler.cpp" />
+    <ClCompile Include="..\Sentinel\ConfigFile.cpp" />
+    <ClCompile Include="..\Sentinel\Config\CardConfig.cpp" />
+    <ClCompile Include="..\Sentinel\Config\Config.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigAllowFloorLockoutField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigBalanceRetrievalTextField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigCardTimeoutField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigCashTransferTrackingField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigCasinoNameField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigCasinoNumField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigCommIDField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigDailyPointsDisplaySuffixField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigDenomField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigExtData.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigExtFile.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigFeatureFlagField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigFields.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigFloorLockField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigLossLimitField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigNclEnabledCardTrackField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigOtherPrefixesField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigPBTField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigPlayerPrefixField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigPlayerProfileButtonField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigPlayerTrackingField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigPointsForPromoField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigPointsOrCashLabelField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigPointsPerDollarField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigSenOption1Field.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigSenOption2Field.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigSessionPointsTextField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigShowPointsVsAccountBalanceField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigSlotMastRevisionField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigSlotNumberField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigTicketingField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigTierPointsLabelField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigTimezoneField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigUniverseCardPrefixField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigUniverseEnabledField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigUniversePropCodesField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigUpdateMMTField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\ConfigVirtualSessionField.cpp" />
+    <ClCompile Include="..\Sentinel\Config\EEPROMConfig.cpp" />
+    <ClCompile Include="..\Sentinel\Config\EGMConfig.cpp" />
+    <ClCompile Include="..\Sentinel\Config\MediaWindowConfig.cpp" />
+    <ClCompile Include="..\Sentinel\Config\NVRAMConfig.cpp" />
+    <ClCompile Include="..\Sentinel\Config\UIConfig.cpp" />
+    <ClCompile Include="..\Sentinel\Connection.cpp" />
+    <ClCompile Include="..\Sentinel\ContentDeliverySystem\FlashComServer.cpp" />
+    <ClCompile Include="..\Sentinel\ContentDeliverySystem\FlashPlayer.cpp" />
+    <ClCompile Include="..\Sentinel\ContentDeliverySystem\PackageList.cpp" />
+    <ClCompile Include="..\Sentinel\ContentDeliverySystem\ThirdPartyMessage.cpp" />
+    <ClCompile Include="..\Sentinel\CountHistory.cpp" />
+    <ClCompile Include="..\Sentinel\DataSubscriptionManager.cpp" />
+    <ClCompile Include="..\Sentinel\DataSubscriptionProvider.cpp" />
+    <ClCompile Include="..\Sentinel\DeviceInfoSet.cpp" />
+    <ClCompile Include="..\Sentinel\Diagnostics.cpp" />
+    <ClCompile Include="..\Sentinel\DiagnosticsEEPROM.cpp" />
+    <ClCompile Include="..\Sentinel\DiagnosticsNVRAM.cpp" />
+    <ClCompile Include="..\Sentinel\DiagnosticsPersistance.cpp" />
+    <ClCompile Include="..\Sentinel\DirectoryManager.cpp" />
+    <ClCompile Include="..\Sentinel\DisplayManager.cpp" />
+    <ClCompile Include="..\Sentinel\DisplayManagerConfig.cpp" />
+    <ClCompile Include="..\Sentinel\DisplayManagerPlayerState.cpp" />
+    <ClCompile Include="..\Sentinel\Employee.cpp" />
+    <ClCompile Include="..\Sentinel\FileList.cpp" />
+    <ClCompile Include="..\Sentinel\FilePacker.cpp" />
+    <ClCompile Include="..\Sentinel\Flash.cpp" />
+    <ClCompile Include="..\Sentinel\FlashStatus.cpp" />
+    <ClCompile Include="..\Sentinel\Game.cpp" />
+    <ClCompile Include="..\Sentinel\GameEndData.cpp" />
+    <ClCompile Include="..\Sentinel\Games.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\BillValidator.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\CardReader.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\CardReaderConfig.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\CardReaderLayer.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\DisplaySettings.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\Edid.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\EEPROMinator.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\EgmVideoDisplay.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\HardPin.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\HardPins.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\HIDContext.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\LcdDesktopDisplay.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\LcdGraphicsLayer.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\LegacyBoardRelays.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\MCRAutoTest.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\MCRWrapper.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\MemoryStorage.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\MemoryStorageEx.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\MixerVideoDisplay.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\MonitorDisplay.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\NDIWrapper.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\NVRAMinator.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\TouchScreenCalibration.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\TouchScreenProtocol.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\TouchScreenProtocols.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\VebDesktopDisplay.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\VebGraphicsLayer.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\VideoMode.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\VideoModeTable.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\VideoTiming.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\WatchDog.cpp" />
+    <ClCompile Include="..\Sentinel\Hardware\WatchdogThreadInfo.cpp" />
+    <ClCompile Include="..\Sentinel\HttpGet.cpp" />
+    <ClCompile Include="..\Sentinel\InternalMessage.cpp" />
+    <ClCompile Include="..\Sentinel\InternalMessageQueueList.cpp" />
+    <ClCompile Include="..\Sentinel\InternalMsgContent.cpp" />
+    <ClCompile Include="..\Sentinel\IPAddress.cpp" />
+    <ClCompile Include="..\Sentinel\IPAddressArray.cpp" />
+    <ClCompile Include="..\Sentinel\Jackpot.cpp" />
+    <ClCompile Include="..\Sentinel\Logging\Buffer.cpp" />
+    <ClCompile Include="..\Sentinel\Logging\BufferHandler.cpp" />
+    <ClCompile Include="..\Sentinel\Logging\Logger.cpp" />
+    <ClCompile Include="..\Sentinel\Logging\LoggerTypes.cpp" />
+    <ClCompile Include="..\Sentinel\Logging\LogString.cpp" />
+    <ClCompile Include="..\Sentinel\MACAddress.cpp" />
+    <ClCompile Include="..\Sentinel\MessagePersist.cpp" />
+    <ClCompile Include="..\Sentinel\MessagePrioritizer.cpp" />
+    <ClCompile Include="..\Sentinel\Meter.cpp" />
+    <ClCompile Include="..\Sentinel\Meters.cpp" />
+    <ClCompile Include="..\Sentinel\MulticastSocket.cpp" />
+    <ClCompile Include="..\Sentinel\MultiplierBonusEvent.cpp" />
+    <ClCompile Include="..\Sentinel\OneTimeBonusEvent.cpp" />
+    <ClCompile Include="..\Sentinel\PersonalBanker.cpp" />
+    <ClCompile Include="..\Sentinel\PersonalBankerAutoUpload.cpp" />
+    <ClCompile Include="..\Sentinel\PersonalBankerInfo.cpp" />
+    <ClCompile Include="..\Sentinel\PersonalBankerTransfer.cpp" />
+    <ClCompile Include="..\Sentinel\Platform.cpp" />
+    <ClCompile Include="..\Sentinel\Player.cpp" />
+    <ClCompile Include="..\Sentinel\PlayerGlobalBalance.cpp" />
+    <ClCompile Include="..\Sentinel\PlayerInfo.cpp" />
+    <ClCompile Include="..\Sentinel\PlayerSession.cpp" />
+    <ClCompile Include="..\Sentinel\PlayerUpdateManager.cpp" />
+    <ClCompile Include="..\Sentinel\PokerHand.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\PollerAuthorizationMessage.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\PollerCheckMessage.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\PollerCommunicator.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\PollerMessage.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\PollerPersonalBankerResponseMessage.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\PollerPlayerResponseMessage.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\PollerPlayerTransactionMessage.cpp" />
+    <ClCompile Include="..\Sentinel\PollerProtocol\TransactionResendList.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\MemoryThresholds.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\OperatingSystem.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\Process.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\ProcessHandler.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\WebDiagnostics.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\WebDiagnosticsCardReader.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\WebDiagnosticsCommonInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\WebDiagnosticsJackpotInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\WebDiagnosticsProgressive.cpp" />
+    <ClCompile Include="..\Sentinel\ProcessDump\WebDiagnosticsStatusInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\CumulativeProgressiveManager.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\EGMAward.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\EGMAwardManager.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\EGMAwardManagerState.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveBonusingAvailable.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveClaimableAward.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveConfig.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveConfigFile.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveConnection.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveConnectionInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveCriticalText.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveEligibleLevelInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveEligibleLevelsInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveEligibleMinorInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveHost.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveHostManager.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveKeys.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevel.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelBroadcast.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelForward.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelManager.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveLevelsInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveMessageFactory.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveMulticastChannel.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveMulticastFrame.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveMulticastHost.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressivePatronSessionInfo.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressivePlaylist.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressivePlaylistController.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveProtocol.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveQueueToOneLink.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveWinnerPick.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\ProgressiveWinnerPicked.cpp" />
+    <ClCompile Include="..\Sentinel\ProgressiveProtocol\StandardProgressiveWins.cpp" />
+    <ClCompile Include="..\Sentinel\QueueItem.cpp" />
+    <ClCompile Include="..\Sentinel\QueueList.cpp" />
+    <ClCompile Include="..\Sentinel\QueuingConfig.cpp" />
+    <ClCompile Include="..\Sentinel\QueuingConfigFile.cpp" />
+    <ClCompile Include="..\Sentinel\RapidJsonHelper.cpp" />
+    <ClCompile Include="..\Sentinel\RestartManager.cpp" />
+    <ClCompile Include="..\Sentinel\RunawayStatus.cpp" />
+    <ClCompile Include="..\Sentinel\S3Lock.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll01Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll02Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll09Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll0EMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll10Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll19Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll1AMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll1BMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll1CMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll1DMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll1EMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll1FMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll20Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll27Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll28Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll2AMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll2BMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll2DMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll2EMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll2FMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll31Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll32Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll33Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll34Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll35Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll36Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll37Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll38Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll39Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll3AMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll3DMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll46Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll4CMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll4DMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll50Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll51Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll52Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll53Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll54Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll55Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll56Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll6AMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll6FMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll70Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll71Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll72Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll74Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll7BMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll7DMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll7FMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll80Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll83Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll84Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll85Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll86Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll8AMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll8EMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll94Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPoll9AMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollA0Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollA8Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollB056Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollB1Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollB2Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollB5Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollB6Message.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollDMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\LongPollUMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\MetersLongPoll.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\MeterStepdown.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASBills.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASConsumer.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASData.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASGameList.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASGeneralException.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASGeneralPoll.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASInterface.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASLimits.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASMeter.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASMeterCollection.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASPersonalBanker.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASPollMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASProtocol.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASProtocolFunctions.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASProtocolGeneralPoll.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASProtocolState.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASScheduler.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASSerialWrapper.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SASTicketing.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\SchedulerList.cpp" />
+    <ClCompile Include="..\Sentinel\SASProtocol\TicketSeed.cpp" />
+    <ClCompile Include="..\Sentinel\ScheduleItem.cpp" />
+    <ClCompile Include="..\Sentinel\SentinelException.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMediaConfig.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMediaScreen.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\CardInfoState.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\CardInResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\CardOutResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\CoinInTrigger.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\CoinLostTrigger.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\CoinOutTrigger.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\CumulativeResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\FileRetrieverQueue.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\GamePlayedResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\InEventTriggerResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\InTriggeredEventTriggerResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\JackpotTrigger.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SentinelInformation.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SentinelInformationResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SentinelInformationWithOrientationResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SentinelStatusResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaAnnouncement.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaCacheList.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaCumulativePackage.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaEvent.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaEvents.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaFlash.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaInfo.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaIPItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaPermanentItems.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaProtocol.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaResendItem.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaResendList.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaScreenMessage.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaScreenMessages.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaTrigger.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SpeedMediaTriggers.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\SplashdownCountdown.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\TheoreticalWinTrigger.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\TimePlayedTrigger.cpp" />
+    <ClCompile Include="..\Sentinel\SpeedMedia\TriggeredEvent.cpp" />
+    <ClCompile Include="..\Sentinel\State\SentinelState.cpp" />
+    <ClCompile Include="..\Sentinel\Stomp\StompFrame.cpp" />
+    <ClCompile Include="..\Sentinel\Stomp\StompHeaderWriter.cpp" />
+    <ClCompile Include="..\Sentinel\Stomp\StompHelper.cpp" />
+    <ClCompile Include="..\Sentinel\Stomp\StompParser.cpp" />
+    <ClCompile Include="..\Sentinel\StringParser.cpp" />
+    <ClCompile Include="..\Sentinel\SubQueue.cpp" />
+    <ClCompile Include="..\Sentinel\Subscription.cpp" />
+    <ClCompile Include="..\Sentinel\SystemProtocol.cpp" />
+    <ClCompile Include="..\Sentinel\ThirdPartyManager.cpp" />
+    <ClCompile Include="..\Sentinel\Ticket.cpp" />
+    <ClCompile Include="..\Sentinel\TicketingInfo.cpp" />
+    <ClCompile Include="..\Sentinel\TicketPBTMaxAmount.cpp" />
+    <ClCompile Include="..\Sentinel\Tickets.cpp" />
+    <ClCompile Include="..\Sentinel\TickRecorder.cpp" />
+    <ClCompile Include="..\Sentinel\TiltManager.cpp" />
+    <ClCompile Include="..\Sentinel\UdpSocket.cpp" />
+    <ClCompile Include="..\Sentinel\UdpSocket2.cpp" />
+    <ClCompile Include="..\Sentinel\UI\AlertBox.cpp" />
+    <ClCompile Include="..\Sentinel\UI\AttendantPaidPayoutLog.cpp" />
+    <ClCompile Include="..\Sentinel\UI\AttractorSequenceItem.cpp" />
+    <ClCompile Include="..\Sentinel\UI\AudioInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\BonusCounterItem.cpp" />
+    <ClCompile Include="..\Sentinel\UI\BonusCounterState.cpp" />
+    <ClCompile Include="..\Sentinel\UI\ButtonInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\Campaign.cpp" />
+    <ClCompile Include="..\Sentinel\UI\ClaimableAwardModuleParameters.cpp" />
+    <ClCompile Include="..\Sentinel\UI\ContentPackageInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\ContentPlayFlashModuleParameters.cpp" />
+    <ClCompile Include="..\Sentinel\UI\CtrlInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\CtrlInfoList.cpp" />
+    <ClCompile Include="..\Sentinel\UI\FlashModuleParameters.cpp" />
+    <ClCompile Include="..\Sentinel\UI\ImageInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\LogoCounterItem.cpp" />
+    <ClCompile Include="..\Sentinel\UI\PteBonusCounterFlashModuleParameters.cpp" />
+    <ClCompile Include="..\Sentinel\UI\PteBonusCounterItem.cpp" />
+    <ClCompile Include="..\Sentinel\UI\Log.cpp" />
+    <ClCompile Include="..\Sentinel\UI\Logs.cpp" />
+    <ClCompile Include="..\Sentinel\UI\MediaWindowLog.cpp" />
+    <ClCompile Include="..\Sentinel\UI\NotificationBox.cpp" />
+    <ClCompile Include="..\Sentinel\UI\NotificationTextConfig.cpp" />
+    <ClCompile Include="..\Sentinel\UI\nRichBonusCounterItem.cpp" />
+    <ClCompile Include="..\Sentinel\UI\PanelInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\PersonalBankerLog.cpp" />
+    <ClCompile Include="..\Sentinel\UI\ProgressiveBonusCounterItem.cpp" />
+    <ClCompile Include="..\Sentinel\UI\RadioButtonInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\RepairLog.cpp" />
+    <ClCompile Include="..\Sentinel\UI\ScreenInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\SentinelDlgState.cpp" />
+    <ClCompile Include="..\Sentinel\UI\SplashdownBonusCounterItem.cpp" />
+    <ClCompile Include="..\Sentinel\UI\TicketLog.cpp" />
+    <ClCompile Include="..\Sentinel\UI\TiltLog.cpp" />
+    <ClCompile Include="..\Sentinel\UI\TransactionLog.cpp" />
+    <ClCompile Include="..\Sentinel\UI\VideoImageInfo.cpp" />
+    <ClCompile Include="..\Sentinel\UI\WinnerPickPickedFlashModuleParameters.cpp" />
+    <ClCompile Include="..\Sentinel\Utilities.cpp" />
+    <ClCompile Include="..\Sentinel\Util\Convert.cpp" />
+    <ClCompile Include="..\Sentinel\Util\Currency.cpp" />
+    <ClCompile Include="..\Sentinel\Util\FileCopy.cpp" />
+    <ClCompile Include="..\Sentinel\Util\FileInfo.cpp" />
+    <ClCompile Include="..\Sentinel\Util\FileSys.cpp" />
+    <ClCompile Include="..\Sentinel\Util\FileTime.cpp" />
+    <ClCompile Include="..\Sentinel\Util\FindFile.cpp" />
+    <ClCompile Include="..\Sentinel\Util\FormatTime.cpp" />
+    <ClCompile Include="..\Sentinel\Util\OutputDebugFormat.cpp" />
+    <ClCompile Include="..\Sentinel\Util\Path.cpp" />
+    <ClCompile Include="..\Sentinel\Util\PathStd.cpp" />
+    <ClCompile Include="..\Sentinel\Util\SafeFormat.cpp" />
+    <ClCompile Include="..\Sentinel\Util\String.cpp">
+      <AssemblerOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">All</AssemblerOutput>
+    </ClCompile>
+    <ClCompile Include="..\Sentinel\VideoModeConfig.cpp" />
+    <ClCompile Include="ButtonClassMock.cpp" />
+    <ClCompile Include="ThirdPartyManagerMock.cpp" />
+    <ClCompile Include="GlobalDefs.cpp" />
+    <ClCompile Include="ProgressiveConnectionMock.cpp" />
+    <ClCompile Include="SpeedMediaCacheListMock.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="stubs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Sentinel\SpeedMedia\SecureSocket.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

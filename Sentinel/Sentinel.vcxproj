@@ -1,0 +1,1394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{82870F7B-2DB1-481E-80AC-07E774F4BBF3}</ProjectGuid>
+    <RootNamespace>Sentinel</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+    <SccProjectName>SAK</SccProjectName>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <UseOfAtl>Static</UseOfAtl>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <UseOfAtl>Static</UseOfAtl>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.51106.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>obj\$(ProjectName)\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)GatLibraryLib\$(Configuration);$(SolutionDir)ComEx\bin\$(Configuration);$(SolutionDir)SpeedMediaClientLib\$(Configuration);$(SolutionDir)MsXmlLib\$(Configuration);$(SolutionDir)SDK-Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_MEMDEBUG;_SENTINEL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4100;4200;4201;4238;4428;4239;4480;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <TreatSpecificWarningsAsErrors>4289;4296;4431;4545;4547;4548;4549;4555;4905;4906;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <SDLCheck>true</SDLCheck>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDK-Lib;$(SolutionDir)SDK-Lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;strmbasd.lib;odbc32.lib;odbccp32.lib;setupapi.lib;version.lib;userdll.lib;rpcrt4.lib;psapi.lib;dnsapi.lib;activemq-cpp.lib;apr.lib;libeay32.lib;ssleay32.lib;libcpmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>uafxcwd.lib;libcpmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <AdditionalOptions>/IGNORE:4254 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)Tools/FixTlog/Release/FixTlog.exe $(TLogLocation)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)GatLibraryLib\$(Configuration);$(SolutionDir)ComEx\bin\$(Configuration);$(SolutionDir)SpeedMediaClientLib\$(Configuration);$(SolutionDir)MsXmlLib\$(Configuration);$(SolutionDir)SDK-Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_SENTINEL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>4100;4200;4201;4238;4428;4239;4480;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <TreatSpecificWarningsAsErrors>4289;4296;4431;4545;4547;4548;4549;4555;4905;4906;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>false</OmitFramePointers>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDK-Lib;$(SolutionDir)SDK-Lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;strmbasd.lib;odbc32.lib;odbccp32.lib;setupapi.lib;version.lib;userdll.lib;rpcrt4.lib;psapi.lib;dnsapi.lib;activemq-cpp.lib;apr.lib;libeay32.lib;ssleay32.lib;libcpmt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>uafxcw.lib;libcpmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <AdditionalOptions>/IGNORE:4254 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)Tools/FixTlog/Release/FixTlog.exe $(TLogLocation)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\SentinelUnitTests\AudioInfoUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\BonusCounterItemUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\BonusCounterStateUnitTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\BonusEventUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ButtonClassUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\CardTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\CardUnitTests_RawData.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\CardUnitTests_Rccl.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ChecksumUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ChkDskHandlerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ConfigExtDataUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ConfigFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ConfigFileReaderUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ConfigFileUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ConfigUniversalEnterpriseUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\CardConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigBalanceRetrievalTextFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigDailyPointsDisplaySuffixFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigExtensibleSystemSettingsFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigMGMDFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigPBTFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigPlayerPrefixFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigPlayerTrackingFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigPointsForPromoFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigPointsOrCashLabelFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigPointsPerDollarFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigSenOption1FieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigSenOption2FieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigSessionPointsTextFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigShowPointsVsAccountBalanceFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigSlotMastRevisionFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigSlotNumberFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigTickingFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigTierPointsLabelFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigTimeZoneFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigUnitTests0.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigUnitTestsA.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigUniverseCardPrefixFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigUniverseEnabledFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigUniversePropCodesFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigUpdateMMTFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\ConfigVirtualSessionFieldUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Config\EGMConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ConnectionUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ContentDeliverySystem\ThirdPartyMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\CountHistoryTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\DiagnosticsEEPROMUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\DiagnosticsNVRAMUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\DiagnosticsPersistanceUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\DiagnosticsUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\DirectoryManagerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\DisplayManagerPlayerStateUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\EepromConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\EmployeeUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ExcessiveVoucherOutUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\FileDownloaderUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\FileListUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\FlashStatusUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\GamesTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\GamesUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\GameTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\BadReadCountUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\CardReaderConfigTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\CardReaderTestHelpers.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\CardReaderTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\MCRAutoTestUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\MCRWrapperUnitTests1.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\MemoryStorageExUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\MemoryStorageExUnitTests2.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\NetworkUtilsMock.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Hardware\NetworkUtilsTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\InternalMessageQueueListAddItemUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\InternalMessageQueueListUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\InternalMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\InternalMsgConstructors.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\InternalMsgContent2UnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\InternalsFrameworkMock.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\InternalsFrameworkUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\IPAddressArrayUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\IPAddressUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\IPItemUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\JackpotUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Logging\LoggerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\LogsMock.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\LogUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\MCRWrapperUnitTests_RawData.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\MessagePriotizerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\MeterStepDownUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\MetersTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\MeterTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\OptionalValTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerAutoUploadUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerInfoUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerTransferUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerUnitTests2.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerUnitTests3.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerUnitTests4.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PersonalBankerUnitTests5.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlatformUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerInfoUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerSessionUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerUnitTests2.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerUnitTests3.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerUnitTests4.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerUnitTests5.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerUnitTests6.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerUnitTests7.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PlayerUpdateManagerTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PokerHandUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerAuthorizationMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerAuthorizePINResponseMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerCardlessTransactionMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerCheckMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerCommunicatorUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerConfigRequestMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerEmployeeResponseMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerGameListInfoUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerGameSessionChangeTransactionMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerGamesListMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerMessageTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerMetersMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerMGMDDataUnitTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerPBPinResetResponseMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerPBResetPinTransactionMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerPersonalBankerResponseMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerPlayerResponseMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerPlayerTransactionMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerProtocolMock.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerProtocolUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerSubgameSelectionResponseMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerSubgameSnapshotTransactionMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\PollerTicketTransactionMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\TransactionResendListUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\MobileConnectProtocol\MobileConnectMessageFactoryUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\MobileConnectProtocol\MobileConnectMessageParsingUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\MobileConnectProtocol\MobilePBTSessionInfoUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\MobileConnectProtocol\PairingInformationUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\PollerProtocol\MobileConnectProtocol\ProximitySettingsEventUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProcessDump\WebDiagnosticsStatusInfoUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProcessDump\WebDiagnosticsUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProcessDump\WebDiagnosticsUnitTests_Progressive.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\AES128EncryptionUtilTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\CampaignPackageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\CampaignConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ConfigFilePackageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\CumulativeProgressiveManagerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\EGMAwardUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\EnumMapTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\FirmwarePackageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveAnnouncementTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveBonusingAvailableTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveConnectionDecryptionTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveConnectionInfoUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveConnectionTestHelpers.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveCriticalTextUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveEligibleLevelInfoTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveEligibleMinorInfoTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveHostUnitTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveHostUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelInfoTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelManagerTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelManagerTests2.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelsInfoJsonTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelsInfoTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelTestHelpers.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveMessageFactoryUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveMulticastChannelTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveMulticastHostTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressivePatronSessionInfoTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveProtocolUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveProtocol_DataConsumerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressivePteStateTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveQueueToOneLinkTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveWinnerPickedTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveWinnerPickTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\PromoGameObjectsTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\SkinPackageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\ProgressiveProtocol\SkinConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\QueueListAddItemUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\QueueListUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\QueueUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\RapidJsonHelperTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\RapidJsonTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\RestartManagerUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\RunawayStatusUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASClassesTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASLongPollUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\InternalsProcessingForGCFUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll20UnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll2FUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll4CUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll54UnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll6FUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll71UnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll7BUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll7DUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll80UnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll86UnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPoll8EUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\LongPollB5UnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASBillsUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASGameListUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASGeneralExceptionUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASInterfaceUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASMeterCollectionUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASPollMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASProtocolStateUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASProtocolUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SASProtocol\SASQueueListUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SchedulerListUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SentinelExceptionTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\SentinelMock.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\State\SentinelStateUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Stomp\StompFrameTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Stomp\StompHelperTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Stomp\StompParserTest.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\CommandMessageUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\EnumValuesUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\InternalsProcessingForUiUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\LogUnitTestsUI.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\NotificationBoxUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\NotificationTextConfigUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\SentinelDlgStateUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\UI\TicketLogUnitTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Utility\AssertMsg.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Utility\ConvertTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Utility\CurrencyTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Utility\TestUtil.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Utility\TestUtilTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Util\ByteArrayEx.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Util\DequeVectorTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\Util\PathTests.cpp" />
+    <ClCompile Include="..\SentinelUnitTests\_SentinelUnitTests.cpp" />
+    <ClCompile Include="BadReadCount.cpp" />
+    <ClCompile Include="binsem.cpp" />
+    <ClCompile Include="BonusEvent.cpp" />
+    <ClCompile Include="BonusEvents.cpp" />
+    <ClCompile Include="BucketSessionPoints.cpp" />
+    <ClCompile Include="Calibration.cpp" />
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CarrierUpgrade.cpp" />
+    <ClCompile Include="CheckSum.cpp" />
+    <ClCompile Include="ChkDskHandler.cpp" />
+    <ClCompile Include="ConfigFile.cpp" />
+    <ClCompile Include="ConfigFileReader.cpp" />
+    <ClCompile Include="Config\CardConfig.cpp" />
+    <ClCompile Include="Config\Config.cpp" />
+    <ClCompile Include="Config\ConfigAllowFloorLockoutField.cpp" />
+    <ClCompile Include="Config\ConfigBalanceRetrievalTextField.cpp" />
+    <ClCompile Include="Config\ConfigCardTimeoutField.cpp" />
+    <ClCompile Include="Config\ConfigCashTransferTrackingField.cpp" />
+    <ClCompile Include="Config\ConfigCasinoNameField.cpp" />
+    <ClCompile Include="Config\ConfigCasinoNumField.cpp" />
+    <ClCompile Include="Config\ConfigCommIDField.cpp" />
+    <ClCompile Include="Config\ConfigDailyPointsDisplaySuffixField.cpp" />
+    <ClCompile Include="Config\ConfigDenomField.cpp" />
+    <ClCompile Include="Config\ConfigExcessiveVoucherOutEnabledField.cpp" />
+    <ClCompile Include="Config\ConfigExcessiveVoucherOutThresholdField.cpp" />
+    <ClCompile Include="Config\ConfigExtData.cpp" />
+    <ClCompile Include="Config\ConfigExtensibleSystemSettingsField.cpp" />
+    <ClCompile Include="Config\ConfigExtFile.cpp" />
+    <ClCompile Include="Config\ConfigFeatureFlagField.cpp" />
+    <ClCompile Include="Config\ConfigField.cpp" />
+    <ClCompile Include="Config\ConfigFields.cpp" />
+    <ClCompile Include="Config\ConfigFloorLockField.cpp" />
+    <ClCompile Include="Config\ConfigLossLimitField.cpp" />
+    <ClCompile Include="Config\ConfigMGMDField.cpp" />
+    <ClCompile Include="Config\ConfigNclEnabledCardTrackField.cpp" />
+    <ClCompile Include="Config\ConfigOtherPrefixesField.cpp" />
+    <ClCompile Include="Config\ConfigPartialWATOutEnabledField.cpp" />
+    <ClCompile Include="Config\ConfigPBTField.cpp" />
+    <ClCompile Include="Config\ConfigPlayerPrefixField.cpp" />
+    <ClCompile Include="Config\ConfigPlayerProfileButtonField.cpp" />
+    <ClCompile Include="Config\ConfigPlayerTrackingField.cpp" />
+    <ClCompile Include="Config\ConfigPointsForPromoField.cpp" />
+    <ClCompile Include="Config\ConfigPointsOrCashLabelField.cpp" />
+    <ClCompile Include="Config\ConfigPointsPerDollarField.cpp" />
+    <ClCompile Include="Config\ConfigSenOption1Field.cpp" />
+    <ClCompile Include="Config\ConfigSenOption2Field.cpp" />
+    <ClCompile Include="Config\ConfigSessionPointsTextField.cpp" />
+    <ClCompile Include="Config\ConfigShowPointsVsAccountBalanceField.cpp" />
+    <ClCompile Include="Config\ConfigSlotMastRevisionField.cpp" />
+    <ClCompile Include="Config\ConfigSlotNumberField.cpp" />
+    <ClCompile Include="Config\ConfigTicketingField.cpp" />
+    <ClCompile Include="Config\ConfigTierPointsLabelField.cpp" />
+    <ClCompile Include="Config\ConfigTimezoneField.cpp" />
+    <ClCompile Include="Config\ConfigUniverseCardPrefixField.cpp" />
+    <ClCompile Include="Config\ConfigUniverseEnabledField.cpp" />
+    <ClCompile Include="Config\ConfigUniversePropCodesField.cpp" />
+    <ClCompile Include="Config\ConfigUpdateMMTField.cpp" />
+    <ClCompile Include="Config\ConfigVirtualSessionField.cpp" />
+    <ClCompile Include="Config\EEPROMConfig.cpp" />
+    <ClCompile Include="Config\EGMConfig.cpp" />
+    <ClCompile Include="Config\MediaWindowConfig.cpp" />
+    <ClCompile Include="Config\NVRAMConfig.cpp" />
+    <ClCompile Include="Config\UIConfig.cpp" />
+    <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="ContentDeliverySystem\FlashComServer.cpp" />
+    <ClCompile Include="ContentDeliverySystem\ThirdPartyMessage.cpp" />
+    <ClCompile Include="ContentDeliverySystem\WebSocketServer.cpp" />
+    <ClCompile Include="CountHistory.cpp" />
+    <ClCompile Include="DataSubscriptionManager.cpp" />
+    <ClCompile Include="DataSubscriptionProvider.cpp" />
+    <ClCompile Include="Diagnostics.cpp" />
+    <ClCompile Include="DiagnosticsEEPROM.cpp" />
+    <ClCompile Include="DiagnosticsNvram.cpp" />
+    <ClCompile Include="DiagnosticsPersistance.cpp" />
+    <ClCompile Include="DirectoryManager.cpp" />
+    <ClCompile Include="DisplayManager.cpp" />
+    <ClCompile Include="DisplayManagerConfig.cpp" />
+    <ClCompile Include="DisplayManagerPlayerState.cpp" />
+    <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="ExcessiveVoucherOut.cpp" />
+    <ClCompile Include="FileDonwloaderUnitTests.cpp" />
+    <ClCompile Include="FileDownloader.cpp" />
+    <ClCompile Include="FileList.cpp" />
+    <ClCompile Include="FlashStatus.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\BeaconManager.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\CardChangeEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\CardChangeRequest.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\CreditTotalsEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\CreditTotalsRequest.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\MobileConnectMessageFactory.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\MobileConnectProtocolKeys.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\FundsTransferEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\FundTransferRequest.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\MobilePBTSessionInfo.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\PairingEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\PairingInformation.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\PairingRequest.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\PairingSettingsEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\PairingStatusEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\PlayerChangeEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\PlayerSessionChangeEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\RadBeacon.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\ProximitySettingsEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\ProximityStatusEvent.cpp" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\rbcom\rbcom_api.c" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\rbcom\rbcom_serial_api.c" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\rblog\rblog.c" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\rbports\rbports.c" />
+    <ClCompile Include="PollerProtocol\MobileConnectProtocol\serhex\serhex_api.c" />
+    <ClCompile Include="FPGAUpgrade.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameEndData.cpp" />
+    <ClCompile Include="Games.cpp" />
+    <ClCompile Include="GlobalDefs.cpp" />
+    <ClCompile Include="Hardware\CardReader.cpp" />
+    <ClCompile Include="Hardware\CardReaderConfig.cpp" />
+    <ClCompile Include="Hardware\CardReaderLayer.cpp" />
+    <ClCompile Include="Hardware\EEPROMinator.cpp" />
+    <ClCompile Include="Hardware\HIDContext.cpp" />
+    <ClCompile Include="Hardware\MCRAutoTest.cpp" />
+    <ClCompile Include="Hardware\MCRWrapper.cpp" />
+    <ClCompile Include="Hardware\MemoryStorage.cpp" />
+    <ClCompile Include="Hardware\MemoryStorageEx.cpp" />
+    <ClCompile Include="Hardware\NetworkUtils.cpp" />
+    <ClCompile Include="Hardware\NVRAMinator.cpp" />
+    <ClCompile Include="Hardware\RfidReader.cpp" />
+    <ClCompile Include="Hardware\WatchDog.cpp" />
+    <ClCompile Include="Hardware\WatchdogThreadInfo.cpp" />
+    <ClCompile Include="HttpGet.cpp" />
+    <ClCompile Include="InternalFrameworkJackpot.cpp" />
+    <ClCompile Include="InternalMessage.cpp" />
+    <ClCompile Include="InternalMessageQueueList.cpp" />
+    <ClCompile Include="InternalMsgContent.cpp" />
+    <ClCompile Include="InternalsFramework.cpp" />
+    <ClCompile Include="InternalsFrameworkCard.cpp" />
+    <ClCompile Include="InternalsFrameworkEmployee.cpp" />
+    <ClCompile Include="InternalsFrameworkFromGCF.cpp" />
+    <ClCompile Include="InternalsFrameworkFromProgressive.cpp" />
+    <ClCompile Include="InternalsFrameworkFromSCF.cpp" />
+    <ClCompile Include="InternalsFrameworkFromUI.cpp" />
+    <ClCompile Include="InternalsFrameworkPersonalBanker.cpp" />
+    <ClCompile Include="InternalsFrameworkPlayer.cpp" />
+    <ClCompile Include="InternalsFrameworkTickets.cpp" />
+    <ClCompile Include="IPAddress.cpp" />
+    <ClCompile Include="IPAddressArray.cpp" />
+    <ClCompile Include="Jackpot.cpp" />
+    <ClCompile Include="Logging\Buffer.cpp" />
+    <ClCompile Include="Logging\BufferHandler.cpp" />
+    <ClCompile Include="Logging\Logger.cpp" />
+    <ClCompile Include="Logging\LoggerTypes.cpp" />
+    <ClCompile Include="Logging\LogString.cpp" />
+    <ClCompile Include="LogsUnitTests.cpp" />
+    <ClCompile Include="MediaPackageManager.cpp" />
+    <ClCompile Include="MediaPackageManagerTests.cpp" />
+    <ClCompile Include="MessagePersist.cpp" />
+    <ClCompile Include="MessagePersistType.cpp" />
+    <ClCompile Include="MessagePrioritizer.cpp" />
+    <ClCompile Include="Meter.cpp" />
+    <ClCompile Include="Meters.cpp" />
+    <ClCompile Include="MulticastSocket.cpp" />
+    <ClCompile Include="MultiplierBonusEvent.cpp" />
+    <ClCompile Include="OneTimeBonusEvent.cpp" />
+    <ClCompile Include="Payout.cpp" />
+    <ClCompile Include="PersonalBanker.cpp" />
+    <ClCompile Include="PersonalBankerAutoUpload.cpp" />
+    <ClCompile Include="PersonalBankerInfo.cpp" />
+    <ClCompile Include="PersonalBankerTransfer.cpp" />
+    <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerGlobalBalance.cpp" />
+    <ClCompile Include="PlayerInfo.cpp" />
+    <ClCompile Include="PlayerSession.cpp" />
+    <ClCompile Include="PlayerUpdateManager.cpp" />
+    <ClCompile Include="PokerHand.cpp" />
+    <ClCompile Include="PollerProtocol\ParseGameList.cpp" />
+    <ClCompile Include="PollerProtocol\PollerAuthorizationMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerAuthorizePINResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerAuthorizePINTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerBasicTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerBillAcceptedTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerBonusTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerCardlessSessionTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerChangeSlotMastIDMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerChangeSlotMastIDRespMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerCheckMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerCommunicator.cpp" />
+    <ClCompile Include="PollerProtocol\PollerConfigChangeTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerConfigMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerConfigRequestMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerConfigRespMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerCTTTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerDisplayMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerEGMSnapshotTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerEmployeeResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerExternalBonusTransaction.cpp" />
+    <ClCompile Include="PollerProtocol\PollerFailureCodeMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerFlashBurnMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerFlashDataBlockMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerFlashInitializeMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerFlashInitializeResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerFlashStatusMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerFlashStatusResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerGameListInfo.cpp" />
+    <ClCompile Include="PollerProtocol\PollerGameSessionChangeTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerGamesListMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerGenericTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerGlobalPasswordMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerHeartbeatMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerHeartbeatRespMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerJackpotFillTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerJackpotTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerLossLimitBalanceUpdate.cpp" />
+    <ClCompile Include="PollerProtocol\PollerMachineMoveTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerMobileConnectTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerMobileConnectResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerMechMaintTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerMetersMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerMGMDData.cpp" />
+    <ClCompile Include="PollerProtocol\PollerOneLinkTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPBPinResetResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPBResetPinTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPBTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPersonalBankerResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPinTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPlayerBonusEventsMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPlayerOmniCardBalanceResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPlayerResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPlayerTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerPlayerUpdateEventsMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerProcessUJPMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerProtocol.cpp" />
+    <ClCompile Include="PollerProtocol\PollerProximityBeaconScanListResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerRebootRequestMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerRequestLossLimitBalanceMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerResendItem.cpp" />
+    <ClCompile Include="PollerProtocol\PollerSerialCommDownTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerSlotmastTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerStatusMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerSubGameMetersMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerSubgameSelectionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerSubgameSelectionResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerSubGameSnapshotTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerTicketResponseMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerTicketTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerTiltTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerTimeMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerTransactionAckMessage.cpp" />
+    <ClCompile Include="PollerProtocol\PollerUJPResultTransactionMessage.cpp" />
+    <ClCompile Include="PollerProtocol\TransactionResendList.cpp" />
+    <ClCompile Include="ProcessDump\MemoryThresholds.cpp" />
+    <ClCompile Include="ProcessDump\OperatingSystem.cpp" />
+    <ClCompile Include="ProcessDump\Process.cpp" />
+    <ClCompile Include="ProcessDump\ProcessHandler.cpp" />
+    <ClCompile Include="ProcessDump\WebDiagnostics.cpp" />
+    <ClCompile Include="ProcessDump\WebDiagnosticsCardReader.cpp" />
+    <ClCompile Include="ProcessDump\WebDiagnosticsCommonInfo.cpp" />
+    <ClCompile Include="ProcessDump\WebDiagnosticsJackpotInfo.cpp" />
+    <ClCompile Include="ProcessDump\WebDiagnosticsPlayer.cpp" />
+    <ClCompile Include="ProcessDump\WebDiagnosticsProgressive.cpp" />
+    <ClCompile Include="ProcessDump\WebDiagnosticsStatusInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\AES128EncryptionUtil.cpp" />
+    <ClCompile Include="ProgressiveProtocol\CampaignPackage.cpp" />
+    <ClCompile Include="ProgressiveProtocol\CampaignConfig.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ConfigFilePackage.cpp" />
+    <ClCompile Include="ProgressiveProtocol\PackageInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveJackpotAnnouncement.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveAnnouncementInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveAnnouncementsInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\CumulativeProgressiveManager.cpp" />
+    <ClCompile Include="ProgressiveProtocol\EGMAward.cpp" />
+    <ClCompile Include="ProgressiveProtocol\EGMAwardManager.cpp" />
+    <ClCompile Include="ProgressiveProtocol\EGMAwardManagerState.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveBonusingAvailable.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveClaimableAward.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveConfig.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveConfigFile.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveConnection.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveConnectionInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveCriticalText.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveEligibleLevelInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveEligibleLevelsInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveEligibleMinorInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveHost.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveHostManager.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveKeys.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveLevel.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveLevelBroadcast.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveLevelForward.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveLevelInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveLevelManager.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveLevelsInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveMessageFactory.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveMulticastChannel.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveMulticastEncryptionConfiguration.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveMulticastFrame.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveMulticastHost.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveOfferRequest.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressivePatronSessionInfo.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveProtocol.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveQueueToOneLink.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveTotalizerAnnouncement.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveTransactionResendList.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveWinnerPick.cpp" />
+    <ClCompile Include="ProgressiveProtocol\ProgressiveWinnerPicked.cpp" />
+    <ClCompile Include="ProgressiveProtocol\PromoGameAcceptanceStatus.cpp" />
+    <ClCompile Include="ProgressiveProtocol\PromoGameRequest.cpp" />
+    <ClCompile Include="ProgressiveProtocol\SkinPackage.cpp" />
+    <ClCompile Include="ProgressiveProtocol\SkinConfig.cpp" />
+    <ClCompile Include="ProgressiveProtocol\SlotsContentFile.cpp" />
+    <ClCompile Include="ProgressiveProtocol\SlotsContentPackage.cpp" />
+    <ClCompile Include="ProgressiveProtocol\StandardProgressiveWins.cpp" />
+    <ClCompile Include="ProgressiveProtocol\FirmwarePackage.cpp" />
+    <ClCompile Include="QueueItem.cpp" />
+    <ClCompile Include="QueueList.cpp" />
+    <ClCompile Include="QueuingConfig.cpp" />
+    <ClCompile Include="QueuingConfigFile.cpp" />
+    <ClCompile Include="RapidJsonHelper.cpp" />
+    <ClCompile Include="resource.cpp" />
+    <ClCompile Include="RestartManager.cpp" />
+    <ClCompile Include="RunawayStatus.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll01Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll02Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll09Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll0EMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll10Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll19Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll1AMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll1BMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll1CMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll1DMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll1EMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll1FMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll20Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll27Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll28Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll2AMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll2BMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll2DMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll2EMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll2FMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll31Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll32Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll33Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll34Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll35Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll36Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll37Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll38Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll39Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll3AMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll3DMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll46Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll4CMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll4DMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll50Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll51Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll52Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll53Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll54Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll55Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll56Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll6AMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll6FMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll70Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll71Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll72Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll74Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll7BMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll7DMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll7FMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll80Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll83Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll84Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll85Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll86Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll8AMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll8EMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll94Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPoll9AMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPollA0Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollA8Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollB056Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollB1Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollB2Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollB5Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollB6Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollB7Message.cpp" />
+    <ClCompile Include="SASProtocol\LongPollDMessage.cpp" />
+    <ClCompile Include="SASProtocol\LongPollUMessage.cpp" />
+    <ClCompile Include="SASProtocol\MetersLongPoll.cpp" />
+    <ClCompile Include="SASProtocol\MeterStepdown.cpp" />
+    <ClCompile Include="SASProtocol\SASBills.cpp" />
+    <ClCompile Include="SASProtocol\SASConsumer.cpp" />
+    <ClCompile Include="SASProtocol\SASData.cpp" />
+    <ClCompile Include="SASProtocol\SASGameList.cpp" />
+    <ClCompile Include="SASProtocol\SASGeneralException.cpp" />
+    <ClCompile Include="SASProtocol\SASGeneralPoll.cpp" />
+    <ClCompile Include="SASProtocol\SASInterface.cpp" />
+    <ClCompile Include="SASProtocol\SASLimits.cpp" />
+    <ClCompile Include="SASProtocol\SASMeter.cpp" />
+    <ClCompile Include="SASProtocol\SASMeterCollection.cpp" />
+    <ClCompile Include="SASProtocol\SASPersonalBanker.cpp" />
+    <ClCompile Include="SASProtocol\SASPollMessage.cpp" />
+    <ClCompile Include="SASProtocol\SASProtocol.cpp" />
+    <ClCompile Include="SASProtocol\SASProtocolFunctions.cpp" />
+    <ClCompile Include="SASProtocol\SASProtocolGeneralPoll.cpp" />
+    <ClCompile Include="SASProtocol\SASProtocolState.cpp" />
+    <ClCompile Include="SASProtocol\SASQueueList.cpp" />
+    <ClCompile Include="SASProtocol\SASScheduler.cpp" />
+    <ClCompile Include="SASProtocol\SASSerialWrapper.cpp" />
+    <ClCompile Include="SASProtocol\SASTicketing.cpp" />
+    <ClCompile Include="SASProtocol\SchedulerList.cpp" />
+    <ClCompile Include="SASProtocol\TicketSeed.cpp" />
+    <ClCompile Include="SaveTestTransactions.cpp" />
+    <ClCompile Include="Sentinel.cpp" />
+    <ClCompile Include="SentinelException.cpp" />
+    <ClCompile Include="SessionPoints.cpp" />
+    <ClCompile Include="SpeedMedia\logging.c" />
+    <ClCompile Include="State\SentinelState.cpp" />
+    <ClCompile Include="Stomp\StompFrame.cpp" />
+    <ClCompile Include="Stomp\StompHelper.cpp" />
+    <ClCompile Include="Stomp\StompParser.cpp" />
+    <ClCompile Include="StringParser.cpp" />
+    <ClCompile Include="SubgameSession.cpp" />
+    <ClCompile Include="SubQueue.cpp" />
+    <ClCompile Include="Subscription.cpp" />
+    <ClCompile Include="SystemProtocol.cpp" />
+    <ClCompile Include="Ticket.cpp" />
+    <ClCompile Include="TicketingInfo.cpp" />
+    <ClCompile Include="TicketPBTMaxAmount.cpp" />
+    <ClCompile Include="Tickets.cpp" />
+    <ClCompile Include="TiltManager.cpp" />
+    <ClCompile Include="TouchScreenProtocol.cpp" />
+    <ClCompile Include="TouchScreenProtocols.cpp" />
+    <ClCompile Include="UdpSocket.cpp" />
+    <ClCompile Include="UdpSocket2.cpp" />
+    <ClCompile Include="UI\AttendantPaidPayoutLog.cpp" />
+    <ClCompile Include="UI\AudioInfo.cpp" />
+    <ClCompile Include="UI\BonusCounterItem.cpp" />
+    <ClCompile Include="UI\BonusCounterState.cpp" />
+    <ClCompile Include="UI\ButtonInfo.cpp" />
+    <ClCompile Include="UI\CommandMessage.cpp" />
+    <ClCompile Include="UI\FullScreenAttractorCommand.cpp" />
+    <ClCompile Include="UI\JackpotAnnouncementCommand.cpp" />
+    <ClCompile Include="UI\Log.cpp" />
+    <ClCompile Include="UI\LogoCounterItem.cpp" />
+    <ClCompile Include="UI\Logs.cpp" />
+    <ClCompile Include="UI\MediaWindowLog.cpp" />
+    <ClCompile Include="UI\NotificationBox.cpp" />
+    <ClCompile Include="UI\NotificationBoxCounterItem.cpp" />
+    <ClCompile Include="UI\NotificationTextConfig.cpp" />
+    <ClCompile Include="UI\PersonalBankerLog.cpp" />
+    <ClCompile Include="UI\PlayXGetYBonusCounterItem.cpp" />
+    <ClCompile Include="UI\PopupTextCommand.cpp" />
+    <ClCompile Include="UI\PrizeBonusCounterItem.cpp" />
+    <ClCompile Include="UI\ProgressiveBonusCounterItem.cpp" />
+    <ClCompile Include="UI\PromoGameCommand.cpp" />
+    <ClCompile Include="UI\RepairLog.cpp" />
+    <ClCompile Include="UI\ScatterBonusCounterItem.cpp" />
+    <ClCompile Include="UI\ScheduleEndCommand.cpp" />
+    <ClCompile Include="UI\ScreenDefs.cpp" />
+    <ClCompile Include="UI\SentinelDlgState.cpp" />
+    <ClCompile Include="UI\ServiceWindowManager.cpp" />
+    <ClCompile Include="UI\TicketLog.cpp" />
+    <ClCompile Include="UI\TiltLog.cpp" />
+    <ClCompile Include="UI\TotalizerAnnouncementCommand.cpp" />
+    <ClCompile Include="UI\TransactionLog.cpp" />
+    <ClCompile Include="UI\UIProtocol.cpp" />
+    <ClCompile Include="UI\UnattendedJackpotCommand.cpp" />
+    <ClCompile Include="UI\WinnerPickAndPickedCommand.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="UtilitiesBoostTime.cpp" />
+    <ClCompile Include="Util\Convert.cpp" />
+    <ClCompile Include="Util\Currency.cpp" />
+    <ClCompile Include="Util\FileSys.cpp" />
+    <ClCompile Include="Util\Path.cpp" />
+    <ClCompile Include="Util\TcpMcrWrapper.cpp" />
+    <ClCompile Include="VideoMixerConfigFile.cpp" />
+    <ClCompile Include="VideoMixerDiagnostics.cpp" />
+    <ClCompile Include="VideoMixerFPGAVersion.cpp" />
+    <ClCompile Include="VideoMixerUpgrade.cpp" />
+    <ClCompile Include="VideoModeConfig.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CardReaderLayerDll\WinAPI\WinAPI.vcxproj">
+      <Project>{da218432-705f-4cab-ab8f-9a5f8eaef166}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ComEx\ComEx.csproj">
+      <Project>{1fd2d8d4-d65a-466f-97ed-0bd28eb676a2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicsLayerDll\EMGD\GraphicsLayerEmgd.vcxproj">
+      <Project>{d12725da-e84f-4827-8a5b-f86b6b026fb5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MsXmlLib\MsXmlLib.vcxproj">
+      <Project>{91973ff3-cbf1-4fa9-910b-0b42c5459e69}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SentinelUnitTests\Hardware\CardReaderTestHelpers.h" />
+    <ClInclude Include="..\SentinelUnitTests\Hardware\NetworkUtilsMock.h" />
+    <ClInclude Include="..\SentinelUnitTests\InternalsFrameworkMock.h" />
+    <ClInclude Include="..\SentinelUnitTests\PollerProtocol\PollerProtocolMock.h" />
+    <ClInclude Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveConnectionTestHelpers.h" />
+    <ClInclude Include="..\SentinelUnitTests\ProgressiveProtocol\ProgressiveLevelTestHelpers.h" />
+    <ClInclude Include="..\SentinelUnitTests\ProgressiveProtocol\ThreadSafeQueue.h" />
+    <ClInclude Include="..\SentinelUnitTests\RapidJsonTestHelper.h" />
+    <ClInclude Include="..\SentinelUnitTests\SASProtocol\SASSerialWrapperMock.h" />
+    <ClInclude Include="..\SentinelUnitTests\SentinelMock.h" />
+    <ClInclude Include="..\SentinelUnitTests\Utility\AssertMsg.h" />
+    <ClInclude Include="..\SentinelUnitTests\Utility\TestUtil.h" />
+    <ClInclude Include="..\SentinelUnitTests\Utility\UnitTestingMatchers.h" />
+    <ClInclude Include="..\SentinelUnitTests\Util\ByteArrayEx.h" />
+    <ClInclude Include="..\SentinelUnitTests\Util\DequeVector.h" />
+    <ClInclude Include="BadReadCount.h" />
+    <ClInclude Include="binsem.h" />
+    <ClInclude Include="BonusEvent.h" />
+    <ClInclude Include="BonusEvents.h" />
+    <ClInclude Include="BucketSessionPoints.h" />
+    <ClInclude Include="Calibration.h" />
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="CarrierUpgrade.h" />
+    <ClInclude Include="CheckSum.h" />
+    <ClInclude Include="ChkDskHandler.h" />
+    <ClInclude Include="ConfigFile.h" />
+    <ClInclude Include="ConfigFileReader.h" />
+    <ClInclude Include="Config\CardConfig.h" />
+    <ClInclude Include="Config\Config.h" />
+    <ClInclude Include="Config\ConfigAllowFloorLockoutField.h" />
+    <ClInclude Include="Config\ConfigBalanceRetrievalTextField.h" />
+    <ClInclude Include="Config\ConfigCardTimeoutField.h" />
+    <ClInclude Include="Config\ConfigCashTransferTrackingField.h" />
+    <ClInclude Include="Config\ConfigCasinoNameField.h" />
+    <ClInclude Include="Config\ConfigCasinoNumField.h" />
+    <ClInclude Include="Config\ConfigCommIDField.h" />
+    <ClInclude Include="Config\ConfigDailyPointsDisplaySuffixField.h" />
+    <ClInclude Include="Config\ConfigDenomField.h" />
+    <ClInclude Include="Config\ConfigExcessiveVoucherOutEnabledField.h" />
+    <ClInclude Include="Config\ConfigExcessiveVoucherOutThresholdField.h" />
+    <ClInclude Include="Config\ConfigExtData.h" />
+    <ClInclude Include="Config\ConfigExtensibleSystemSettingsField.h" />
+    <ClInclude Include="Config\ConfigExtFile.h" />
+    <ClInclude Include="Config\ConfigFeatureFlagField.h" />
+    <ClInclude Include="Config\ConfigField.h" />
+    <ClInclude Include="Config\ConfigFields.h" />
+    <ClInclude Include="Config\ConfigFloorLockField.h" />
+    <ClInclude Include="Config\ConfigLossLimitField.h" />
+    <ClInclude Include="Config\ConfigMGMDField.h" />
+    <ClInclude Include="Config\ConfigNclEnabledCardTrackField.h" />
+    <ClInclude Include="Config\ConfigOtherPrefixesField.h" />
+    <ClInclude Include="Config\ConfigPartialWATOutEnabledField.h" />
+    <ClInclude Include="Config\ConfigPBTField.h" />
+    <ClInclude Include="Config\ConfigPlayerPrefixField.h" />
+    <ClInclude Include="Config\ConfigPlayerProfileButtonField.h" />
+    <ClInclude Include="Config\ConfigPlayerTrackingField.h" />
+    <ClInclude Include="Config\ConfigPointsForPromoField.h" />
+    <ClInclude Include="Config\ConfigPointsOrCashLabelField.h" />
+    <ClInclude Include="Config\ConfigPointsPerDollarField.h" />
+    <ClInclude Include="Config\ConfigSenOption1Field.h" />
+    <ClInclude Include="Config\ConfigSenOption2Field.h" />
+    <ClInclude Include="Config\ConfigSessionPointsTextField.h" />
+    <ClInclude Include="Config\ConfigShowPointsVsAccountBalanceField.h" />
+    <ClInclude Include="Config\ConfigSlotMastRevisionField.h" />
+    <ClInclude Include="Config\ConfigSlotNumberField.h" />
+    <ClInclude Include="Config\ConfigTicketingField.h" />
+    <ClInclude Include="Config\ConfigTierPointsLabelField.h" />
+    <ClInclude Include="Config\ConfigTimezoneField.h" />
+    <ClInclude Include="Config\ConfigUniverseCardPrefixField.h" />
+    <ClInclude Include="Config\ConfigUniverseEnabledField.h" />
+    <ClInclude Include="Config\ConfigUniversePropCodesField.h" />
+    <ClInclude Include="Config\ConfigUpdateMMTField.h" />
+    <ClInclude Include="Config\ConfigVirtualSessionField.h" />
+    <ClInclude Include="Config\EEPROMConfig.h" />
+    <ClInclude Include="Config\EGMConfig.h" />
+    <ClInclude Include="Config\MediaWindowConfig.h" />
+    <ClInclude Include="Config\NVRAMConfig.h" />
+    <ClInclude Include="Config\UIConfig.h" />
+    <ClInclude Include="Connection.h" />
+    <ClInclude Include="ContentDeliverySystem\FlashComServer.h" />
+    <ClInclude Include="ContentDeliverySystem\ThirdPartyMessage.h" />
+    <ClInclude Include="ContentDeliverySystem\WebSocketServer.h" />
+    <ClInclude Include="CountHistory.h" />
+    <ClInclude Include="CurrentActivity.h" />
+    <ClInclude Include="DataSubscriptionManager.h" />
+    <ClInclude Include="DataSubscriptionProvider.h" />
+    <ClInclude Include="Diagnostics.h" />
+    <ClInclude Include="DiagnosticsEEPROM.h" />
+    <ClInclude Include="DiagnosticsNvram.h" />
+    <ClInclude Include="DiagnosticsPersistance.h" />
+    <ClInclude Include="DirectoryManager.h" />
+    <ClInclude Include="DisplayManager.h" />
+    <ClInclude Include="DisplayManagerConfig.h" />
+    <ClInclude Include="DisplayManagerPlayerState.h" />
+    <ClInclude Include="Employee.h" />
+    <ClInclude Include="EnumMap.h" />
+    <ClInclude Include="ExcessiveVoucherOut.h" />
+    <ClInclude Include="FileDownloader.h" />
+    <ClInclude Include="FileList.h" />
+    <ClInclude Include="FlashStatus.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\Beacon.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\BeaconManager.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\CardChangeEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\CardChangeRequest.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\CreditTotalsEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\CreditTotalsRequest.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\MobileConnectMessageFactory.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\MobileConnectProtocolKeys.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\FundsTransferEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\FundTransferRequest.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\MobilePBTSessionInfo.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\PairingEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\PairingInformation.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\PairingRequest.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\PairingSettingsEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\PairingStatusEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\PlayerChangeEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\PlayerSessionChangeEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\RadBeacon.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\ProximitySettingsEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\ProximityStatusEvent.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\rbcom\rbcom_api.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\rbcom\rbcom_dump.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\rbcom\rbcom_serial_api.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\rblog\rblog.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\rbports\rbports.h" />
+    <ClInclude Include="PollerProtocol\MobileConnectProtocol\serhex\serhex_api.h" />
+    <ClInclude Include="FPGAUpgrade.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameEndData.h" />
+    <ClInclude Include="Games.h" />
+    <ClInclude Include="GlobalDefs.h" />
+    <ClInclude Include="Hardware\CardReader.h" />
+    <ClInclude Include="Hardware\CardReaderConfig.h" />
+    <ClInclude Include="Hardware\CardReaderLayer.h" />
+    <ClInclude Include="Hardware\DisplayInterfaces.h" />
+    <ClInclude Include="Hardware\EEPROMinator.h" />
+    <ClInclude Include="Hardware\HIDContext.h" />
+    <ClInclude Include="Hardware\IOCTLOffsets.h" />
+    <ClInclude Include="Hardware\MCRAutoTest.h" />
+    <ClInclude Include="Hardware\MCRWrapper.h" />
+    <ClInclude Include="Hardware\MemoryStorage.h" />
+    <ClInclude Include="Hardware\MemoryStorageEx.h" />
+    <ClInclude Include="Hardware\NetworkUtils.h" />
+    <ClInclude Include="Hardware\NonVolatileMemoryMaps.h" />
+    <ClInclude Include="Hardware\NVRAMinator.h" />
+    <ClInclude Include="Hardware\RfidReader.h" />
+    <ClInclude Include="Hardware\WatchDog.h" />
+    <ClInclude Include="Hardware\WatchdogThreadInfo.h" />
+    <ClInclude Include="Hash.h" />
+    <ClInclude Include="HttpGet.h" />
+    <ClInclude Include="ICumulativeProgressiveManager.h" />
+    <ClInclude Include="InternalMessage.h" />
+    <ClInclude Include="InternalMessageQueueList.h" />
+    <ClInclude Include="InternalMsgContent.h" />
+    <ClInclude Include="InternalsFramework.h" />
+    <ClInclude Include="IPAddress.h" />
+    <ClInclude Include="IPAddressArray.h" />
+    <ClInclude Include="IPItem.h" />
+    <ClInclude Include="IProtocolManager.h" />
+    <ClInclude Include="Jackpot.h" />
+    <ClInclude Include="Logging\Buffer.h" />
+    <ClInclude Include="Logging\BufferHandler.h" />
+    <ClInclude Include="Logging\Logger.h" />
+    <ClInclude Include="Logging\LoggerTypes.h" />
+    <ClInclude Include="Logging\LogString.h" />
+    <ClInclude Include="MediaPackageManager.h" />
+    <ClInclude Include="MessagePersist.h" />
+    <ClInclude Include="MessagePersistType.h" />
+    <ClInclude Include="MessagePrioritizer.h" />
+    <ClInclude Include="Meter.h" />
+    <ClInclude Include="Meters.h" />
+    <ClInclude Include="metersdef.h" />
+    <ClInclude Include="MsgTargetPair.h" />
+    <ClInclude Include="MulticastSocket.h" />
+    <ClInclude Include="MultiplierBonusEvent.h" />
+    <ClInclude Include="OneLink.h">
+      <DependentUpon>ProgressiveProtocol\OneLink.xsd</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="OneTimeBonusEvent.h" />
+    <ClInclude Include="OptionalVal.h" />
+    <ClInclude Include="paltronics-onelink-schema.h">
+      <DependentUpon>ProgressiveProtocol\paltronics-onelink-schema.xsd</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Payout.h" />
+    <ClInclude Include="PendingAction.h" />
+    <ClInclude Include="PersonalBanker.h" />
+    <ClInclude Include="PersonalBankerAutoUpload.h" />
+    <ClInclude Include="PersonalBankerInfo.h" />
+    <ClInclude Include="PersonalBankerTransfer.h" />
+    <ClInclude Include="Platform.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerGlobalBalance.h" />
+    <ClInclude Include="PlayerInfo.h" />
+    <ClInclude Include="PlayerSession.h" />
+    <ClInclude Include="PlayerUpdateManager.h" />
+    <ClInclude Include="PokerHand.h" />
+    <ClInclude Include="PollerProtocol\IPollerProtocolInterface.h" />
+    <ClInclude Include="PollerProtocol\ParseGameList.h" />
+    <ClInclude Include="PollerProtocol\PollerAuthorizationMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerAuthorizePINResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerAuthorizePINTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerBasicTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerBillAcceptedTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerBonusTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerCardlessSessionTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerChangeSlotMastIDMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerChangeSlotMastIDRespMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerCheckMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerCommunicator.h" />
+    <ClInclude Include="PollerProtocol\PollerConfigChangeTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerConfigMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerConfigRequestMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerConfigRespMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerCTTTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerDisplayMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerEGMSnapshotTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerEmployeeResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerExternalBonusTransaction.h" />
+    <ClInclude Include="PollerProtocol\PollerFailureCodeMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerFlashBurnMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerFlashDataBlockMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerFlashInitializeMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerFlashInitializeResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerFlashStatusMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerFlashStatusResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerGameListInfo.h" />
+    <ClInclude Include="PollerProtocol\PollerGameSessionChangeTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerGamesListMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerGenericTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerGlobalPasswordMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerHeartbeatMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerHeartbeatRespMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerJackpotFillTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerJackpotTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerLossLimitBalanceUpdate.h" />
+    <ClInclude Include="PollerProtocol\PollerMobileConnectTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerMobileConnectResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerMachineMoveTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerMechMaintTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerMetersMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerMGMDData.h" />
+    <ClInclude Include="PollerProtocol\PollerOneLinkTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPBPinResetResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPBResetPinTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPBTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPersonalBankerResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPinTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPlayerBonusEventsMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPlayerOmniCardBalanceResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPlayerResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPlayerTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerPlayerUpdateEventsMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerProcessUJPMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerProtocol.h" />
+    <ClInclude Include="PollerProtocol\PollerProximityBeaconScanListResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerRebootRequestMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerRequestLossLimitBalanceMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerResendItem.h" />
+    <ClInclude Include="PollerProtocol\PollerSerialCommDownTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerSlotmastTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerStatusMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerSubGameMetersMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerSubgameSelectionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerSubgameSelectionResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerSubGameSnapshotTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerTicketResponseMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerTicketTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerTiltTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerTimeMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerTransactionAckMessage.h" />
+    <ClInclude Include="PollerProtocol\PollerUJPResultTransactionMessage.h" />
+    <ClInclude Include="PollerProtocol\TransactionResendList.h" />
+    <ClInclude Include="ProcessDump\MemoryThresholds.h" />
+    <ClInclude Include="ProcessDump\OperatingSystem.h" />
+    <ClInclude Include="ProcessDump\Process.h" />
+    <ClInclude Include="ProcessDump\ProcessHandler.h" />
+    <ClInclude Include="ProcessDump\WebDiagnostics.h" />
+    <ClInclude Include="ProcessDump\WebDiagnosticsCommonInfo.h" />
+    <ClInclude Include="ProcessDump\WebDiagnosticsStatusInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\AES128EncryptionUtil.h" />
+    <ClInclude Include="ProgressiveProtocol\CampaignPackage.h" />
+    <ClInclude Include="ProgressiveProtocol\CampaignConfig.h" />
+    <ClInclude Include="ProgressiveProtocol\ConfigFilePackage.h" />
+    <ClInclude Include="ProgressiveProtocol\DashboardIdentifiers.h" />
+    <ClInclude Include="ProgressiveProtocol\PackageInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveJackpotAnnouncement.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveAnnouncementInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveAnnouncementsInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\CumulativeProgressiveManager.h" />
+    <ClInclude Include="ProgressiveProtocol\EGMAward.h" />
+    <ClInclude Include="ProgressiveProtocol\EGMAwardManager.h" />
+    <ClInclude Include="ProgressiveProtocol\EGMAwardManagerState.h" />
+    <ClInclude Include="ProgressiveProtocol\EGMAwardMessageSource.h" />
+    <ClInclude Include="ProgressiveProtocol\ICumulativeProgressiveManager.h" />
+    <ClInclude Include="ProgressiveProtocol\IStandardProgressiveWins.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveBonusingAvailable.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveClaimableAward.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveConfig.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveConfigFile.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveConnection.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveConnectionInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveCriticalText.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveDataConsumer.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveEligibleLevelInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveEligibleLevelsInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveEligibleMinorInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveHost.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveHostManager.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveKeys.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveLevel.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveLevelBroadcast.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveLevelForward.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveLevelInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveLevelManager.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveLevelsInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveMessageFactory.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveMulticastChannel.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveMulticastEncryptionConfiguration.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveMulticastFrame.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveMulticastHost.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveOfferRequest.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressivePatronSessionInfo.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveProtocol.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressivePteState.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveQueueToOneLink.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveTotalizerAnnouncement.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveTransactionResendList.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveWinnerPick.h" />
+    <ClInclude Include="ProgressiveProtocol\ProgressiveWinnerPicked.h" />
+    <ClInclude Include="ProgressiveProtocol\PromoGameAcceptanceStatus.h" />
+    <ClInclude Include="ProgressiveProtocol\PromoGameRequest.h" />
+    <ClInclude Include="ProgressiveProtocol\SkinPackage.h" />
+    <ClInclude Include="ProgressiveProtocol\SkinConfig.h" />
+    <ClInclude Include="ProgressiveProtocol\SlotsContentFile.h" />
+    <ClInclude Include="ProgressiveProtocol\SlotsContentPackage.h" />
+    <ClInclude Include="ProgressiveProtocol\StandardProgressiveWins.h" />
+    <ClInclude Include="ProgressiveProtocol\FirmwarePackage.h" />
+    <ClInclude Include="QueueItem.h" />
+    <ClInclude Include="QueueList.h" />
+    <ClInclude Include="QueuingConfig.h" />
+    <ClInclude Include="QueuingConfigFile.h" />
+    <ClInclude Include="RapidJsonHelper.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RestartManager.h" />
+    <ClInclude Include="RunawayStatus.h" />
+    <ClInclude Include="SASProtocol\LongPoll01Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll02Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll09Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll0EMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll10Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll19Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll1AMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll1BMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll1CMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll1DMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll1EMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll1FMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll20Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll27Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll28Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll2AMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll2BMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll2DMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll2EMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll2FMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll31Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll32Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll33Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll34Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll35Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll36Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll37Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll38Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll39Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll3AMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll3DMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll46Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll4CMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll4DMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll50Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll51Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll52Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll53Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll54Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll55Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll56Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll6AMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll6FMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll70Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll71Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll72Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll74Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll7BMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll7DMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll7FMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll80Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll83Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll84Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll85Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll86Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll8AMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll8EMessage.h" />
+    <ClInclude Include="SASProtocol\LongPoll94Message.h" />
+    <ClInclude Include="SASProtocol\LongPoll9AMessage.h" />
+    <ClInclude Include="SASProtocol\LongPollA0Message.h" />
+    <ClInclude Include="SASProtocol\LongPollA8Message.h" />
+    <ClInclude Include="SASProtocol\LongPollB056Message.h" />
+    <ClInclude Include="SASProtocol\LongPollB1Message.h" />
+    <ClInclude Include="SASProtocol\LongPollB2Message.h" />
+    <ClInclude Include="SASProtocol\LongPollB5Message.h" />
+    <ClInclude Include="SASProtocol\LongPollB6Message.h" />
+    <ClInclude Include="SASProtocol\LongPollB7Message.h" />
+    <ClInclude Include="SASProtocol\LongPollDMessage.h" />
+    <ClInclude Include="SASProtocol\LongPollUMessage.h" />
+    <ClInclude Include="SASProtocol\MetersLongPoll.h" />
+    <ClInclude Include="SASProtocol\MeterStepdown.h" />
+    <ClInclude Include="SASProtocol\SASBills.h" />
+    <ClInclude Include="SASProtocol\SASConsumer.h" />
+    <ClInclude Include="SASProtocol\SASData.h" />
+    <ClInclude Include="SASProtocol\SASGameList.h" />
+    <ClInclude Include="SASProtocol\SASGeneralException.h" />
+    <ClInclude Include="SASProtocol\SASGeneralPoll.h" />
+    <ClInclude Include="SASProtocol\SASInterface.h" />
+    <ClInclude Include="SASProtocol\SASLimits.h" />
+    <ClInclude Include="SASProtocol\SASMeter.h" />
+    <ClInclude Include="SASProtocol\SASMeterCollection.h" />
+    <ClInclude Include="SASProtocol\SASPollMessage.h" />
+    <ClInclude Include="SASProtocol\SASProtocol.h" />
+    <ClInclude Include="SASProtocol\SASProtocolState.h" />
+    <ClInclude Include="SASProtocol\SASQueueList.h" />
+    <ClInclude Include="SASProtocol\SASScheduler.h" />
+    <ClInclude Include="SASProtocol\SASSerialWrapper.h" />
+    <ClInclude Include="SASProtocol\SchedulerList.h" />
+    <ClInclude Include="SASProtocol\TicketSeed.h" />
+    <ClInclude Include="SaveTestTransactions.h" />
+    <ClInclude Include="Sentinel.h" />
+    <ClInclude Include="SentinelException.h" />
+    <ClInclude Include="ServiceWindowDefs.h" />
+    <ClInclude Include="SessionPoints.h" />
+    <ClInclude Include="SpeedMedia\logging.h" />
+    <ClInclude Include="SpeedMedia\soapH.h" />
+    <ClInclude Include="SpeedMedia\soapStub.h" />
+    <ClInclude Include="State\SentinelState.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Stomp\StompFrame.h" />
+    <ClInclude Include="Stomp\StompHelper.h" />
+    <ClInclude Include="Stomp\StompParser.h" />
+    <ClInclude Include="StringParser.h" />
+    <ClInclude Include="SubgameSelectionResponse.h" />
+    <ClInclude Include="SubgameSession.h" />
+    <ClInclude Include="SubgameSessionParameters.h" />
+    <ClInclude Include="SubQueue.h" />
+    <ClInclude Include="Subscription.h" />
+    <ClInclude Include="SystemProtocol.h" />
+    <ClInclude Include="Ticket.h" />
+    <ClInclude Include="TicketingInfo.h" />
+    <ClInclude Include="TicketPBTMaxAmount.h" />
+    <ClInclude Include="Tickets.h" />
+    <ClInclude Include="TiltManager.h" />
+    <ClInclude Include="TiltsDef.h" />
+    <ClInclude Include="TouchScreenProtocol.h" />
+    <ClInclude Include="TouchScreenProtocols.h" />
+    <ClInclude Include="UdpSocket.h" />
+    <ClInclude Include="UdpSocket2.h" />
+    <ClInclude Include="UI\AttendantPaidPayoutLog.h" />
+    <ClInclude Include="UI\AudioInfo.h" />
+    <ClInclude Include="UI\BonusCounterItem.h" />
+    <ClInclude Include="UI\BonusCounterState.h" />
+    <ClInclude Include="UI\ButtonInfo.h" />
+    <ClInclude Include="UI\CommandMessage.h" />
+    <ClInclude Include="UI\FullScreenAttractorCommand.h" />
+    <ClInclude Include="UI\JackpotAnnouncementCommand.h" />
+    <ClInclude Include="UI\Log.h" />
+    <ClInclude Include="UI\LogoCounterItem.h" />
+    <ClInclude Include="UI\Logs.h" />
+    <ClInclude Include="UI\MediaWindowLog.h" />
+    <ClInclude Include="UI\NotificationBox.h" />
+    <ClInclude Include="UI\NotificationBoxCounterItem.h" />
+    <ClInclude Include="UI\NotificationTextConfig.h" />
+    <ClInclude Include="UI\PersonalBankerLog.h" />
+    <ClInclude Include="UI\PlayXGetYBonusCounterItem.h" />
+    <ClInclude Include="UI\PopupTextCommand.h" />
+    <ClInclude Include="UI\PrizeBonusCounterItem.h" />
+    <ClInclude Include="UI\ProgressiveBonusCounterItem.h" />
+    <ClInclude Include="UI\PromoGameCommand.h" />
+    <ClInclude Include="UI\RepairLog.h" />
+    <ClInclude Include="UI\ScatterBonusCounterItem.h" />
+    <ClInclude Include="UI\ScheduleEndCommand.h" />
+    <ClInclude Include="UI\ScreenDefs.h" />
+    <ClInclude Include="UI\SentinelDlgState.h" />
+    <ClInclude Include="UI\ServiceWindowManager.h" />
+    <ClInclude Include="UI\TicketLog.h" />
+    <ClInclude Include="UI\TiltLog.h" />
+    <ClInclude Include="UI\TotalizerAnnouncementCommand.h" />
+    <ClInclude Include="UI\TransactionLog.h" />
+    <ClInclude Include="UI\UIProtocol.h" />
+    <ClInclude Include="UI\UnattendedJackpotCommand.h" />
+    <ClInclude Include="UI\WinnerPickAndPickedCommand.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="Util\Convert.h" />
+    <ClInclude Include="Util\Currency.h" />
+    <ClInclude Include="Util\FileSys.h" />
+    <ClInclude Include="Util\Manipulators.h" />
+    <ClInclude Include="Util\Path.h" />
+    <ClInclude Include="Util\TcpMcrWrapper.h" />
+    <ClInclude Include="VideoMixerConfigFile.h" />
+    <ClInclude Include="VideoMixerDiagnostics.h" />
+    <ClInclude Include="VideoMixerFPGAVersion.h" />
+    <ClInclude Include="VideoMixerUpgrade.h" />
+    <ClInclude Include="VideoModeConfig.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="ProgressiveProtocol\OneLink.xsd" />
+    <Xsd Include="ProgressiveProtocol\paltronics-onelink-schema.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\SentinelUnitTests\SentinelUnitTests.csproj" />
+    <None Include="SpeedMedia\Sentinel3ToCacheEndpoint.nsmap" />
+    <None Include="SpeedMedia\Sentinel3ToCacheUne.nsmap" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\SentinelUnitTests\AuthoringTests.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Sentinel.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

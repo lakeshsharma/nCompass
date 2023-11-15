@@ -1,0 +1,16 @@
+<!DOCTYPE Workspace SYSTEM "http://www.slickedit.com/dtd/vse/10.0/vpw.dtd">
+<Workspace Version="10.0" VendorName="SlickEdit">
+	<Environment>
+	</Environment>
+	<Projects>
+		<Project File="CardReaderLayer/CardReaderLayer.vpj"/>
+		<Project File="makesmd/makesmd.vpj"/>
+		<Project File="S7_Test_Tools/NVRAMTester/NVRAMTester.vpj"/>
+		<Project File="Sentinel/Sentinel.vpj"/>
+		<Project File="SentinelUnitTests/SentinelUnitTests.vpj"/>
+		<Project File="S7_Test_Tools/Test9BitnCompass/Test9BitnCompass.vpj"/>
+		<Project File="S7_Test_Tools/TestBattery/TestBattery.vpj"/>
+		<Project File="S7_Test_Tools/TestMaster/TestMaster.vpj"/>
+		<Project File="VirtualLiteDLL/VirtualLiteDLL.vpj"/>
+	</Projects>
+</Workspace>
