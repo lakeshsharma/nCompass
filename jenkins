@@ -4,13 +4,6 @@ defaultSystemTargets = []
 defaultSystemTargets << 'yocto'
 defaultSystemTargets << 'lite-i386'
 defaultSystemTargets << 'nexus-amd64'
-    environment {
-        SONARQUBE_SCANNER_HOME = tool 'sonarqube'; // Assumes SonarQube Scanner is configured in Jenkins
-        SONARQUBE_URL = 'http://172.28.58.54:9000';
-        SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass';
-        SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761';
-        SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace
-    }
 
 properties([
 	buildDiscarder(logRotator(artifactNumToKeepStr: '10')),
@@ -70,14 +63,15 @@ properties([
 ])
 
 currentBuild.description = "<hr/>\n"
-agent any 
+
+node('ubuntu20.04-focal') {
 	// we need to "docker login" so we can pull the Docker images we need for building
 	// setting DOCKER_CONFIG helps keep that login localized to *this* job (and we'll clean it up at the end of the build)
 	env.DOCKER_CONFIG = workspace + '/.docker'
 	dir(env.DOCKER_CONFIG) { deleteDir() }
 	withCredentials([
 		usernamePassword(
-			credentialsId: 'DOCKER_PASSWORD',
+			credentialsId: 'gcp-cxs-docker-repository-service-account',
 			usernameVariable: 'DOCKER_USERNAME',
 			passwordVariable: 'DOCKER_PASSWORD',
 		),
@@ -162,8 +156,6 @@ agent any
 					]) {
 						stage(systemTarget + ' Coverity') {
 							warnError(systemTarget + ' coverity failed') {
-								sh '''#!/usr/bin/env bash
-									set -Eeuo pipefail -x
 								steps {
 									script {
                     // Install SonarQube Scanner if not installed
@@ -176,11 +168,11 @@ agent any
 										} else {
 											bat 'echo "This script only supports Unix-based systems."'
 											error("Unsupported OS")
-											}
 										}
 									}
 								}
 							}
+						}
 
 						stage('Clone Git Repository') {
 							steps {
@@ -222,16 +214,13 @@ agent any
 				if (!params.getOrDefault('JENKINS_SKIP_S3DA', false)) {
 					stage(systemTarget + ' Sign') {
 						warnError(systemTarget + ' sign failed') {
-							script {
-								def commands = '''
+							sh '''
 								bash build-with-docker.sh makesmd
-                    						bash sign-with-docker.sh
-                    						rm -v build/dist/*.smd build/dist/full-os/*.smd # delete the SMDs now that they're signed -- we only need the signed versions
-                						'''
-                						sh commands.trim()
-            						}
-        					}
-    					}
+								bash sign-with-docker.sh
+								rm -v build/dist/*.smd build/dist/full-os/*.smd # delete the SMDs now that they're signed -- we only need the signed versions
+							'''
+						}
+					}
 				}
 				sh '''
 					# fix references to the in-container path "/home/falcondev/tfs/nCompassTest", which cause the Jenkins plugin to fail to find the files
@@ -309,7 +298,7 @@ agent any
 						currentBuild.description += "<div><a href=\"${currentBuild.absoluteUrl}artifact/${systemTarget}/coverage/index.html\"><code>${systemTarget}</code> coverage report</a></div>\n"
 					}
 					if (fileExists(env.ARCHIVE_DIRECTORY + '/' + systemTarget + '/valgrind.log')) {
-						currentBuild.description += "<div><a href='${currentBuild.absoluteUrl}artifact/${systemTarget}/valgrind.log/*view*'><code>${systemTarget}</code> valgrind report</a></div>\n"
+						currentBuild.description += "<div><a href=\"${currentBuild.absoluteUrl}artifact/${systemTarget}/valgrind.log/*view*/\"><code>${systemTarget}</code> valgrind report</a></div>\n"
 					}
 					currentBuild.description += "<hr/>\n"
 				}
@@ -363,3 +352,4 @@ agent any
 			archiveArtifacts(artifacts: '**')
 		}
 	}
+}
