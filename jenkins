@@ -159,8 +159,7 @@ agent any
 							usernameVariable: 'NCOMPASS_COVERITY_USER',
 							passwordVariable: 'NCOMPASS_COVERITY_PASSWORD',
 						),
-					]) 
-					stages {
+					]) {
 						stage(systemTarget + ' Coverity') {
 							warnError(systemTarget + ' coverity failed') {
 								sh '''#!/usr/bin/env bash
@@ -231,7 +230,6 @@ agent any
 						}
 					}
 				}
-}
 				sh '''
 					# fix references to the in-container path "/home/falcondev/tfs/nCompassTest", which cause the Jenkins plugin to fail to find the files
 					# also, remove "Entering directory .../CardReaderLayer" which also confuses the Jenkins plugin
