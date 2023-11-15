@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         SONARQUBE_SCANNER_HOME = tool 'sonarqube'; // Assumes SonarQube Scanner is configured in Jenkins
-        SONARQUBE_URL = 'https://quality.aristocrat.com/projects';
+        SONARQUBE_URL = 'http://172.28.58.54:9000/projects';
         SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass';
-        SONARQUBE_TOKEN = '0047c404603d306e5740e973d4c57c218e31b9e5';
+        SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761';
         SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace
     }
 
