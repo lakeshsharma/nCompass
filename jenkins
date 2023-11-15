@@ -8,24 +8,59 @@ pipeline {
         SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761';
         SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace
     }
-stages {
-    stage('Install SonarQube Scanner') {
-        steps {
-            script {
-                // Install SonarQube Scanner if not installed
-                if (isUnix()) {
-                    sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
-                    sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
-                    sh "rm -rf /var/lib/jenkins/workspace/nCompass/sonar-scanner"
-                    sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
-                    sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin"
-                } else {
-                    bat 'echo "This script only supports Unix-based systems."'
-                    error("Unsupported OS")
+
+    stages {
+        stage('Install SonarQube Scanner') {
+            steps {
+                script {
+                    // Install SonarQube Scanner if not installed
+                    if (isUnix()) {
+                        sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
+                        sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
+                        sh "rm -rf ${SONARQUBE_INSTALL_DIR}"
+                        sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
+                        sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin"
+                    } else {
+                        bat 'echo "This script only supports Unix-based systems."'
+                        error("Unsupported OS")
+                    }
                 }
             }
         }
-    }
+
+        stage('Clone Git Repository') {
+            steps {
+                script {
+                    // Clone your GitHub repository
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Install Build Tools') {
+            steps {
+                script {
+                    // Install necessary build tools (e.g., CMake, Make, GCC)
+                    if (isUnix()) {
+                        sh 'sudo apt-get update'
+                        sh 'sudo apt-get install -y cmake make g++'
+                    } else {
+                        // Add Windows installation commands if needed
+                    }
+                }
+            }
+        }
+
+        stage('Build C++ Code') {
+            steps {
+                script {
+                    // Configure and build your C++ code
+                    sh 'cmake .'
+                    sh 'make'
+                }
+            }
+        }
+
         stage('Code Quality Check via SonarQube') {
             steps {
                 script {
