@@ -76,8 +76,8 @@ node ('Built-In Node') {
 	env.DOCKER_CONFIG = workspace + '/.docker'
 	dir(env.DOCKER_CONFIG) { deleteDir() }
 withCredentials([
-    usernamePassword(credentialsId: 'DOCKER_USERNAME', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
-]){
+                    usernamePassword(credentialsId: 'DOCKER_CREDS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')
+                ]){
 		stage('Docker Login') {
 			sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" us-west1-docker.pkg.dev'
 		}
