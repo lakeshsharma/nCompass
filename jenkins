@@ -306,7 +306,7 @@ agent any {
 						currentBuild.description += "<div><a href=\"${currentBuild.absoluteUrl}artifact/${systemTarget}/coverage/index.html\"><code>${systemTarget}</code> coverage report</a></div>\n"
 					}
 					if (fileExists(env.ARCHIVE_DIRECTORY + '/' + systemTarget + '/valgrind.log')) {
-						currentBuild.description += "<div><a href=\"${currentBuild.absoluteUrl}artifact/${systemTarget}/valgrind.log/*view*/\"><code>${systemTarget}</code> valgrind report</a></div>\n"
+						currentBuild.description += "<div><a href='${currentBuild.absoluteUrl}artifact/${systemTarget}/valgrind.log/*view*'><code>${systemTarget}</code> valgrind report</a></div>\n"
 					}
 					currentBuild.description += "<hr/>\n"
 				}
