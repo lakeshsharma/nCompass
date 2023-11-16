@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE_SCANNER_HOME = tool 'sonarqube' // Assumes SonarQube Scanner is configured in Jenkins
+        SONARQUBE_SCANNER_HOME = tool 'sonarqube'
         SONARQUBE_URL = 'http://172.28.58.54:9000'
         SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass'
         SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761'
-        SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace
+        SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner"
+        DOCKER_IMAGE = 'lakeshsharma/us-west1-docker.pkg.dev:angular'
+        DOCKER_COMPOSE_FILE = "${WORKSPACE}/src/angularsrc/docker-compose.yml"
     }
 
     stages {
@@ -17,87 +19,79 @@ pipeline {
                 }
             }
         }
-stage('Archiving') {
-    steps {
-        script {
-            env.ARCHIVE_DIRECTORY = "${workspace}/.archive"
-            dir(env.ARCHIVE_DIRECTORY) {
-                deleteDir()
-                sh "mkdir -p ${ARCHIVE_DIRECTORY}"
-            }
 
-            env.NCOMPASS_SRC = "${workspace}/src"
-            sh "mkdir -p ${NCOMPASS_SRC}"
-
-            dir(env.NCOMPASS_SRC) {
-                // Check out nCompass src
-                checkout scm
-            }
-        }
-    }
-}
-
-
-stage('Setup Angular') {
-    steps {
-        script {
-            // Create spot for angular unit test artifacts
-            env.ANGULAR_TEST_ARTIFACTS = "${workspace}/src/.angular-test"
-            dir(env.ANGULAR_TEST_ARTIFACTS) {
-                deleteDir()
-                sh "mkdir -p ${ANGULAR_TEST_ARTIFACTS}"
-            }
-
-            // Create spot for angular build artifacts
-            env.ANGULAR_ARTIFACTS = "${workspace}/src/.angular"
-            dir(env.ANGULAR_ARTIFACTS) {
-                deleteDir()
-                sh "mkdir -p ${ANGULAR_ARTIFACTS}"
-            }
-
-            // Create spot for angular application code
-            env.ANGULAR_SRC = "${workspace}/src/angularsrc"
-            sh "mkdir -p ${ANGULAR_SRC}"
-        }
-    }
-}
-
-	// Angular docker build
-	stage('Angular Build') {
-steps {
-    script {
-		dir(workspace  + '/src') {
-			sh 'bash build-angular.sh'
-		}
-	}
-}
-}
-
-        stage('Coverity') {
+        stage('Archiving') {
             steps {
                 script {
-                    // Install SonarQube Scanner if not installed
-                    if (isUnix()) {
-                        sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
-                        sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
-                        sh "rm -rf ${SONARQUBE_INSTALL_DIR}"
-                        sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
-                        sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin"
-                    } else {
-                        error("This script only supports Unix-based systems.")
+                    env.ARCHIVE_DIRECTORY = "${workspace}/.archive"
+                    dir(env.ARCHIVE_DIRECTORY) {
+                        deleteDir()
+                        sh "mkdir -p ${ARCHIVE_DIRECTORY}"
+                    }
+
+                    env.NCOMPASS_SRC = "${workspace}/src"
+                    sh "mkdir -p ${NCOMPASS_SRC}"
+
+                    dir(env.NCOMPASS_SRC) {
+                        checkout scm
                     }
                 }
             }
         }
 
-        stage('Clone Git Repository') {
+        stage('Setup Angular') {
             steps {
                 script {
-                    // Clone your GitHub repository
-                    checkout scm
+                    env.ANGULAR_TEST_ARTIFACTS = "${workspace}/src/.angular-test"
+                    dir(env.ANGULAR_TEST_ARTIFACTS) {
+                        deleteDir()
+                        sh "mkdir -p ${ANGULAR_TEST_ARTIFACTS}"
+                    }
+
+                    env.ANGULAR_ARTIFACTS = "${workspace}/src/.angular"
+                    dir(env.ANGULAR_ARTIFACTS) {
+                        deleteDir()
+                        sh "mkdir -p ${ANGULAR_ARTIFACTS}"
+                    }
+
+                    env.ANGULAR_SRC = "${workspace}/src/angularsrc"
+                    sh "mkdir -p ${ANGULAR_SRC}"
+			
+			                    // Run npm init -y
+                    sh "cd ${ANGULAR_SRC} && npm init -y"
                 }
             }
         }
+
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    docker.build(DOCKER_IMAGE).push()
+                }
+            }
+        }
+
+        stage('Deploy with Docker Compose') {
+            steps {
+                script {
+                    // Create Docker Compose file
+                    writeFile file: DOCKER_COMPOSE_FILE, text: """
+                    version: '3'
+                    services:
+                      angular-app:
+                        image: ${DOCKER_IMAGE}
+                        ports:
+                          - "8181:95"
+                    """
+                    
+                    // Deploy using Docker Compose
+                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} up -d"
+                }
+            }
+        }
+
+        // ... Other stages
 
         stage('Code Quality Check via SonarQube') {
             steps {
@@ -111,6 +105,12 @@ steps {
                     }
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline succeeded! Application is deployed."
         }
     }
 }
