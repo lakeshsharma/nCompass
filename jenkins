@@ -47,39 +47,7 @@ stage('Install Node.js') {
         }
     }
 }
-
-
-        stage('Setup Angular') {
-            steps {
-                script {
-                    env.ANGULAR_TEST_ARTIFACTS = "${workspace}/src/.angular-test"
-                    dir(env.ANGULAR_TEST_ARTIFACTS) {
-                        deleteDir()
-                        sh "mkdir -p ${ANGULAR_TEST_ARTIFACTS}"
-                    }
-
-                    env.ANGULAR_ARTIFACTS = "${workspace}/src/.angular"
-                    dir(env.ANGULAR_ARTIFACTS) {
-                        deleteDir()
-                        sh "mkdir -p ${ANGULAR_ARTIFACTS}"
-                    }
-
-                    env.ANGULAR_SRC = "${workspace}/src/angularsrc"
-                    sh "mkdir -p ${ANGULAR_SRC}"
-
-                    // Install Node.js and npm
-                    tool name: 'Node.js', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-
-                    // Run npm init -y
-                    sh "cd ${ANGULAR_SRC} && npm init -y"
-                    
-                    // Install global npm packages for testing
-                    sh "npm install -g jasmine"
-                }
-            }
-        }
-
-        stage('Build and Push Docker Image') {
+      stage('Build and Push Docker Image') {
             steps {
                 script {
                     // Build Docker image
