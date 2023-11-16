@@ -42,7 +42,7 @@ stage('Install Node.js') {
     steps {
         script {
             // Remove SonarQube repository to avoid 404 error
-            sh 'sudo rm /etc/apt/sources.list.d/sonarsource.list'
+           // sh 'sudo rm /etc/apt/sources.list.d/sonarsource.list'
 
             // Install Node.js
             sh 'curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -'
