@@ -56,8 +56,11 @@ pipeline {
 
                     env.ANGULAR_SRC = "${workspace}/src/angularsrc"
                     sh "mkdir -p ${ANGULAR_SRC}"
-			
-			                    // Run npm init -y
+
+                    // Install Node.js and npm
+                    tool name: 'Node.js', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+
+                    // Run npm init -y
                     sh "cd ${ANGULAR_SRC} && npm init -y"
                 }
             }
