@@ -70,7 +70,7 @@ properties([
 ])
 
 currentBuild.description = "<hr/>\n"
-node ('Built-In Node') {
+node {
 	// we need to "docker login" so we can pull the Docker images we need for building
 	// setting DOCKER_CONFIG helps keep that login localized to *this* job (and we'll clean it up at the end of the build)
 	env.DOCKER_CONFIG = workspace + '/.docker'
