@@ -62,6 +62,16 @@ stage('Setup Angular') {
     }
 }
 
+	// Angular docker build
+	stage('Angular Build') {
+steps {
+    script {
+		dir(workspace  + '/src') {
+			sh 'bash build-angular.sh'
+		}
+	}
+}
+}
 
         stage('Coverity') {
             steps {
