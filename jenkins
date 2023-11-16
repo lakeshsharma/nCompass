@@ -38,6 +38,19 @@ pipeline {
                 }
             }
         }
+stage('Install Node.js') {
+    steps {
+        script {
+            // Install Node.js
+            sh 'curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -'
+            sh 'sudo apt-get install -y nodejs'
+            
+            // Verify installation
+            sh 'node -v'
+            sh 'npm -v'
+        }
+    }
+}
 
         stage('Setup Angular') {
             steps {
