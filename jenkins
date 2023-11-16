@@ -62,6 +62,9 @@ pipeline {
 
                     // Run npm init -y
                     sh "cd ${ANGULAR_SRC} && npm init -y"
+                    
+                    // Install global npm packages for testing
+                    sh "npm install -g jasmine"
                 }
             }
         }
