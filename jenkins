@@ -11,14 +11,20 @@ pipeline {
         DOCKER_COMPOSE_FILE = "${WORKSPACE}/src/angularsrc/docker-compose.yml"
     }
 
-    stages {
-        stage('Docker Login') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"'
-                }
+stage('Docker Login') {
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+            script {
+                def registryCredentials = 'registry-1.docker.io'
+                def dockerCmd = "docker login -u ${DOCKER_USERNAME} --password-stdin ${registryCredentials}"
+                
+                // Run the Docker login command with password provided via stdin
+                sh "echo ${DOCKER_PASSWORD} | ${dockerCmd}"
             }
         }
+    }
+}
+
 
         stage('Archiving') {
             steps {
