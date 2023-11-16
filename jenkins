@@ -1,5 +1,4 @@
 isReleaseBuild = env.JOB_NAME.matches('main')
-echo $isReleaseBuild
 defaultSystemTargets = []
 defaultSystemTargets << 'yocto'
 defaultSystemTargets << 'lite-i386'
