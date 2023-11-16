@@ -57,7 +57,8 @@ stage('Install Node.js') {
             steps {
                 script {
                     // Build Docker image
-                    docker.build(DOCKER_IMAGE).push()
+                    def dockerImage = docker.build("-f /var/lib/jenkins/workspace/nCompass/src/angularsrc/Dockerfile ${DOCKER_IMAGE}")
+                    dockerImage.push()
                 }
             }
         }
