@@ -17,33 +17,51 @@ pipeline {
                 }
             }
         }
-	env.ARCHIVE_DIRECTORY = workspace + '/.archive'
-	dir(env.ARCHIVE_DIRECTORY) { deleteDir() }
-	sh 'mkdir -p "$ARCHIVE_DIRECTORY"'
+stage('Archiving') {
+    steps {
+        script {
+            env.ARCHIVE_DIRECTORY = "${workspace}/.archive"
+            dir(env.ARCHIVE_DIRECTORY) {
+                deleteDir()
+                sh "mkdir -p ${ARCHIVE_DIRECTORY}"
+            }
 
-	env.NCOMPASS_SRC = workspace + '/src'
-	sh 'mkdir -p "$NCOMPASS_SRC"'
+            env.NCOMPASS_SRC = "${workspace}/src"
+            sh "mkdir -p ${NCOMPASS_SRC}"
 
-	dir(env.NCOMPASS_SRC) {
-		// check out nCompass src
-		checkout scm
-	}
+            dir(env.NCOMPASS_SRC) {
+                // Check out nCompass src
+                checkout scm
+            }
+        }
+    }
+}
 
-	stage('Setup Angular') {
-		// Create spot for angular unit test artifacts
-		env.ANGULAR_TEST_ARTIFACTS = workspace + '/src/.angular-test'
-		dir(env.ANGULAR_TEST_ARTIFACTS) { deleteDir() }
-		sh 'mkdir -p "$ANGULAR_TEST_ARTIFACTS"'
 
-		// Create spot for angular build artifacts
-		env.ANGULAR_ARTIFACTS = workspace + '/src/.angular'
-		dir(env.ANGULAR_ARTIFACTS) { deleteDir() }
-		sh 'mkdir -p "$ANGULAR_ARTIFACTS"'
+stage('Setup Angular') {
+    steps {
+        script {
+            // Create spot for angular unit test artifacts
+            env.ANGULAR_TEST_ARTIFACTS = "${workspace}/src/.angular-test"
+            dir(env.ANGULAR_TEST_ARTIFACTS) {
+                deleteDir()
+                sh "mkdir -p ${ANGULAR_TEST_ARTIFACTS}"
+            }
 
-		// Create spot for angular application code
-		env.ANGULAR_SRC = workspace + '/src/angularsrc'
-		sh 'mkdir -p "$ANGULAR_SRC"'
-	}
+            // Create spot for angular build artifacts
+            env.ANGULAR_ARTIFACTS = "${workspace}/src/.angular"
+            dir(env.ANGULAR_ARTIFACTS) {
+                deleteDir()
+                sh "mkdir -p ${ANGULAR_ARTIFACTS}"
+            }
+
+            // Create spot for angular application code
+            env.ANGULAR_SRC = "${workspace}/src/angularsrc"
+            sh "mkdir -p ${ANGULAR_SRC}"
+        }
+    }
+}
+
 
         stage('Coverity') {
             steps {
