@@ -2,85 +2,68 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE_SCANNER_HOME = tool 'sonarqube'
-        SONARQUBE_URL = 'http://172.28.58.54:9000'
-        SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass'
-        SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761'
-        SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner"
-        DOCKER_IMAGE = 'lakeshsharma/us-west1-docker.pkg.dev:angular'
-        DOCKER_COMPOSE_FILE = "${WORKSPACE}/src/angularsrc/docker-compose.yml"
+        SONARQUBE_SCANNER_HOME = tool 'sonarqube'; // Assumes SonarQube Scanner is configured in Jenkins
+        SONARQUBE_URL = 'http://172.28.58.54:9000';
+        SONARQUBE_PROJECT_KEY = 'sonarqube-nCompass';
+        SONARQUBE_TOKEN = 'squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761';
+        SONARQUBE_INSTALL_DIR = "${WORKSPACE}/sonar-scanner" // Use a directory within Jenkins workspace
     }
+					stages {
+						stage(systemTarget + ' Coverity') {
+							warnError(systemTarget + ' coverity failed') {
+								sh '''#!/usr/bin/env bash
+									set -Eeuo pipefail -x '''
+								steps {
+									script {
+                    // Install SonarQube Scanner if not installed
+										if (isUnix()) {
+											sh "mkdir -p ${SONARQUBE_INSTALL_DIR}"
+											sh "wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip"
+											sh "rm -rf ${SONARQUBE_INSTALL_DIR}"
+											sh "unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d ${SONARQUBE_INSTALL_DIR}"
+											sh "export PATH=$PATH:${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin"
+										} else {
+											bat 'echo "This script only supports Unix-based systems."'
+											error("Unsupported OS")
+											}
+										}
+									}
+								}
+							}
 
-    stages {
-        stage('Docker Login') {
+						stage('Clone Git Repository') {
+							steps {
+								script {
+                    // Clone your GitHub repository
+									checkout scm
+									}
+								}
+							}
+						stage('Code Quality Check via SonarQube') {
+							steps {
+								script {
+									withSonarQubeEnv("sonarqube-nCompass") {
+										sh "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+										-Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
+										-Dsonar.sources=. \
+										-Dsonar.host.url=${SONARQUBE_URL} \
+										-Dsonar.login=${SONARQUBE_TOKEN}"
+										}
+									}
+								}
+							}
+        stage('Quality Gate Check') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'DOCKER_CREDS', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Wait for SonarQube analysis to complete and check the quality gate status
                     script {
-                        def registryCredentials = 'registry-1.docker.io'
-                        def dockerCmd = "docker login -u ${DOCKER_USERNAME} --password-stdin ${registryCredentials}"
-                        sh "echo ${DOCKER_PASSWORD} | ${dockerCmd}"
-                    }
-                }
-            }
-        }
-
-        stage('Archiving') {
-            steps {
-                script {
-                    env.ARCHIVE_DIRECTORY = "${workspace}/.archive"
-                    dir(env.ARCHIVE_DIRECTORY) {
-                        deleteDir()
-                        sh "mkdir -p ${ARCHIVE_DIRECTORY}"
-                    }
-
-                    env.NCOMPASS_SRC = "${workspace}/src"
-                    sh "mkdir -p ${NCOMPASS_SRC}"
-
-                    dir(env.NCOMPASS_SRC) {
-                        checkout scm
-                    }
-                }
-            }
-        }
-
-        stage('Install Node.js') {
-            steps {
-                script {
-                    sh 'node -v'
-                    sh 'npm -v'
-                }
-            }
-        }
-
-        // Loop through system targets
-        script {
-            def defaultSystemTargets = 'your_default_targets_here'
-            for (def systemTarget in params.getOrDefault('JENKINS_SYSTEM_TARGETS', defaultSystemTargets).tokenize()) {
-                stage("${systemTarget} Pipeline") {
-                    // Continue with other stages...
-
-                    // Replace Coverity stage with SonarQube stage
-                    stage("${systemTarget} SonarQube") {
-                        steps {
-                            script {
-                                withSonarQubeEnv("sonarqube-nCompass") {
-                                    sh "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-                                        -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
-                                        -Dsonar.sources=. \
-                                        -Dsonar.host.url=${SONARQUBE_URL} \
-                                        -Dsonar.login=${SONARQUBE_TOKEN}"
-                                }
-                            }
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
                         }
                     }
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            echo "Pipeline succeeded! Application is deployed."
         }
     }
 }
