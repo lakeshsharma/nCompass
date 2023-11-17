@@ -54,20 +54,46 @@ stage('Install Node.js') {
     }
 }
 
-        stage('Code Quality Check via SonarQube') {
-            steps {
-                script {
-                    withSonarQubeEnv("sonarqube-nCompass") {
-                        sh "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-                            -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=${SONARQUBE_URL} \
-                            -Dsonar.login=${SONARQUBE_TOKEN}"
+for (systemTarget in params.getOrDefault('JENKINS_SYSTEM_TARGETS', defaultSystemTargets).tokenize()) {
+    stage(systemTarget + ' Pipeline') {
+        steps {
+            withEnv(['DOCKER_SYSTEM_TARGET=' + systemTarget]) {
+                dir(systemTarget) {
+                    stage(systemTarget + ' Checkout') {
+                        checkout scm
+                    }
+                    sh '''
+                        if [ -z "${JENKINS_SKIP_CLEAN:-}" ]; then
+                            bash build-with-docker.sh clean
+                        else
+                            rm -rf build
+                        fi
+                        mkdir -p build
+                    '''
+                    stage(systemTarget + ' Build') {
+                        warnError(systemTarget + ' build failed') {
+                            sh 'bash build-with-docker.sh sentinel 2>&1 | tee -a build/sentinel-build.log'
+                        }
+                    }
+                    // Continue with other stages...
+
+                    // Replace Coverity stage with SonarQube stage
+                    stage(systemTarget + ' SonarQube') {
+                        script {
+                            withSonarQubeEnv("sonarqube-nCompass") {
+                                sh "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+                                    -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
+                                    -Dsonar.sources=. \
+                                    -Dsonar.host.url=${SONARQUBE_URL} \
+                                    -Dsonar.login=${SONARQUBE_TOKEN}"
+                            }
+                        }
                     }
                 }
             }
         }
     }
+}
 
     post {
         success {
