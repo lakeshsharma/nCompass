@@ -64,7 +64,7 @@ post {
         // Capture the task report and echo it to the console
         script {
             def taskReport = sh(script: "curl -u ${SONARQUBE_TOKEN}: -X GET \"${SONARQUBE_URL}/api/ce/task?id=${currentBuild.rawBuild.id}\"", returnStdout: true).trim()
-            writeFile file: "task-report1.txt", text: taskReport
+            writeFile file: "${workspace}/recent-test-report.txt", text: taskReport
             echo "Task Report:\n${taskReport}"
         }
     }
