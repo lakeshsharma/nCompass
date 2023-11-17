@@ -53,15 +53,6 @@ stage('Install Node.js') {
         }
     }
 }
-      stage('Build and Push Docker Image') {
-            steps {
-                script {
-                    // Build Docker image
-                    docker.image('lakeshsharma/us-west1-docker.pkg.dev:angular').push()
-                }
-            }
-        }
-
         stage('Deploy with Docker Compose') {
             steps {
                 script {
