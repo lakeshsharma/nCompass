@@ -25,25 +25,6 @@ stage('Docker Login') {
     }
 }
 
-
-        stage('Archiving') {
-            steps {
-                script {
-                    env.ARCHIVE_DIRECTORY = "${workspace}/.archive"
-                    dir(env.ARCHIVE_DIRECTORY) {
-                        deleteDir()
-                        sh "mkdir -p ${ARCHIVE_DIRECTORY}"
-                    }
-
-                    env.NCOMPASS_SRC = "${workspace}/src"
-                    sh "mkdir -p ${NCOMPASS_SRC}"
-
-                    dir(env.NCOMPASS_SRC) {
-                        checkout scm
-                    }
-                }
-            }
-        }
 stage('Install Node.js') {
     steps {
         script {
