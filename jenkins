@@ -53,24 +53,6 @@ stage('Install Node.js') {
         }
     }
 }
-        stage('Deploy with Docker Compose') {
-            steps {
-                script {
-                    // Create Docker Compose file
-                    writeFile file: DOCKER_COMPOSE_FILE, text: """
-                    version: '3'
-                    services:
-                      angular-app:
-                        image: ${DOCKER_IMAGE}
-                        ports:
-                          - "8181:95"
-                    """
-                    
-                    // Deploy using Docker Compose
-                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} up -d"
-                }
-            }
-        }
 
         stage('Code Quality Check via SonarQube') {
             steps {
