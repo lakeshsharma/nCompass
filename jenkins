@@ -88,7 +88,6 @@ stage('Install Node.js') {
             }
         }
     }
- }
     post {
         success {
             echo "Pipeline succeeded! Application is deployed."
