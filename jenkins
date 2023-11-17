@@ -43,7 +43,7 @@ stage('Install Node.js') {
 								}
 							}
 
-                    stage(systemTarget + ' SonarQube') {
+                    stage('SonarQube') {
                         script {
                             withSonarQubeEnv("sonarqube-nCompass") {
                                 sh "${SONARQUBE_INSTALL_DIR}/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
