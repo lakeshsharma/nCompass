@@ -98,3 +98,4 @@ stage('Install Node.js') {
         }
     }
 }
+}
