@@ -56,6 +56,15 @@ stage('Install Node.js') {
                         }
                     }
 		}
+stage('Save SonarQube Report') {
+    steps {
+        script {
+            // Execute the command and save the output to sonarqube_report.json
+            sh "sudo curl -u squ_5a288e1acbf7b6e43a496a4ac2e8ae1505ddd761: -X GET \"http://172.28.58.54:9000/api/issues/search?componentKeys=sonarqube-nCompass&ps=500\" | jq . > ${WORKSPACE}/sonarqube_report.json"
+        }
+    }
+}
+
     }
 post {
     success {
@@ -69,10 +78,6 @@ post {
 
             // Append the task report to recent-test-report.txt
             writeFile file: "${workspace}/recent-test-report.txt", text: taskReport, append: true
-
-            // Fetch SonarQube report and save it to sonarqube_report.json
-            sh "sudo curl -u ${SONARQUBE_TOKEN}: -X GET \"${SONARQUBE_URL}/api/issues/search?componentKeys=${SONARQUBE_PROJECT_KEY}&ps=500\" | jq . | sudo tee ${workspace}/sonarqube_report.json > /dev/null"
-
             echo "Task Report:\n${taskReport}"
         }
     }
