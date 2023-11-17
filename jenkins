@@ -63,7 +63,7 @@ post {
 
         // Capture the task report and echo it to the console
         script {
-            def workspace = "${WORKSPACE}/nCompass"
+            def workspace = "${WORKSPACE}/"
             def reportTaskFile = sh(script: "find ${workspace} -name report-task.txt | head -n 1", returnStdout: true).trim()
             def taskReport = sh(script: "curl -u ${SONARQUBE_TOKEN}: -X GET \"${SONARQUBE_URL}/api/ce/task?id=${currentBuild.rawBuild.getId()}\"", returnStdout: true).trim()
 
