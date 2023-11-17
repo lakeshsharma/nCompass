@@ -63,8 +63,13 @@ post {
 
         // Capture the task report and echo it to the console
         script {
-            def taskReport = sh(script: "curl -u ${SONARQUBE_TOKEN}: -X GET \"${SONARQUBE_URL}/api/ce/task?id=${currentBuild.rawBuild.id}\"", returnStdout: true).trim()
-            writeFile file: "${workspace}/recent-test-report.txt", text: taskReport
+            def workspace = "${WORKSPACE}/nCompass"
+            def reportTaskFile = sh(script: "find ${workspace} -name report-task.txt | head -n 1", returnStdout: true).trim()
+            def taskReport = sh(script: "curl -u ${SONARQUBE_TOKEN}: -X GET \"${SONARQUBE_URL}/api/ce/task?id=${currentBuild.rawBuild.getId()}\"", returnStdout: true).trim()
+
+            // Append the task report to recent-test-report.txt
+            writeFile file: "${workspace}/recent-test-report.txt", text: taskReport, append: true
+
             echo "Task Report:\n${taskReport}"
         }
     }
