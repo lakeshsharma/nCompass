@@ -70,8 +70,12 @@ post {
             // Append the task report to recent-test-report.txt
             writeFile file: "${workspace}/recent-test-report.txt", text: taskReport, append: true
 
+            // Fetch SonarQube report and save it to sonarqube_report.json
+            sh "sudo curl -u ${SONARQUBE_TOKEN}: -X GET \"${SONARQUBE_URL}/api/issues/search?componentKeys=${SONARQUBE_PROJECT_KEY}&ps=500\" | jq . | sudo tee ${workspace}/sonarqube_report.json > /dev/null"
+
             echo "Task Report:\n${taskReport}"
         }
     }
 }
+
 }
