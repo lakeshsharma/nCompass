@@ -53,8 +53,6 @@ stage('Install Node.js') {
         }
     }
 }
-
-for (systemTarget in params.getOrDefault('JENKINS_SYSTEM_TARGETS', defaultSystemTargets).tokenize()) {
     stage(systemTarget + ' Pipeline') {
         steps {
             withEnv(['DOCKER_SYSTEM_TARGET=' + systemTarget]) {
@@ -93,7 +91,6 @@ for (systemTarget in params.getOrDefault('JENKINS_SYSTEM_TARGETS', defaultSystem
             }
         }
     }
-}
 
     post {
         success {
